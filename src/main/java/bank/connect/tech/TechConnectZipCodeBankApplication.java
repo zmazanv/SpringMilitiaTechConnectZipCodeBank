@@ -9,5 +9,4 @@ public class TechConnectZipCodeBankApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TechConnectZipCodeBankApplication.class, args);
 	}
-
 }
