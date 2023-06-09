@@ -23,17 +23,6 @@ public class Customer {
     @JsonIgnore
     private Set<Address> addresses;
 
-
-    public Customer() {
-    }
-
-    public Customer(Long id, String first_name, String last_name, Set<Address> addresses) {
-        this.id = id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.addresses = addresses;
-    }
-
     public Long getId() {
         return id;
     }
