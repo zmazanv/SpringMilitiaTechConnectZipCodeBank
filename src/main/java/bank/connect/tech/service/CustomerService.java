@@ -1,4 +1,4 @@
-package bank.connect.tech.Service;
+package bank.connect.tech.service;
 
 import bank.connect.tech.model.Customer;
 import bank.connect.tech.repository.CustomerRepository;
@@ -12,6 +12,13 @@ public class CustomerService {
 
    @Autowired
     private CustomerRepository customerRepository;
+
+
+    protected void verifyCustomer (Long customerId) throws RuntimeException {
+        if(!(this.customerRepository.existsById(customerId))) {
+            throw (new RuntimeException("The Customer: " + customerId + " does not exist. Please try again."));
+        }
+    }
 
     //Creating a customer
     public void addCustomer (Customer customer){

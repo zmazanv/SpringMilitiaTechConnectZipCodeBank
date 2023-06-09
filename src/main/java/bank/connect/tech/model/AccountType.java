@@ -1,4 +1,4 @@
-package bank.connect.tech.domain;
+package bank.connect.tech.model;
 
 public enum AccountType {
     SAVINGS,
