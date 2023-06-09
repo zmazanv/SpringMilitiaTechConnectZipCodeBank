@@ -41,19 +41,15 @@ public class AccountService {
         this.accountRepository.save(account);
     }
 
+    public Iterable<Account> getAllAccountsByCustomerId (Long customerId) {
+        this.customerService.verifyCustomer(customerId);
+        return this.accountRepository.findAllAccountsByCustomerId(customerId);
+    }
+
     public void updateAccount(Long accountId, Account account) {
         this.verifyAccount(accountId);
         account.setId(accountId);
         this.accountRepository.save(account);
-        //Optional<Account> optionalAccount = this.accountRepository.findById(accountId); // here I called all the accounts that exist and placed them in optionalAccount.
-        //if (optionalAccount.isPresent()) { //here I am making sure that I do have that account in order to update it.
-        //    Account existingAccount = optionalAccount.get(); // here I am calling those accounts that exist into my if loop
-        //    existingAccount.setType(account.getType());     // all of these set new values to the account and can be individually updated
-        //    existingAccount.setNickname(account.getNickname());
-        //    existingAccount.setRewards(account.getRewards());
-        //    existingAccount.setBalance(account.getBalance());
-        //    this.accountRepository.save(existingAccount); // here I save all of the updates at the end of the loop.
-        //}
     }
 
     public void deleteAccount(Long accountId) {

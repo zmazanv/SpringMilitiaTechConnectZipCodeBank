@@ -30,6 +30,11 @@ public class AccountController {
         return (new ResponseEntity<>(this.accountService.getAccountById(accountId), HttpStatus.OK));
     }
 
+    @GetMapping("/customer/{customerId}/accounts")
+    public ResponseEntity<Iterable<Account>> getAllAccountsByCustomerId (@PathVariable Long customerId) {
+        return (new ResponseEntity<>(this.accountService.getAllAccountsByCustomerId(customerId),HttpStatus.OK));
+    }
+
     @PostMapping("/customers/{customerId}/accounts")
     public ResponseEntity<Void> createAccount(@PathVariable Long customerId, @Valid @RequestBody Account account) {
         this.accountService.createAccount(customerId, account);
