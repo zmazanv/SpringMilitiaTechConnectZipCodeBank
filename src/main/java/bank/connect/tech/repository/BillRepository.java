@@ -4,5 +4,5 @@ import bank.connect.tech.model.Bill;
 import org.springframework.data.repository.CrudRepository;
 
 public interface BillRepository extends CrudRepository<Bill, Long> {
-
+    public Iterable<Bill> findAllBillsByAccountId(Long account_id);
 }

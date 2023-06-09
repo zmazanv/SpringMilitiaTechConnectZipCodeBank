@@ -2,18 +2,21 @@ package bank.connect.tech.service;
 
 import bank.connect.tech.model.Bill;
 import bank.connect.tech.repository.BillRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class BillService {
+    @Autowired
     private BillRepository billRepository;
 
     public List<Bill> getAllBills(){
         return (List<Bill>) billRepository.findAll();
     }
 
-    public Bill getBillById(Long id){
-        return billRepository.findById(id).orElse(null);
+    public Iterable<Bill> getBillById(Long id){
+        return (Iterable<Bill>) billRepository.findById(id).orElse(null);
     }
 
     public Bill createBill(Bill bill){
@@ -29,8 +32,8 @@ public class BillService {
         billRepository.deleteById(id);
     }
 
-    public List<Bill> getCustomerBillById(Long account_id){
-        return (List<Bill>) billRepository.findById(account_id).orElse(null);
+    public Iterable<Bill> getCustomerBillById(Long account_id){
+        return billRepository.findAllBillsByAccountId(account_id);
     }
 
 }
