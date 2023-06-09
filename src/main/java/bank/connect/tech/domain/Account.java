@@ -4,10 +4,6 @@ import javax.persistence.*;
 
 @Entity
 public class Account {
-
-    public Account() {
-
-    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,15 +12,6 @@ public class Account {
     private String nickname;
     private Integer rewards;
     private Double balance;
-
-    // private Customer customer;
-    public Account(Long id, AccountType type, String nickname, Integer rewards, Double balance) {
-        this.id = id;
-        this.type = type;
-        this.nickname = nickname;
-        this.rewards = rewards;
-        this.balance = balance;
-    }
 
     public Long getId() {
         return id;

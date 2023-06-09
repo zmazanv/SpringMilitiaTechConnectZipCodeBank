@@ -1,8 +1,10 @@
 package bank.connect.tech.controller;
 import bank.connect.tech.domain.Account;
 import bank.connect.tech.repository.AccountRepository;
-import bank.connect.tech.service.AccountServices;
+import bank.connect.tech.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Optional;
@@ -11,39 +13,30 @@ import java.util.Optional;
 @RequestMapping("/accounts")
 public class AccountController {
     @Autowired
-    private AccountServices accountServices;
+    private AccountService accountService;
     @Autowired
     private AccountRepository accountRepository;
     @GetMapping
-    public Iterable<Account> getAllAccounts (){
-        return accountServices.getAccounts();
+    public ResponseEntity<Iterable<Account>> getAllAccounts() {
+        Iterable<Account> accounts = this.accountService.getAccounts();
+        return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
     @GetMapping("/{accountId}")
-    public Optional<Account> getAllAccountById(@PathVariable Long accountId){
-        return accountServices.getAccount(accountId);
+    public ResponseEntity<Account> getAccountById(@PathVariable Long accountId) {
+        Optional<Account> account = this.accountService.getAccount(accountId);
+        return account.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
-
-    @PostMapping()
-    public void createAccount(@Valid @RequestBody Account account){
-        accountServices.createAccount(account);
+    @PostMapping
+    public ResponseEntity<Void> createAccount(@Valid @RequestBody Account account) {
+        this.accountService.createAccount(account);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     @PutMapping("/accountId")
     public void updateAccount(Account account, Long id) { // this method takes 2 parameters : the account that I want to update and its ID.
-        Optional<Account> optionalAccount = accountRepository.findById(id); // here I called all the accounts that exist and placed them in optionalAccount.
-        if (optionalAccount.isPresent()) { //here I am making sure that I do have that account in order to update it.
-            Account existingAccount = optionalAccount.get(); // here I am calling those accounts that exist into my if loop
-            existingAccount.setType(account.getType());     // all of these set new values to the account and can be individually updated
-            existingAccount.setNickname(account.getNickname());
-            existingAccount.setRewards(account.getRewards());
-            existingAccount.setBalance(account.getBalance());
-            accountRepository.save(existingAccount); // here I save all of the updates at the end of the loop.
-        }
+        this.accountService.updateAccount(account,id);
     }
     @DeleteMapping("/accountId") // just deleting - but I should check if it exists kind of like above:
-    public void deleteAccount (@PathVariable Long accountId){
-        Optional<Account> accountCheck = accountRepository.findById(accountId);
-        if (accountCheck.isPresent()){
-            accountServices.deleteAccount(accountId);
-        }
+    public void deleteAccount(Long accountId) {
+        this.accountService.deleteAccount(accountId);
     }
 }
