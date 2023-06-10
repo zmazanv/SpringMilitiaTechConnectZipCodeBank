@@ -11,10 +11,19 @@ public class Deposit {
     private String description;
 
     public Deposit() {
-        // Default constructor
     }
 
-    // Getters and setters
+    public Deposit(Long id, TransactionType type, String transactionDate, DepositStatus status, Long payeeId,
+                   DepositMedium medium, Double amount, String description) {
+        this.id = id;
+        this.type = type;
+        this.transactionDate = transactionDate;
+        this.status = status;
+        this.payeeId = payeeId;
+        this.medium = medium;
+        this.amount = amount;
+        this.description = description;
+    }
 
     public Long getId() {
         return id;
@@ -80,3 +89,13 @@ public class Deposit {
         this.description = description;
     }
 }
+
+
+
+
+
+
+
+
+
+

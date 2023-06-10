@@ -1,7 +1,12 @@
 package bank.connect.tech.controller;
 
+import bank.connect.tech.models.Deposit;
+import bank.connect.tech.service.DepositService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
-@RequestMapping("/deposits")
 public class DepositController {
     private final DepositService depositService;
 
@@ -9,29 +14,29 @@ public class DepositController {
         this.depositService = depositService;
     }
 
-    @PostMapping
-    public Deposit createDeposit(@RequestBody Deposit deposit) {
-        return depositService.createDeposit(deposit);
+    @GetMapping("/accounts/{accountId}/deposits")
+    public List<Deposit> getAllDepositsForAccount(@PathVariable("accountId") Long accountId) {
+        return depositService.getAllDepositsForAccount(accountId);
     }
 
-    @GetMapping("/{id}")
-    public Deposit getDepositById(@PathVariable("id") Long id) {
-        return depositService.getDepositById(id);
+    @GetMapping("/deposits/{depositId}")
+    public Deposit getDepositById(@PathVariable("depositId") Long depositId) {
+        return depositService.getDepositById(depositId);
     }
 
-    @GetMapping
-    public List<Deposit> getAllDeposits() {
-        return depositService.getAllDeposits();
+    @PostMapping("/accounts/{accountId}/deposits")
+    public Deposit createDeposit(@PathVariable("accountId") Long accountId, @RequestBody Deposit deposit) {
+        return depositService.createDeposit(accountId, deposit);
     }
 
-    @PutMapping("/{id}")
-    public Deposit updateDeposit(@PathVariable("id") Long id, @RequestBody Deposit deposit) {
-        deposit.setId(id);
+    @PutMapping("/deposits/{depositId}")
+    public Deposit updateDeposit(@PathVariable("depositId") Long depositId, @RequestBody Deposit deposit) {
+        deposit.setId(depositId);
         return depositService.updateDeposit(deposit);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteDeposit(@PathVariable("id") Long id) {
-        depositService.deleteDeposit(id);
+    @DeleteMapping("/deposits/{depositId}")
+    public void deleteDeposit(@PathVariable("depositId") Long depositId) {
+        depositService.deleteDeposit(depositId);
     }
 }
