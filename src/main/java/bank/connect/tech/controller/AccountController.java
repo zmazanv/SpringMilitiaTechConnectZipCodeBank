@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpResponse;
+import java.util.logging.Logger;
+
 @RestController
 public class AccountController {
 
@@ -17,9 +20,11 @@ public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
 
+    private static final Logger logger = Logger.getGlobal();
 
     @GetMapping("/accounts")
     public ResponseEntity<Iterable<Account>> getAllAccounts() {
+        logger.info("Attempting to get account");
         return (new ResponseEntity<>(this.accountService.getAllAccounts(), HttpStatus.OK));
     }
 
