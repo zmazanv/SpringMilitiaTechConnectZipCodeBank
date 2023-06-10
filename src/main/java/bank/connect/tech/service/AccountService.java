@@ -1,5 +1,6 @@
 package bank.connect.tech.service;
 
+import bank.connect.tech.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Account;
 import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.repository.CustomerRepository;
@@ -19,9 +20,9 @@ public class AccountService {
     private CustomerService customerService;
 
 
-    protected void verifyAccount (Long accountId) throws RuntimeException {
+    protected void verifyAccount (Long accountId) throws ResourceNotFoundException {
         if(!(this.accountRepository.existsById(accountId))) {
-            throw (new RuntimeException("The Account: " + accountId + " does not exist. Please try again."));
+            throw (new ResourceNotFoundException("Error fetching accounts"));
         }
     }
 

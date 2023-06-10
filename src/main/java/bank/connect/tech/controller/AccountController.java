@@ -30,8 +30,6 @@ public class AccountController {
 
     @GetMapping("accounts/{accountId}")
     public ResponseEntity<Account> getAccountById(@PathVariable Long accountId) {
-        //Optional<Account> account = this.accountService.getAccountById(accountId);
-        //return account.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
         return (new ResponseEntity<>(this.accountService.getAccountById(accountId), HttpStatus.OK));
     }
 
