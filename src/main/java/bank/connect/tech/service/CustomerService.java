@@ -1,7 +1,9 @@
 package bank.connect.tech.service;
 
+import bank.connect.tech.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Account;
 import bank.connect.tech.model.Customer;
+import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +17,12 @@ public class CustomerService {
    @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private AccountRepository accountRepository;
 
-    protected void verifyCustomer (Long customerId) throws RuntimeException {
+
+
+    protected void verifyCustomer (Long customerId) throws ResourceNotFoundException {
         if(!(this.customerRepository.existsById(customerId))) {
             throw (new RuntimeException("Error fetching customers accounts"));
         }
@@ -43,14 +49,8 @@ public class CustomerService {
         customerRepository.save(customer);
     }
     //Get customer that owns the specified accounts
-     public Customer getCustomerByAccounts (Set<Account> accounts){
-        for (Account account : accounts){
-            Customer customer = account.getCustomer();
-            if (customer != null){
-                return customer;
-            }
-        }
-        return null;
+     public Customer getCustomerByAccountId (Long accountId){
+       return accountRepository.findCustomerByAccountId(accountId);
      }
 
 

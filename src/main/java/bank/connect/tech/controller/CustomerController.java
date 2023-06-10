@@ -28,7 +28,7 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.getAllCustomers(), HttpStatus.OK);
     }
 
-    @GetMapping("/customer/{id}")
+    @GetMapping("/customers/{id}")
     public ResponseEntity<?> getCustomerById (@PathVariable Long id){
         return new ResponseEntity<>(customerService.getCustomerById(id), HttpStatus.OK);
     }
@@ -40,7 +40,7 @@ public class CustomerController {
     }
 
     @GetMapping("/accounts/{accountId}/customer")
-       public ResponseEntity<?> getCustomerByAccount (@PathVariable Set<Account> account){
-            return (new ResponseEntity<>(this.customerService.getCustomerByAccounts(account),HttpStatus.OK));
+       public ResponseEntity<?> getCustomerByAccount (@PathVariable Long accountId ){
+            return (new ResponseEntity<>(this.customerService.getCustomerByAccountId(accountId),HttpStatus.OK));
        }
 }
