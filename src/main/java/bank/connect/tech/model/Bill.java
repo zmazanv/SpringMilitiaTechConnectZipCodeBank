@@ -1,9 +1,10 @@
 package bank.connect.tech.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
 
 @Entity
 public class Bill {
@@ -19,6 +20,12 @@ public class Bill {
     private String upcoming_payment_date;
     private Double payment_amount;
     private Long account_id;
+
+    @ManyToOne
+    @JoinColumn(name = "account", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Account account;
 
     public Long getId() {
         return id;
@@ -43,6 +50,8 @@ public class Bill {
     public void setPayee(String payee) {
         this.payee = payee;
     }
+
+
 
     public String getNick_name() {
         return nick_name;
