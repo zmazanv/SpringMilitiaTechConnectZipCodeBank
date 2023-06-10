@@ -1,9 +1,9 @@
 package bank.connect.tech.handler;
 
-import bank.connect.tech.dto.ErrorDetail;
-import bank.connect.tech.dto.ValidationError;
-import bank.connect.tech.exceptions.MissingPropertyException;
-import bank.connect.tech.exceptions.ResourceNotFoundException;
+import bank.connect.tech.dto.errors.ErrorDetail;
+import bank.connect.tech.dto.errors.ValidationError;
+import bank.connect.tech.exception.MissingPropertyException;
+import bank.connect.tech.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
+import javax.security.auth.login.AccountNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +29,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private MessageSource messageSource;
 
 
-    @ExceptionHandler(ResourceNotFoundException.class)
+    @ExceptionHandler(AccountNotFoundException.class)
     public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException resourceNotFoundException) {
         ErrorDetail errorDetail = new ErrorDetail();
         errorDetail.setTimeStamp(new Date().getTime());
@@ -61,7 +61,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         errorDetail.setDeveloperMessage(methodArgumentNotValidException.getClass().getName());
         List<FieldError> fieldErrors = methodArgumentNotValidException.getBindingResult().getFieldErrors();
         for (FieldError fieldError : fieldErrors) {
-            List<ErrorDetail> validationErrors = errorDetail.getErrors().get(fieldError.getField());
+            List<ValidationError> validationErrors = errorDetail.getErrors().get(fieldError.getField());
             if (validationErrors == null) {
                 validationErrors = new ArrayList<>();
                 errorDetail.getErrors().put(fieldError.getField(), validationErrors);
@@ -69,7 +69,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             ValidationError validationError = new ValidationError();
             validationError.setCode(fieldError.getCode());
             validationError.setMessage(this.messageSource.getMessage(fieldError, null));
-            validationErrors.add(errorDetail);
+            validationErrors.add(validationError);
         }
         return super.handleMethodArgumentNotValid(methodArgumentNotValidException, headers, status, request);
     }
