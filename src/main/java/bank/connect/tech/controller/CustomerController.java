@@ -1,4 +1,5 @@
 package bank.connect.tech.controller;
+import bank.connect.tech.model.Account;
 import bank.connect.tech.model.Customer;
 import bank.connect.tech.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 public class CustomerController {
@@ -37,6 +39,8 @@ public class CustomerController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-  //  @GetMapping("/accounts/{accountId}/customer")
-       // public ResponseEntity<?> getCustomerByAccount (@PathVariable)
+    @GetMapping("/accounts/{accountId}/customer")
+       public ResponseEntity<?> getCustomerByAccount (@PathVariable Set<Account> account){
+            return (new ResponseEntity<>(this.customerService.getCustomerByAccounts(account),HttpStatus.OK));
+       }
 }

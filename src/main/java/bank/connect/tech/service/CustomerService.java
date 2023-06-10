@@ -1,11 +1,13 @@
 package bank.connect.tech.service;
 
+import bank.connect.tech.model.Account;
 import bank.connect.tech.model.Customer;
 import bank.connect.tech.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CustomerService {
@@ -16,7 +18,7 @@ public class CustomerService {
 
     protected void verifyCustomer (Long customerId) throws RuntimeException {
         if(!(this.customerRepository.existsById(customerId))) {
-            throw (new RuntimeException("The Customer: " + customerId + " does not exist. Please try again."));
+            throw (new RuntimeException("Error fetching customers accounts"));
         }
     }
 
@@ -41,7 +43,7 @@ public class CustomerService {
         customerRepository.save(customer);
     }
     //Get customer that owns the specified accounts
-    /* public Customer getCustomerByAccounts (Set<Account> accounts){
+     public Customer getCustomerByAccounts (Set<Account> accounts){
         for (Account account : accounts){
             Customer customer = account.getCustomer();
             if (customer != null){
@@ -49,7 +51,7 @@ public class CustomerService {
             }
         }
         return null;
-     }*/
+     }
 
 
 }
