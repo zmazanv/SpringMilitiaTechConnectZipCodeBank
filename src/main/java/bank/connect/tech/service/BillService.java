@@ -1,28 +1,28 @@
-package bank.connect.tech.service;
+package bank.connect.tech.Service;
 
-import bank.connect.tech.exceptions.BillNotFoundException;
+
+import bank.connect.tech.exceptions.ResourceNotFoundException;
 import bank.connect.tech.model.Bill;
 import bank.connect.tech.repository.BillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 @Service
 public class BillService {
     @Autowired
     private BillRepository billRepository;
-protected void verifyBill(Long id) throws BillNotFoundException{
+protected void verifyBill(Long id) throws ResourceNotFoundException {
     if(!(billRepository.existsById(id))){
-        throw new BillNotFoundException("error fetching bills");
+        throw new ResourceNotFoundException("error fetching bills");
     }
 }
-    public List<Bill> getAllBills(){
-        return (List<Bill>) billRepository.findAll();
+    public Iterable<Bill> getAllBills(){
+        return billRepository.findAll();
     }
 
-    public Iterable<Bill> getBillById(Long id){
+    public Bill getBillById(Long id){
         verifyBill(id);
-        return (Iterable<Bill>) billRepository.findById(id).orElse(null);
+        return billRepository.findById(id).orElse(null);
     }
 
     public Bill createBill(Bill bill){

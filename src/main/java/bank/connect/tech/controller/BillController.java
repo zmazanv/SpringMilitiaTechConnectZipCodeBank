@@ -1,7 +1,7 @@
 package bank.connect.tech.controller;
 
 import bank.connect.tech.model.Bill;
-import bank.connect.tech.service.BillService;
+import bank.connect.tech.Service.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +17,8 @@ public class BillController {
         return new ResponseEntity<>(billservice.getAllBills(), HttpStatus.OK);
     }
 
-    @GetMapping("/bills/{billId}") // change the list to a iterable
-    public ResponseEntity <Iterable<Bill>> getBillWithId(@PathVariable Long id){
+    @GetMapping("/bills/{billId}")
+    public ResponseEntity getBillWithId(@PathVariable Long id){
         return new ResponseEntity<>(billservice.getBillById(id),HttpStatus.OK);
     }
 

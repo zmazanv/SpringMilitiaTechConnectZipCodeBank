@@ -12,7 +12,7 @@ public class Bill {
     private Long id;
     private String status;
     private String payee;
-    private String nickName;
+    private String nick_name;
     private String creation_date;
     private String payment_date;
     private Integer recurring_date;
@@ -44,12 +44,12 @@ public class Bill {
         this.payee = payee;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNick_name() {
+        return nick_name;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNick_name(String nick_name) {
+        this.nick_name = nick_name;
     }
 
     public String getCreation_date() {
