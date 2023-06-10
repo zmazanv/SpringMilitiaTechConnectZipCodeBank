@@ -1,7 +1,6 @@
 package bank.connect.tech.controller;
-
-import bank.connect.tech.Service.CustomerService;
 import bank.connect.tech.model.Customer;
+import bank.connect.tech.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
