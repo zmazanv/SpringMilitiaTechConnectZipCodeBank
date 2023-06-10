@@ -1,7 +1,9 @@
 package bank.connect.tech.service;
 
+import bank.connect.tech.model.Account;
 import bank.connect.tech.models.Deposit;
 import bank.connect.tech.repositories.DepositRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -10,13 +12,18 @@ import java.util.List;
 @Service
 public class DepositService {
     private final DepositRepository depositRepository;
+    private CrudRepository accountRepository;
 
     public DepositService(DepositRepository depositRepository) {
         this.depositRepository = depositRepository;
     }
 
-    public Deposit createDeposit(Deposit deposit) {
-        return depositRepository.save(deposit);
+    public Deposit createDeposit(Deposit deposit, Long customerID, Account account) {
+        if (account.getCustomer().equals(customerID)) {
+            return depositRepository.save(deposit);
+        } else {
+            return null;
+        }
     }
 
     public Deposit getDepositById(Long id) {
@@ -36,11 +43,20 @@ public class DepositService {
     }
 
     public List<Deposit> getAllDepositsForAccount(Long accountId) {
-        // Implement the logic to retrieve all deposits for a specific account
-        // Example: return depositRepository.findAllByAccountId(accountId);
-        return Collections.emptyList();
+        return depositRepository.findAllByAccountId(accountId);
+    }
+
+    public Deposit createDeposit(Long accountId, Deposit deposit) {
+        Account account = (Account) accountRepository.findById(accountId).orElse(null);
+        if (account != null) {
+            deposit.setAccount(account);
+            return depositRepository.save(deposit);
+        }
+        return null;
     }
 }
+
+
 
 
 

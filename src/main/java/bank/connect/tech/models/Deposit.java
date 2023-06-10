@@ -1,5 +1,7 @@
 package bank.connect.tech.models;
 
+import bank.connect.tech.model.Account;
+
 public class Deposit {
     private Long id;
 
@@ -54,6 +56,10 @@ public class Deposit {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setAccount(Account account) {
+
     }
 }
 
