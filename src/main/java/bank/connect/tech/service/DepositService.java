@@ -54,6 +54,10 @@ public class DepositService {
         }
         return null;
     }
+
+    public Deposit createDeposit(Long accountId, Deposit deposit) {
+        return null;
+    }
 }
 
 
