@@ -28,6 +28,7 @@ public class AccountService {
 
 
     public Iterable<Account> getAllAccounts() {
+
         return this.accountRepository.findAll();
     }
 

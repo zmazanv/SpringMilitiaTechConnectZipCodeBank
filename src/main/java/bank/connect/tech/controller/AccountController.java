@@ -1,5 +1,6 @@
 package bank.connect.tech.controller;
 
+import bank.connect.tech.dto.errors.ApiResponse;
 import bank.connect.tech.model.Account;
 import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.service.AccountService;
@@ -23,35 +24,50 @@ public class AccountController {
     private static final Logger logger = Logger.getGlobal();
 
     @GetMapping("/accounts")
-    public ResponseEntity<Iterable<Account>> getAllAccounts() {
-        return (new ResponseEntity<>(this.accountService.getAllAccounts(), HttpStatus.OK));
+    public ResponseEntity<ApiResponse<Iterable<Account>>> getAllAccounts() {
+        Iterable<Account> accounts = accountService.getAllAccounts();
+        ApiResponse<Iterable<Account>> response = new ApiResponse<Iterable<Account>>();
+        response.setCode(200);
+        response.setMessage("Success");
+        response.setData(accounts);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("accounts/{accountId}")
-    public ResponseEntity<Account> getAccountById(@PathVariable Long accountId) {
-        return (new ResponseEntity<>(this.accountService.getAccountById(accountId), HttpStatus.OK));
+    public ApiResponse<Account> getAccountById(@PathVariable Long accountId, @PathVariable int code) {
+        Account account = accountService.getAccountById(accountId);
+        ApiResponse<Account> response = new ApiResponse<>(code, "Success", account);
+
+        return response;
     }
 
     @GetMapping("/customer/{customerId}/accounts")
-    public ResponseEntity<Iterable<Account>> getAllAccountsByCustomerId (@PathVariable Long customerId) {
-        return (new ResponseEntity<>(this.accountService.getAllAccountsByCustomerId(customerId),HttpStatus.OK));
+    public ResponseEntity<ApiResponse<Iterable<Account>>> getAllAccountsByCustomerId(@PathVariable Long customerId, @PathVariable int code) {
+        Iterable<Account> accounts = accountService.getAllAccountsByCustomerId(customerId);
+        ApiResponse<Iterable<Account>> response = new ApiResponse<>(code, "Success", accounts);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/customers/{customerId}/accounts")
-    public ResponseEntity<Void> createAccount(@PathVariable Long customerId, @Valid @RequestBody Account account) {
-        this.accountService.createAccount(customerId, account);
-        return (new ResponseEntity<>(HttpStatus.CREATED));
+    public ResponseEntity<ApiResponse<Void>> createAccount(@PathVariable Long customerId, @Valid @RequestBody Account account) {
+        accountService.createAccount(customerId, account);
+        ApiResponse<Void> response = new ApiResponse<>(201, "Account created successfully", null);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/accounts/{accountId}")
-    public ResponseEntity<Void> updateAccount(@PathVariable Long accountId, @Valid Account account) { // this method takes 2 parameters : the account that I want to update and its ID.
-        this.accountService.updateAccount(accountId, account);
-        return (new ResponseEntity<>(HttpStatus.OK));
+    public ResponseEntity<ApiResponse<Void>> updateAccount(@PathVariable Long accountId, @Valid @RequestBody Account account) {
+        accountService.updateAccount(accountId, account);
+        ApiResponse<Void> response = new ApiResponse<>(200, "Account updated successfully", null);
+        return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/accounts/{accountId}") // just deleting - but I should check if it exists kind of like above:
-    public ResponseEntity<Void> deleteAccount(Long accountId) {
-        this.accountService.deleteAccount(accountId);
-        return (new ResponseEntity<>(HttpStatus.NO_CONTENT));
+    @DeleteMapping("/accounts/{accountId}")
+    public ResponseEntity<ApiResponse<Void>> deleteAccount(@PathVariable Long accountId) {
+        accountService.deleteAccount(accountId);
+        ApiResponse<Void> response = new ApiResponse<>(204, "Account deleted successfully", null);
+        return ResponseEntity.ok(response);
     }
+
 }
