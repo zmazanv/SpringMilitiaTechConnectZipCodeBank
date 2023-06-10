@@ -24,7 +24,6 @@ public class AccountController {
 
     @GetMapping("/accounts")
     public ResponseEntity<Iterable<Account>> getAllAccounts() {
-        logger.info("Attempting to get account");
         return (new ResponseEntity<>(this.accountService.getAllAccounts(), HttpStatus.OK));
     }
 
