@@ -29,7 +29,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     private MessageSource messageSource;
 
 
-    @ExceptionHandler(AccountNotFoundException.class)
+    @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException resourceNotFoundException) {
         ErrorDetail errorDetail = new ErrorDetail();
         errorDetail.setTimeStamp(new Date().getTime());
