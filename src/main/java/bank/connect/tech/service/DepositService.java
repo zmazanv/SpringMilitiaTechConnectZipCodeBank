@@ -1,5 +1,6 @@
 package bank.connect.tech.service;
 
+import bank.connect.tech.model.Account;
 import bank.connect.tech.models.Deposit;
 import bank.connect.tech.repositories.DepositRepository;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,12 @@ public class DepositService {
         this.depositRepository = depositRepository;
     }
 
-    public Deposit createDeposit(Deposit deposit) {
-        return depositRepository.save(deposit);
+    public Deposit createDeposit(Deposit deposit, Long customerID, Account account) {
+        if (account.getCustomer().equals(customerID)) {
+            return depositRepository.save(deposit);
+        } else {
+            return null;
+        }
     }
 
     public Deposit getDepositById(Long id) {
@@ -40,7 +45,13 @@ public class DepositService {
         // Example: return depositRepository.findAllByAccountId(accountId);
         return Collections.emptyList();
     }
+
+    public Deposit createDeposit(Long accountId, Deposit deposit) {
+        return null;
+    }
 }
+
+
 
 
 
