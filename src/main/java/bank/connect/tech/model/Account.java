@@ -1,6 +1,7 @@
 package bank.connect.tech.model;
 
 import bank.connect.tech.model.enumeration.AccountType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,6 +31,7 @@ public class Account {
     @ManyToOne(optional = false)
     @JoinColumn(name = "customer_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Customer customer;
 
 
@@ -48,6 +50,12 @@ public class Account {
     public Double getBalance() {return this.balance;}
     public void setBalance(Double balance) {this.balance = balance;}
 
+    @JsonIgnore
     public Customer getCustomer() {return this.customer;}
     public void setCustomer(Customer customer) {this.customer = customer;}
+
+    @JsonProperty("customer_id")
+    public Long getCustomerId() {
+        return this.customer != null ? this.customer.getId() : null;
+    }
 }
