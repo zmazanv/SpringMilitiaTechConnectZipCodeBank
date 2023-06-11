@@ -49,9 +49,9 @@ public class CustomerService {
         customerRepository.save(customer);
     }
     //Get customer that owns the specified accounts
-     public Customer getCustomerByAccountId (Long accountId){
+   /*  public Customer getCustomerByAccountId (Long accountId){
        return accountRepository.findCustomerByAccountId(accountId);
-     }
+     }*/
 
 
 }
