@@ -1,6 +1,6 @@
 package bank.connect.tech.controller;
 
-import bank.connect.tech.dto.AccountDTO;
+import bank.connect.tech.dto.AccountCreateDTO;
 import bank.connect.tech.model.Account;
 import bank.connect.tech.response.SuccessResponse;
 import bank.connect.tech.service.AccountService;
@@ -52,12 +52,12 @@ public class AccountController {
     }
 
     @PostMapping("/customers/{customerId}/accounts") // TODO: DONE
-    public ResponseEntity<?> createAccount(@PathVariable Long customerId, @Valid @RequestBody AccountDTO accountDTO) {
+    public ResponseEntity<?> createAccount(@PathVariable Long customerId, @Valid @RequestBody AccountCreateDTO accountCreateDTO) {
         String exceptionMessage = "Unable to create new account as no customer was found matching the provided customer ID: " + customerId;
 
         int successResponseCode = HttpStatus.CREATED.value();
         String successResponseMessage = "Successfully created new account for customer with ID: " + customerId;
-        Account successResponseData = this.accountService.createAccount(customerId, exceptionMessage, accountDTO);
+        Account successResponseData = this.accountService.createAccount(customerId, exceptionMessage, accountCreateDTO);
         SuccessResponse<Account> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
         return (new ResponseEntity<>(successResponse, HttpStatus.CREATED));

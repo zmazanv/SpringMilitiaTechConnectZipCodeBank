@@ -3,7 +3,7 @@ package bank.connect.tech.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotEmpty;
 
-public class AccountDTO {
+public class AccountCreateDTO {
 
     @NotEmpty
     @JsonProperty("type")

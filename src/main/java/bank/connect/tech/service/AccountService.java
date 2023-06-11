@@ -1,6 +1,6 @@
 package bank.connect.tech.service;
 
-import bank.connect.tech.dto.AccountDTO;
+import bank.connect.tech.dto.AccountCreateDTO;
 import bank.connect.tech.response.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Account;
 import bank.connect.tech.model.enumeration.AccountType;
@@ -41,12 +41,12 @@ public class AccountService {
         return this.accountRepository.findById(accountId).get();
     }
 
-    public Account createAccount(Long customerId, String exceptionMessage, AccountDTO accountDTO) {
+    public Account createAccount(Long customerId, String exceptionMessage, AccountCreateDTO accountCreateDTO) {
         this.verifyCustomer(customerId, exceptionMessage);
         Account account = new Account();
-        account.setType(AccountType.fromString(accountDTO.getType()));
+        account.setType(AccountType.fromString(accountCreateDTO.getType()));
         account.setBalance(0.0);
-        account.setNickname(accountDTO.getNickname());
+        account.setNickname(accountCreateDTO.getNickname());
         account.setRewards(0);
         account.setCustomer(this.customerRepository.findById(customerId).get());
         return this.accountRepository.save(account);
