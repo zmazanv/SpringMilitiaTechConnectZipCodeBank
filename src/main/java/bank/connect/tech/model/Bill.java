@@ -36,7 +36,7 @@ public class Bill {
     private LocalDate paymentDate;
     @Column(name = "recurring_date")
     @JsonProperty("recurring_date")
-    private Byte recurringDate; // TODO: Put in failsafe to restrict value to be between 1 and 31
+    private Byte recurringDate; // FIXME: Put in failsafe to restrict value to be between 1 and 31
     @Column(name = "upcoming_payment_date")
     @JsonIgnore
     private LocalDate upcomingPaymentDate;

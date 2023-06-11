@@ -29,7 +29,7 @@ public class CustomerController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-    @PostMapping ("/customers")
+    @PostMapping ("/customers") // TODO: DONE
     public ResponseEntity<?> createCustomer (@Valid @RequestBody Customer customer){
         int successResponseCode = HttpStatus.CREATED.value();
         String successResponseMessage = "Successfully created new customer";
@@ -39,7 +39,7 @@ public class CustomerController {
         return (new ResponseEntity<>(successResponse, HttpStatus.CREATED));
     }
 
-    @GetMapping("/customers")
+    @GetMapping("/customers") // TODO: DONE
     public ResponseEntity<?> getAllCustomers(){
         int successResponseCode = HttpStatus.OK.value();
         String successResponseMessage = "Successfully fetched all customers";
@@ -49,7 +49,7 @@ public class CustomerController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-    @GetMapping("/customers/{customerId}")
+    @GetMapping("/customers/{customerId}") // TODO: DONE
     public ResponseEntity<?> getCustomerById (@PathVariable Long customerId){
         String exceptionMessage = "Unable to fetch customer as no customer was found matching the provided customer ID: " + customerId;
 
@@ -61,7 +61,7 @@ public class CustomerController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-    @PutMapping("/customers/{customerId}")
+    @PutMapping("/customers/{customerId}") // TODO: DONE
     public ResponseEntity<?> updateCustomer (@PathVariable Long customerId, @Valid @RequestBody CustomerUpdateDTO customerUpdateDTO){
         String exceptionMessage = "Unable to update customer as no customer was found matching the provided customer ID: " + customerId;
 

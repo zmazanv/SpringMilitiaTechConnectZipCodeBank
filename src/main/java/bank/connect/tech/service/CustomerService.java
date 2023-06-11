@@ -6,19 +6,18 @@ import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.response.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Customer;
 import bank.connect.tech.repository.CustomerRepository;
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @Service
 public class CustomerService {
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private AccountRepository accountRepository;
 
     @Autowired
-    private AccountRepository accountRepository;
+    private CustomerRepository customerRepository;
 
 
     protected void verifyAccount(Long accountId, String exceptionMessage) throws ResourceNotFoundException {
