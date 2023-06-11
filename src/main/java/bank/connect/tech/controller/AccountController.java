@@ -35,17 +35,16 @@ public class AccountController {
     }
 
     @GetMapping("accounts/{accountId}")
-    public ApiResponse<Account> getAccountById(@PathVariable Long accountId, @PathVariable int code) {
+    public ApiResponse<Account> getAccountById(@PathVariable Long accountId) {
         Account account = accountService.getAccountById(accountId);
-        ApiResponse<Account> response = new ApiResponse<>(code, "Success", account);
-
+        ApiResponse<Account> response = new ApiResponse<>(200, "Success", account);
         return response;
     }
 
     @GetMapping("/customer/{customerId}/accounts")
-    public ResponseEntity<ApiResponse<Iterable<Account>>> getAllAccountsByCustomerId(@PathVariable Long customerId, @PathVariable int code) {
+    public ResponseEntity<ApiResponse<Iterable<Account>>> getAllAccountsByCustomerId(@PathVariable Long customerId) {
         Iterable<Account> accounts = accountService.getAllAccountsByCustomerId(customerId);
-        ApiResponse<Iterable<Account>> response = new ApiResponse<>(code, "Success", accounts);
+        ApiResponse<Iterable<Account>> response = new ApiResponse<>(200, "Success", accounts);
         return ResponseEntity.ok(response);
     }
 
