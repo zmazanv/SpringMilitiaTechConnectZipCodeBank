@@ -4,7 +4,8 @@ import bank.connect.tech.model.enumeration.AccountType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -17,7 +18,7 @@ public class Account {
     @JsonIgnore
     private Long id;
     @Enumerated(EnumType.STRING)
-    @NotEmpty
+    @NotNull
     @Column(name = "type")
     @JsonIgnore
     private AccountType accountType;

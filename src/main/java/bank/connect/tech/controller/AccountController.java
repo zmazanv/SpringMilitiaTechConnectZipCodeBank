@@ -51,7 +51,7 @@ public class AccountController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-    @PostMapping("/customers/{customerId}/accounts")
+    @PostMapping("/customers/{customerId}/accounts") // TODO: DONE
     public ResponseEntity<?> createAccount(@PathVariable Long customerId, @Valid @RequestBody AccountDTO accountDTO) {
         String exceptionMessage = "Unable to create new account as no customer was found matching the provided customer ID: " + customerId;
 
