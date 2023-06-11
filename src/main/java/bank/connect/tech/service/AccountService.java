@@ -1,7 +1,9 @@
 package bank.connect.tech.service;
 
-import bank.connect.tech.exception.ResourceNotFoundException;
+import bank.connect.tech.dto.AccountDTO;
+import bank.connect.tech.response.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Account;
+import bank.connect.tech.model.AccountType;
 import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,9 @@ public class AccountService {
     private CustomerService customerService;
 
 
-    protected void verifyAccount (Long accountId) throws ResourceNotFoundException {
+    protected void verifyAccount(Long accountId, String exceptionMessage) throws ResourceNotFoundException {
         if(!(this.accountRepository.existsById(accountId))) {
-            throw (new ResourceNotFoundException("Error fetching accounts"));
+            throw (new ResourceNotFoundException(exceptionMessage));
         }
     }
 
@@ -31,30 +33,38 @@ public class AccountService {
         return this.accountRepository.findAll();
     }
 
-    public Account getAccountById(Long accountId) {
-        this.verifyAccount(accountId);
+    public Account getAccountById(Long accountId, String exceptionMessage) {
+        this.verifyAccount(accountId, exceptionMessage);
         return this.accountRepository.findById(accountId).get();
     }
 
-    public void createAccount(Long customerId, Account account) {
-        this.customerService.verifyCustomer(customerId);
+    public Account createAccount(Long customerId, String exceptionMessage, AccountDTO accountDTO) {
+        this.customerService.verifyCustomer(customerId, exceptionMessage);
+        Account account = new Account();
+        account.setAccountType(AccountType.fromString(accountDTO.getType()));
+        account.setBalance(0.0);
+        account.setNickname(accountDTO.getNickname());
+        account.setRewards(0);
         account.setCustomer(this.customerRepository.findById(customerId).get());
+        return this.accountRepository.save(account);
+    }
+
+    public void updateAccount(Long accountId, String exceptionMessage, Account account) {
+        this.verifyAccount(accountId, exceptionMessage);
+        Account accountToUpdate = this.accountRepository.findById(accountId).get();
+        accountToUpdate.setBalance(account.getBalance());
+        accountToUpdate.setNickname(account.getNickname());
+        accountToUpdate.setRewards(account.getRewards());
         this.accountRepository.save(account);
     }
 
-    public Iterable<Account> getAllAccountsByCustomerId (Long customerId) {
-        this.customerService.verifyCustomer(customerId);
-        return this.accountRepository.findAllAccountsByCustomerId(customerId);
-    }
-
-    public void updateAccount(Long accountId, Account account) {
-        this.verifyAccount(accountId);
-        account.setId(accountId);
-        this.accountRepository.save(account);
-    }
-
-    public void deleteAccount(Long accountId) {
-        this.verifyAccount(accountId);
+    public void deleteAccount(Long accountId, String exceptionMessage) {
+        this.verifyAccount(accountId, exceptionMessage);
         this.accountRepository.deleteById(accountId);
+    }
+
+    public Iterable<Account> getAllAccountsByCustomerId (Long customerId, String exceptionMessage) {
+        this.customerService.verifyCustomer(customerId, exceptionMessage);
+        return this.accountRepository.findAllAccountsByCustomerId(customerId);
     }
 }

@@ -1,9 +1,9 @@
-package bank.connect.tech.handler;
+package bank.connect.tech.response.exception.handler;
 
-import bank.connect.tech.dto.errors.ErrorDetail;
-import bank.connect.tech.dto.errors.ValidationError;
-import bank.connect.tech.exception.MissingPropertyException;
-import bank.connect.tech.exception.ResourceNotFoundException;
+import bank.connect.tech.response.exception.error.ErrorDetail;
+import bank.connect.tech.response.exception.error.ValidationError;
+import bank.connect.tech.response.exception.MissingPropertyException;
+import bank.connect.tech.response.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;

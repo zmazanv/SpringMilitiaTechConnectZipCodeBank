@@ -1,5 +1,8 @@
 package bank.connect.tech.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
@@ -9,37 +12,43 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonIgnore
     private Long id;
 
     @Column(name = "street_number")
     @NotEmpty
-    private String street_number;
+    @JsonProperty("street_number")
+    private String streetNumber;
 
     @Column(name = "street_name")
     @NotEmpty
-    private String street_name;
+    @JsonProperty("street_name")
+    private String streetName;
 
     @Column(name = "city")
     @NotEmpty
+    @JsonProperty("city")
     private String city;
 
     @Column(name = "state")
     @NotEmpty
+    @JsonProperty("state")
     private String state;
 
     @Column(name = "zip")
     @NotEmpty
+    @JsonProperty("zip")
     private String zip;
 
 
     public Long getId() {return this.id;}
     public void setId(Long id) {this.id = id;}
 
-    public String getStreet_number() {return this.street_number;}
-    public void setStreet_number(String street_number) {this.street_number = street_number;}
+    public String getStreetNumber() {return this.streetNumber;}
+    public void setStreetNumber(String streetNumber) {this.streetNumber = streetNumber;}
 
-    public String getStreet_name() {return this.street_name;}
-    public void setStreet_name(String street_name) {this.street_name = street_name;}
+    public String getStreetName() {return this.streetName;}
+    public void setStreetName(String streetName) {this.streetName = streetName;}
 
     public String getCity() {return this.city;}
     public void setCity(String city) {this.city = city;}
