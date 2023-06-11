@@ -48,7 +48,7 @@ public class CustomerController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-    @GetMapping("/customer/{customerId}")
+    @GetMapping("/customers/{customerId}")
     public ResponseEntity<?> getCustomerById (@PathVariable Long customerId){
         String exceptionMessage = "Unable to fetch customer as no customer was found matching the provided customer ID: " + customerId;
 
