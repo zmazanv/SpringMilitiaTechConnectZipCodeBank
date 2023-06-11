@@ -1,44 +1,62 @@
 package bank.connect.tech.models;
 
 import bank.connect.tech.model.Account;
+import bank.connect.tech.model.enumeration.TransactionType;
 
 public class Deposit {
     private Long id;
-
-    private Long payeeId;
-    private DepositMedium medium;
+    private TransactionType type;
+    private String transaction_date;
+    private String status;
+    private Long payee_id;
+    private String medium;
     private Double amount;
     private String description;
-
-    public Deposit() {
-    }
-
-    public Deposit(Long id, , Long payeeId, DepositMedium medium, Double amount, String description) {
-        this.id = id;
-        this.payeeId = payeeId;
-        this.medium = medium;
-        this.amount = amount;
-        this.description = description;
-    }
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
+    public TransactionType getType() {
+        return type;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
+    }
+
+    public String getTransactionDate() {
+        return transaction_date;
+    }
+
+    public void setTransactionDate(String transaction_date) {
+        this.transaction_date = transaction_date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Long getPayeeId() {
-        return payeeId;
+        return payee_id;
     }
 
-    public void setPayeeId(Long payeeId) {
-        this.payeeId = payeeId;
+    public void setPayeeId(Long payee_id) {
+        this.payee_id = payee_id;
     }
 
-    public DepositMedium getMedium() {
+    public String getMedium() {
         return medium;
     }
 
-    public void setMedium(DepositMedium medium) {
+    public void setMedium(String medium) {
         this.medium = medium;
     }
 
@@ -56,10 +74,6 @@ public class Deposit {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setAccount(Account account) {
-
     }
 }
 
