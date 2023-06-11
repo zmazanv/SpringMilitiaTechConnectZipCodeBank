@@ -44,7 +44,7 @@ public class AccountService {
     public Account createAccount(Long customerId, String exceptionMessage, AccountDTO accountDTO) {
         this.verifyCustomer(customerId, exceptionMessage);
         Account account = new Account();
-        account.setAccountType(AccountType.fromString(accountDTO.getType()));
+        account.setType(AccountType.fromString(accountDTO.getType()));
         account.setBalance(0.0);
         account.setNickname(accountDTO.getNickname());
         account.setRewards(0);

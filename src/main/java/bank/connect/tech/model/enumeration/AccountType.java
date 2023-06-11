@@ -1,6 +1,7 @@
 package bank.connect.tech.model.enumeration;
 
 import bank.connect.tech.response.exception.MissingPropertyException;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum AccountType {
 
@@ -18,6 +19,7 @@ public enum AccountType {
 
 
     @Override
+    @JsonValue
     public String toString() {
         return this.type;
     }
