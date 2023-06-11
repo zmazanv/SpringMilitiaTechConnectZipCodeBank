@@ -1,6 +1,7 @@
 package bank.connect.tech.controller;
 
 import bank.connect.tech.dto.AccountCreateDTO;
+import bank.connect.tech.dto.AccountUpdateDTO;
 import bank.connect.tech.model.Account;
 import bank.connect.tech.response.SuccessResponse;
 import bank.connect.tech.service.AccountService;
@@ -63,13 +64,13 @@ public class AccountController {
         return (new ResponseEntity<>(successResponse, HttpStatus.CREATED));
     }
 
-    @PutMapping("/accounts/{accountId}")
-    public ResponseEntity<?> updateAccount(@PathVariable Long accountId, @Valid @RequestBody Account account) { // this method takes 2 parameters : the account that I want to update and its ID.
+    @PutMapping("/accounts/{accountId}") // TODO: DONE
+    public ResponseEntity<?> updateAccount(@PathVariable Long accountId, @Valid @RequestBody AccountUpdateDTO accountUpdateDTO) { // this method takes 2 parameters : the account that I want to update and its ID.
         String exceptionMessage = "Unable to update account as no account was found matching the provided account ID: " + accountId;
 
         int successResponseCode = HttpStatus.OK.value();
         String successResponseMessage = "Successfully updated account matching the provided account ID: " + accountId;
-        Account successResponseData = this.accountService.updateAccount(accountId, exceptionMessage, account);
+        Account successResponseData = this.accountService.updateAccount(accountId, exceptionMessage, accountUpdateDTO);
         SuccessResponse<Account> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
