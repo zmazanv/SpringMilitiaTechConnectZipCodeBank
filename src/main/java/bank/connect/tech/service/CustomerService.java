@@ -1,6 +1,6 @@
 package bank.connect.tech.service;
 
-import bank.connect.tech.model.Account;
+import bank.connect.tech.dto.CustomerUpdateDTO;
 import bank.connect.tech.model.Address;
 import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.response.exception.ResourceNotFoundException;
@@ -8,6 +8,8 @@ import bank.connect.tech.model.Customer;
 import bank.connect.tech.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 public class CustomerService {
@@ -52,21 +54,21 @@ public class CustomerService {
     }
 
     //Update the existing customer
-    public Customer updateCustomer(Long customerId, String exceptionMessage, Customer customer){
+    public Customer updateCustomer(Long customerId, String exceptionMessage, CustomerUpdateDTO customerUpdateDTO){
         this.verifyCustomer(customerId, exceptionMessage);
         Customer customerToUpdate = this.customerRepository.findById(customerId).get();
-        if (!(customer.getFirstName().isBlank())) {
-            customerToUpdate.setFirstName(customer.getFirstName());
+        if (!(Objects.isNull(customerUpdateDTO.getFirstName())) && !(customerUpdateDTO.getFirstName().isBlank())) {
+            customerToUpdate.setFirstName(customerUpdateDTO.getFirstName());
         }
-        if (!(customer.getLastName().isBlank())) {
-            customerToUpdate.setLastName(customer.getLastName());
+        if (!(Objects.isNull(customerUpdateDTO.getLastName())) && !(customerUpdateDTO.getLastName().isBlank())) {
+            customerToUpdate.setLastName(customerUpdateDTO.getLastName());
         }
-        if (!(customer.getAddresses().isEmpty()) && customer.getAddresses() != null) {
+        if (!(Objects.isNull(customerUpdateDTO.getAddresses())) && !(customerUpdateDTO.getAddresses().isEmpty())) {
             for (Address address : customerToUpdate.getAddresses()) {
                 address.setCustomer(null);
             }
             customerToUpdate.getAddresses().clear();
-            for (Address address : customer.getAddresses()) {
+            for (Address address : customerUpdateDTO.getAddresses()) {
                 address.setCustomer(customerToUpdate);
                 customerToUpdate.getAddresses().add(address);
             }

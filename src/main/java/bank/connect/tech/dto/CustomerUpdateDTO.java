@@ -1,16 +1,15 @@
 package bank.connect.tech.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import bank.connect.tech.model.Address;
 import java.util.Set;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CustomerDTO {
+public class CustomerUpdateDTO {
 
     @JsonProperty("first_name")
     private String firstName;
     @JsonProperty("last_name")
     private String lastName;
-
     @JsonProperty("addresses")
     private Set<Address> addresses;
 

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Customer {
@@ -21,7 +22,6 @@ public class Customer {
     @JsonProperty("last_name")
     @NotEmpty
     private String lastName;
-
     @JsonManagedReference
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @JsonProperty("addresses")
