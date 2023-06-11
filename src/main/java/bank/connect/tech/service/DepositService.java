@@ -3,13 +3,13 @@ package bank.connect.tech.service;
 import bank.connect.tech.model.Account;
 import bank.connect.tech.models.Deposit;
 import bank.connect.tech.repositories.DepositRepository;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 
-@Service
 public class DepositService {
     private final DepositRepository depositRepository;
     private CrudRepository accountRepository;
@@ -26,8 +26,12 @@ public class DepositService {
         }
     }
 
-    public Deposit getDepositById(Long id) {
-        return depositRepository.findById(id).orElse(null);
+    public Deposit getDepositById(Long id, Long customerId, Account account) {
+        if (account.getCustomer().equals(customerId)) {
+            return depositRepository.findById(id).orElse(null);
+        } else {
+            return null;
+        }
     }
 
     public List<Deposit> getAllDeposits() {
@@ -46,18 +50,8 @@ public class DepositService {
         return depositRepository.findAllByAccountId(accountId);
     }
 
-    public Deposit createDeposit(Long accountId, Deposit deposit) {
-        Account account = (Account) accountRepository.findById(accountId).orElse(null);
-        if (account != null) {
-            deposit.setAccount(account);
-            return depositRepository.save(deposit);
-        }
-        return null;
-    }
-
 
 }
-
 
 
 
