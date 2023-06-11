@@ -9,6 +9,8 @@ import bank.connect.tech.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class AccountService {
 
@@ -52,9 +54,15 @@ public class AccountService {
     public void updateAccount(Long accountId, String exceptionMessage, Account account) {
         this.verifyAccount(accountId, exceptionMessage);
         Account accountToUpdate = this.accountRepository.findById(accountId).get();
-        accountToUpdate.setBalance(account.getBalance());
-        accountToUpdate.setNickname(account.getNickname());
-        accountToUpdate.setRewards(account.getRewards());
+        if (account.getBalance() != null) {
+            accountToUpdate.setBalance(account.getBalance());
+        }
+        if (account.getNickname() != null && !(Objects.equals(account.getNickname(), ""))) {
+            accountToUpdate.setNickname(account.getNickname());
+        }
+        if (account.getRewards() != null) {
+            accountToUpdate.setRewards(account.getRewards());
+        }
         this.accountRepository.save(account);
     }
 

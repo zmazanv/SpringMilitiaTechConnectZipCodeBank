@@ -24,11 +24,9 @@ public class Account {
     @Column(name = "nickname")
     @JsonProperty("nickname")
     private String nickname;
-    @NotNull
     @Column(name = "rewards")
     @JsonProperty("rewards")
     private Integer rewards;
-    @NotNull
     @Column(name = "balance")
     @JsonProperty("balance")
     private Double balance;
