@@ -1,7 +1,7 @@
 package bank.connect.tech.service;
 
-import bank.connect.tech.dto.AccountCreateDTO;
-import bank.connect.tech.dto.AccountUpdateDTO;
+import bank.connect.tech.dto.create.AccountCreateDTO;
+import bank.connect.tech.dto.update.AccountUpdateDTO;
 import bank.connect.tech.response.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Account;
 import bank.connect.tech.model.enumeration.AccountType;

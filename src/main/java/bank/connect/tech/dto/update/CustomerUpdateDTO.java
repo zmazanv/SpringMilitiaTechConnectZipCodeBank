@@ -1,7 +1,7 @@
-package bank.connect.tech.dto;
+package bank.connect.tech.dto.update;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import bank.connect.tech.model.Address;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Set;
 
 public class CustomerUpdateDTO {

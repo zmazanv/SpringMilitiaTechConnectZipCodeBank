@@ -1,7 +1,7 @@
 package bank.connect.tech.service;
 
-import bank.connect.tech.dto.BillCreateDTO;
-import bank.connect.tech.dto.BillUpdateDTO;
+import bank.connect.tech.dto.create.BillCreateDTO;
+import bank.connect.tech.dto.update.BillUpdateDTO;
 import bank.connect.tech.model.enumeration.BillStatus;
 import bank.connect.tech.repository.CustomerRepository;
 import bank.connect.tech.response.exception.ResourceNotFoundException;

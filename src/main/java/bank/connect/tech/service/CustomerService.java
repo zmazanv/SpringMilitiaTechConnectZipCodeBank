@@ -1,6 +1,6 @@
 package bank.connect.tech.service;
 
-import bank.connect.tech.dto.CustomerUpdateDTO;
+import bank.connect.tech.dto.update.CustomerUpdateDTO;
 import bank.connect.tech.model.Address;
 import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.repository.AddressRepository;

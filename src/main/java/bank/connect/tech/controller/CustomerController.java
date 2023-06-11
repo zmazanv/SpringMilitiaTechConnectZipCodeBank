@@ -1,6 +1,6 @@
 package bank.connect.tech.controller;
 
-import bank.connect.tech.dto.CustomerUpdateDTO;
+import bank.connect.tech.dto.update.CustomerUpdateDTO;
 import bank.connect.tech.model.Customer;
 import bank.connect.tech.response.SuccessResponse;
 import bank.connect.tech.service.CustomerService;

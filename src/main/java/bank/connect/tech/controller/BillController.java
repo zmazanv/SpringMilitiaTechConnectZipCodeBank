@@ -1,7 +1,7 @@
 package bank.connect.tech.controller;
 
-import bank.connect.tech.dto.BillCreateDTO;
-import bank.connect.tech.dto.BillUpdateDTO;
+import bank.connect.tech.dto.create.BillCreateDTO;
+import bank.connect.tech.dto.update.BillUpdateDTO;
 import bank.connect.tech.model.Bill;
 import bank.connect.tech.response.SuccessResponse;
 import bank.connect.tech.service.BillService;

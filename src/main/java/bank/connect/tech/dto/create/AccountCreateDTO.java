@@ -1,4 +1,4 @@
-package bank.connect.tech.dto;
+package bank.connect.tech.dto.create;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotEmpty;

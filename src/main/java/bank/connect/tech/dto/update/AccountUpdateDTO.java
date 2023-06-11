@@ -1,4 +1,4 @@
-package bank.connect.tech.dto;
+package bank.connect.tech.dto.update;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

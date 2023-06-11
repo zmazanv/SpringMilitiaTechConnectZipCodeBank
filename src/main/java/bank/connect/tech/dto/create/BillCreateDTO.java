@@ -1,9 +1,9 @@
-package bank.connect.tech.dto;
+package bank.connect.tech.dto.create;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.LocalDate;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 
 public class BillCreateDTO {
 
