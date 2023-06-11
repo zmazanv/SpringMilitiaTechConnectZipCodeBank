@@ -3,12 +3,11 @@ package bank.connect.tech.controller;
 import bank.connect.tech.model.Customer;
 import bank.connect.tech.response.SuccessResponse;
 import bank.connect.tech.service.CustomerService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 public class CustomerController {
@@ -49,7 +48,7 @@ public class CustomerController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-    @GetMapping("/customer/{customerId}")
+    @GetMapping("/customers/{customerId}")
     public ResponseEntity<?> getCustomerById (@PathVariable Long customerId){
         String exceptionMessage = "Unable to fetch customer as no customer was found matching the provided customer ID: " + customerId;
 
