@@ -74,7 +74,7 @@ public class DepositService {
         return System.currentTimeMillis();
     }
 
-    private static class NotFoundException extends RuntimeException {
+    public static class NotFoundException extends RuntimeException {
         public NotFoundException(String message) {
             super(message);
         }
