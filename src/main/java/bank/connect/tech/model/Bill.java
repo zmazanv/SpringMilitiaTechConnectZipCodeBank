@@ -1,0 +1,82 @@
+package bank.connect.tech.model;
+
+import bank.connect.tech.model.enumeration.BillStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.LocalDate;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+@Entity
+public class Bill {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    @JsonIgnore
+    private Long id;
+    @Enumerated(EnumType.STRING)
+    @NotEmpty
+    @Column(name = "status")
+    @JsonProperty("status")
+    private BillStatus billStatus;
+    @Column(name = "payee")
+    @JsonProperty("payee")
+    private String payee;
+    @Column(name = "nickname")
+    @JsonProperty("nickname")
+    private String nickname;
+    @Column(name = "creation_date")
+    @JsonIgnore
+    private LocalDate creationDate;
+    @Column(name = "payment_date")
+    @JsonProperty("payment_date")
+    private LocalDate paymentDate;
+    @Column(name = "recurring_date")
+    @JsonProperty("recurring_date")
+    private Byte recurringDate; // TODO: Put in failsafe to restrict value to be between 1 and 31
+    @Column(name = "upcoming_payment_date")
+    @JsonIgnore
+    private LocalDate upcomingPaymentDate;
+    @Column(name = "payment_amount")
+    @JsonProperty("payment_amount")
+    private Double paymentAmount;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "account_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Account account;
+
+
+    public Long getId() {return this.id;}
+    public void setId(Long id) {this.id = id;}
+
+    public BillStatus getBillStatus() {return this.billStatus;}
+    public void setBillStatus(BillStatus billStatus) {this.billStatus = billStatus;}
+
+    public String getPayee() {return this.payee;}
+    public void setPayee(String payee) {this.payee = payee;}
+
+    public String getNickname() {return this.nickname;}
+    public void setNickname(String nickname) {this.nickname = nickname;}
+
+    public LocalDate getCreationDate() {return this.creationDate;}
+    public void setCreationDate(LocalDate creationDate) {this.creationDate = creationDate;}
+
+    public LocalDate getPaymentDate() {return this.paymentDate;}
+    public void setPaymentDate(LocalDate paymentDate) {this.paymentDate = paymentDate;}
+
+    public Byte getRecurringDate() {return this.recurringDate;}
+    public void setRecurringDate(Byte recurringDate) {this.recurringDate = recurringDate;}
+
+    public LocalDate getUpcomingPaymentDate() {return this.upcomingPaymentDate;}
+    public void setUpcomingPaymentDate(LocalDate upcomingPaymentDate) {this.upcomingPaymentDate = upcomingPaymentDate;}
+
+    public Double getPaymentAmount() {return this.paymentAmount;}
+    public void setPaymentAmount(Double paymentAmount) {this.paymentAmount = paymentAmount;}
+
+    public Account getAccount() {return this.account;}
+    public void setAccount(Account account) {this.account = account;}
+}

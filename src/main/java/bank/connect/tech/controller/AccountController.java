@@ -1,7 +1,8 @@
 package bank.connect.tech.controller;
 
+import bank.connect.tech.dto.AccountDTO;
 import bank.connect.tech.model.Account;
-import bank.connect.tech.repository.AccountRepository;
+import bank.connect.tech.response.SuccessResponse;
 import bank.connect.tech.service.AccountService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,40 +15,75 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
-    @Autowired
-    private AccountRepository accountRepository;
 
 
     @GetMapping("/accounts")
-    public ResponseEntity<Iterable<Account>> getAllAccounts() {
-        return (new ResponseEntity<>(this.accountService.getAllAccounts(), HttpStatus.OK));
+    public ResponseEntity<?> getAllAccounts() {
+        int successResponseCode = HttpStatus.OK.value();
+        String successResponseMessage = "Successfully fetched all accounts";
+        Iterable<Account> successResponseData = this.accountService.getAllAccounts();
+        SuccessResponse<Iterable<Account>> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
+
+        return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
     @GetMapping("accounts/{accountId}")
-    public ResponseEntity<Account> getAccountById(@PathVariable Long accountId) {
-        return (new ResponseEntity<>(this.accountService.getAccountById(accountId), HttpStatus.OK));
+    public ResponseEntity<?> getAccountById(@PathVariable Long accountId) {
+        String exceptionMessage = "Unable to fetch account as no account was found matching the provided account ID: " + accountId;
+
+        int successResponseCode = HttpStatus.OK.value();
+        String successResponseMessage = "Successfully fetched account matching the provided account ID: " + accountId;
+        Account successResponseData = this.accountService.getAccountById(accountId, exceptionMessage);
+        SuccessResponse<Account> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
+
+        return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
     @GetMapping("/customer/{customerId}/accounts")
-    public ResponseEntity<Iterable<Account>> getAllAccountsByCustomerId (@PathVariable Long customerId) {
-        return (new ResponseEntity<>(this.accountService.getAllAccountsByCustomerId(customerId),HttpStatus.OK));
+    public ResponseEntity<?> getAllAccountsByCustomerId (@PathVariable Long customerId) {
+        String exceptionMessage = "Unable to fetch accounts as no customer was found matching the provided customer ID: " + customerId;
+
+        int successResponseCode = HttpStatus.OK.value();
+        String successResponseMessage = "Successfully fetched accounts of customer with ID: " + customerId;
+        Iterable<Account> successResponseData = this.accountService.getAllAccountsByCustomerId(customerId, exceptionMessage);
+        SuccessResponse<Iterable<Account>> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
+
+        return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
     @PostMapping("/customers/{customerId}/accounts")
-    public ResponseEntity<Void> createAccount(@PathVariable Long customerId, @Valid @RequestBody Account account) {
-        this.accountService.createAccount(customerId, account);
-        return (new ResponseEntity<>(HttpStatus.CREATED));
+    public ResponseEntity<?> createAccount(@PathVariable Long customerId, @Valid @RequestBody AccountDTO accountDTO) {
+        String exceptionMessage = "Unable to create new account as no customer was found matching the provided customer ID: " + customerId;
+
+        int successResponseCode = HttpStatus.CREATED.value();
+        String successResponseMessage = "Successfully created new account for customer with ID: " + customerId;
+        Account successResponseData = this.accountService.createAccount(customerId, exceptionMessage, accountDTO);
+        SuccessResponse<Account> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
+
+        return (new ResponseEntity<>(successResponse, HttpStatus.CREATED));
     }
 
     @PutMapping("/accounts/{accountId}")
-    public ResponseEntity<Void> updateAccount(@PathVariable Long accountId, @Valid Account account) { // this method takes 2 parameters : the account that I want to update and its ID.
-        this.accountService.updateAccount(accountId, account);
-        return (new ResponseEntity<>(HttpStatus.OK));
+    public ResponseEntity<?> updateAccount(@PathVariable Long accountId, @Valid @RequestBody Account account) { // this method takes 2 parameters : the account that I want to update and its ID.
+        String exceptionMessage = "Unable to update account as no account was found matching the provided account ID: " + accountId;
+
+        int successResponseCode = HttpStatus.OK.value();
+        String successResponseMessage = "Successfully updated account matching the provided account ID: " + accountId;
+        Account successResponseData = this.accountService.updateAccount(accountId, exceptionMessage, account);
+        SuccessResponse<Account> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
+
+        return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
     @DeleteMapping("/accounts/{accountId}") // just deleting - but I should check if it exists kind of like above:
-    public ResponseEntity<Void> deleteAccount(Long accountId) {
-        this.accountService.deleteAccount(accountId);
-        return (new ResponseEntity<>(HttpStatus.NO_CONTENT));
+    public ResponseEntity<?> deleteAccount(Long accountId) {
+        String exceptionMessage = "Unable to delete account as no account was found matching the provided account ID: " + accountId;
+
+        int successResponseCode = HttpStatus.NO_CONTENT.value();
+        String successResponseMessage = "Successfully deleted account matching the provided account ID: " + accountId;
+        SuccessResponse<?> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, null);
+
+        this.accountService.deleteAccount(accountId, exceptionMessage);
+        return (new ResponseEntity<>(successResponse, HttpStatus.NO_CONTENT));
     }
 }

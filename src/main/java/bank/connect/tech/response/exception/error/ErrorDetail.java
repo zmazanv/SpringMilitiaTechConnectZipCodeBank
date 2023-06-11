@@ -1,4 +1,4 @@
-package bank.connect.tech.dto.errors;
+package bank.connect.tech.response.exception.error;
 
 import java.util.HashMap;
 import java.util.List;
