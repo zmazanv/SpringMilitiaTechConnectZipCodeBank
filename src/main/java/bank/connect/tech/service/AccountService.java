@@ -1,6 +1,7 @@
 package bank.connect.tech.service;
 
-import bank.connect.tech.dto.AccountDTO;
+import bank.connect.tech.dto.create.AccountCreateDTO;
+import bank.connect.tech.dto.update.AccountUpdateDTO;
 import bank.connect.tech.response.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Account;
 import bank.connect.tech.model.enumeration.AccountType;
@@ -43,28 +44,28 @@ public class AccountService {
         return this.accountRepository.findById(accountId).get();
     }
 
-    public Account createAccount(Long customerId, String exceptionMessage, AccountDTO accountDTO) {
+    public Account createAccount(Long customerId, String exceptionMessage, AccountCreateDTO accountCreateDTO) {
         this.verifyCustomer(customerId, exceptionMessage);
         Account account = new Account();
-        account.setAccountType(AccountType.fromString(accountDTO.getType()));
+        account.setType(AccountType.fromString(accountCreateDTO.getType()));
         account.setBalance(0.0);
-        account.setNickname(accountDTO.getNickname());
+        account.setNickname(accountCreateDTO.getNickname());
         account.setRewards(0);
         account.setCustomer(this.customerRepository.findById(customerId).get());
         return this.accountRepository.save(account);
     }
 
-    public Account updateAccount(Long accountId, String exceptionMessage, Account account) {
+    public Account updateAccount(Long accountId, String exceptionMessage, AccountUpdateDTO accountUpdateDTO) {
         this.verifyAccount(accountId, exceptionMessage);
         Account accountToUpdate = this.accountRepository.findById(accountId).get();
-        if (account.getBalance() != null) {
-            accountToUpdate.setBalance(account.getBalance());
+        if (!(Objects.isNull(accountUpdateDTO.getBalance()))) {
+            accountToUpdate.setBalance(accountUpdateDTO.getBalance());
         }
-        if (!(account.getNickname().isBlank())) {
-            accountToUpdate.setNickname(account.getNickname());
+        if (!(Objects.isNull(accountUpdateDTO.getNickname())) && !(accountUpdateDTO.getNickname().isBlank())) {
+            accountToUpdate.setNickname(accountUpdateDTO.getNickname());
         }
-        if (account.getRewards() != null) {
-            accountToUpdate.setRewards(account.getRewards());
+        if (!(Objects.isNull(accountUpdateDTO.getRewards()))) {
+            accountToUpdate.setRewards(accountUpdateDTO.getRewards());
         }
         return this.accountRepository.save(accountToUpdate);
     }
