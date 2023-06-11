@@ -3,10 +3,15 @@ package bank.connect.tech.service;
 import bank.connect.tech.dto.CustomerUpdateDTO;
 import bank.connect.tech.model.Address;
 import bank.connect.tech.repository.AccountRepository;
+import bank.connect.tech.repository.AddressRepository;
 import bank.connect.tech.response.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Customer;
 import bank.connect.tech.repository.CustomerRepository;
+
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +20,9 @@ public class CustomerService {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -63,10 +71,9 @@ public class CustomerService {
             customerToUpdate.setLastName(customerUpdateDTO.getLastName());
         }
         if (!(Objects.isNull(customerUpdateDTO.getAddresses())) && !(customerUpdateDTO.getAddresses().isEmpty())) {
-            for (Address address : customerToUpdate.getAddresses()) {
-                address.setCustomer(null);
-            }
+            Set<Address> oldAddresses = new HashSet<>(customerToUpdate.getAddresses());
             customerToUpdate.getAddresses().clear();
+            this.addressRepository.deleteAll(oldAddresses);
             for (Address address : customerUpdateDTO.getAddresses()) {
                 address.setCustomer(customerToUpdate);
                 customerToUpdate.getAddresses().add(address);
