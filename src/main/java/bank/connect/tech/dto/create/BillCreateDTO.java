@@ -16,7 +16,7 @@ public class BillCreateDTO {
     @JsonProperty("nickname")
     private String nickname;
     @JsonProperty("payment_date")
-    @NotEmpty
+    @NotNull
     private LocalDate paymentDate;
     @JsonProperty("recurring_date")
     @NotNull
