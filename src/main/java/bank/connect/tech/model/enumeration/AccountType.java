@@ -1,4 +1,6 @@
-package bank.connect.tech.model;
+package bank.connect.tech.model.enumeration;
+
+import bank.connect.tech.response.exception.MissingPropertyException;
 
 public enum AccountType {
 
@@ -10,7 +12,7 @@ public enum AccountType {
     private final String type;
 
 
-    AccountType(String type) {
+    private AccountType(String type) {
         this.type = type;
     }
 
@@ -26,6 +28,6 @@ public enum AccountType {
                 return type;
             }
         }
-        throw (new IllegalArgumentException("No enum constant " + AccountType.class.getCanonicalName() + '.'));
+        throw (new MissingPropertyException("No enum constant " + AccountType.class.getCanonicalName()));
     }
 }

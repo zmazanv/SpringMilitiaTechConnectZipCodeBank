@@ -36,7 +36,7 @@ public class CustomerController {
         Customer successResponseData = this.customerService.createCustomer(customer);
         SuccessResponse<Customer> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
-        return new ResponseEntity<>(successResponse, HttpStatus.CREATED);
+        return (new ResponseEntity<>(successResponse, HttpStatus.CREATED));
     }
 
     @GetMapping("/customers")
@@ -46,7 +46,7 @@ public class CustomerController {
         Iterable<Customer> successResponseData = this.customerService.getAllCustomers();
         SuccessResponse<Iterable<Customer>> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
-        return new ResponseEntity<>(successResponse, HttpStatus.OK);
+        return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
     @GetMapping("/customer/{customerId}")
@@ -55,10 +55,10 @@ public class CustomerController {
 
         int successResponseCode = HttpStatus.OK.value();
         String successResponseMessage = "Successfully fetched customer matching the provided customer ID: " + customerId;
-        var successResponseData = this.customerService.getCustomerById(customerId, exceptionMessage);
+        Customer successResponseData = this.customerService.getCustomerById(customerId, exceptionMessage);
         SuccessResponse<Customer> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
-        return new ResponseEntity<>(successResponse, HttpStatus.OK);
+        return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
     @PutMapping("/customers/{customerId}")
@@ -70,6 +70,6 @@ public class CustomerController {
         Customer successResponseData = this.customerService.updateCustomer(customerId, exceptionMessage, customer);
         SuccessResponse<Customer> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
-        return new ResponseEntity<>(successResponse, HttpStatus.OK);
+        return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 }

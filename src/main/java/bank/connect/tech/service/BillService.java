@@ -1,47 +1,116 @@
-package bank.connect.tech.Service;
+package bank.connect.tech.service;
 
-
-import bank.connect.tech.exceptions.ResourceNotFoundException;
+import bank.connect.tech.dto.BillCreateDTO;
+import bank.connect.tech.dto.BillUpdateDTO;
+import bank.connect.tech.model.enumeration.BillStatus;
+import bank.connect.tech.repository.CustomerRepository;
+import bank.connect.tech.response.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Bill;
+import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.repository.BillRepository;
+import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BillService {
+
+    @Autowired
+    private AccountRepository accountRepository;
+
     @Autowired
     private BillRepository billRepository;
-protected void verifyBill(Long id) throws ResourceNotFoundException {
-    if(!(billRepository.existsById(id))){
-        throw new ResourceNotFoundException("error fetching bills");
-    }
-}
-    public Iterable<Bill> getAllBills(){
-        return billRepository.findAll();
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+
+    protected void verifyAccount(Long accountId, String exceptionMessage) throws ResourceNotFoundException {
+        if(!(this.accountRepository.existsById(accountId))) {
+            throw (new ResourceNotFoundException(exceptionMessage));
+        }
     }
 
-    public Bill getBillById(Long id){
-        verifyBill(id);
-        return billRepository.findById(id).orElse(null);
+    protected void verifyBill(Long billId, String exceptionMessage) throws ResourceNotFoundException {
+        if(!(this.billRepository.existsById(billId))){
+            throw new ResourceNotFoundException(exceptionMessage);
+        }
     }
 
-    public Bill createBill(Bill bill){
-        return billRepository.save(bill);
+    protected void verifyCustomer (Long customerId, String exceptionMessage) throws ResourceNotFoundException {
+        if(!(this.customerRepository.existsById(customerId))) {
+            throw (new ResourceNotFoundException(exceptionMessage));
+        }
     }
 
-    public void updateBill(Bill bill, Long id){
-        verifyBill(id);
-        bill.setId(id);
-        billRepository.save(bill);
+
+    public Bill getBillById(Long billId, String exceptionMessage) {
+        this.verifyBill(billId, exceptionMessage);
+        return this.billRepository.findById(billId).get();
     }
 
-    public void deleteBill(Long id){
-        verifyBill(id);
-        billRepository.deleteById(id);
+    public Bill createBill(Long accountId, String exceptionMessage, BillCreateDTO billCreateDTO) {
+        this.verifyAccount(accountId, exceptionMessage);
+        Bill bill = new Bill();
+        LocalDate today = LocalDate.now();
+        LocalDate nextRecurringDate = LocalDate.of(today.getYear(), today.getMonth(), billCreateDTO.getRecurringDate());
+        bill.setBillStatus(BillStatus.fromString(billCreateDTO.getStatus()));
+        bill.setPayee(billCreateDTO.getPayee());
+        bill.setNickname(billCreateDTO.getNickname());
+        bill.setCreationDate(today);
+        bill.setPaymentDate(billCreateDTO.getPaymentDate());
+        bill.setRecurringDate(billCreateDTO.getRecurringDate());
+        if (nextRecurringDate.isBefore(today)) {
+            nextRecurringDate = nextRecurringDate.plusMonths(1);
+        }
+        bill.setUpcomingPaymentDate(nextRecurringDate);
+        bill.setPaymentAmount(billCreateDTO.getPaymentAmount());
+        bill.setAccount(this.accountRepository.findById(accountId).get());
+        return this.billRepository.save(bill);
     }
 
-    public Iterable<Bill> getCustomerBillById(Long account_id){
-        return billRepository.findAllBillsByAccountId(account_id);
+    public Bill updateBill(Long billId, String exceptionMessage, BillUpdateDTO billUpdateDTO) {
+        this.verifyBill(billId, exceptionMessage);
+        Bill billToUpdate = this.billRepository.findById(billId).get();
+        if (!(billUpdateDTO.getStatus().isBlank())) {
+            billToUpdate.setBillStatus(BillStatus.fromString(billUpdateDTO.getStatus()));
+        }
+        if (!(billUpdateDTO.getPayee().isBlank())) {
+            billToUpdate.setPayee(billUpdateDTO.getPayee());
+        }
+        if (!(billUpdateDTO.getNickname().isBlank())) {
+            billToUpdate.setNickname(billUpdateDTO.getNickname());
+        }
+        if (billUpdateDTO.getPaymentDate() != null) {
+            billToUpdate.setPaymentDate(billUpdateDTO.getPaymentDate());
+        }
+        if (billUpdateDTO.getRecurringDate() != null) {
+            billToUpdate.setRecurringDate(billUpdateDTO.getRecurringDate());
+            LocalDate today = LocalDate.now();
+            LocalDate nextRecurringDate = LocalDate.of(today.getYear(), today.getMonth(), billUpdateDTO.getRecurringDate());
+            if (nextRecurringDate.isBefore(today)) {
+                nextRecurringDate = nextRecurringDate.plusMonths(1);
+            }
+            billToUpdate.setUpcomingPaymentDate(nextRecurringDate);
+        }
+        if (billUpdateDTO.getPaymentAmount() != null) {
+            billToUpdate.setPaymentAmount(billUpdateDTO.getPaymentAmount());
+        }
+        return this.billRepository.save(billToUpdate);
     }
 
+    public void deleteBill(Long billId, String exceptionMessage) {
+        this.verifyBill(billId, exceptionMessage);
+        this.billRepository.deleteById(billId);
+    }
+
+    public Iterable<Bill> getAllBillsByAccountId(Long accountId, String exceptionMessage) {
+        this.verifyAccount(accountId, exceptionMessage);
+        return this.billRepository.findAllBillsByAccountId(accountId);
+    }
+
+    public Iterable<Bill> getAllBillsByCustomerId(Long customerId, String exceptionMessage) {
+        this.verifyCustomer(customerId, exceptionMessage);
+        return this.billRepository.findAllBillsByCustomerId(customerId);
+    }
 }

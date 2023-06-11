@@ -8,6 +8,8 @@ public class SuccessResponse<T> {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
+    public SuccessResponse() {}
+
     public SuccessResponse(int code, String message) {
         this.code = code;
         this.message = message;

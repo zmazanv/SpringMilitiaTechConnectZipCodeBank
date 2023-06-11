@@ -1,5 +1,6 @@
 package bank.connect.tech.service;
 
+import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.response.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Customer;
 import bank.connect.tech.repository.CustomerRepository;
@@ -9,12 +10,18 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerService {
 
-   @Autowired
+    @Autowired
     private CustomerRepository customerRepository;
 
-   @Autowired
-   private AccountService accountService;
+    @Autowired
+    private AccountRepository accountRepository;
 
+
+    protected void verifyAccount(Long accountId, String exceptionMessage) throws ResourceNotFoundException {
+        if(!(this.accountRepository.existsById(accountId))) {
+            throw (new ResourceNotFoundException(exceptionMessage));
+        }
+    }
 
     protected void verifyCustomer (Long customerId, String exceptionMessage) throws ResourceNotFoundException {
         if(!(this.customerRepository.existsById(customerId))) {
@@ -52,7 +59,7 @@ public class CustomerService {
     }
 
     public Customer getCustomerByAccountId(Long accountId, String exceptionMessage) {
-        this.accountService.verifyAccount(accountId, exceptionMessage);
+        this.verifyAccount(accountId, exceptionMessage);
         return this.customerRepository.findCustomerByAccountId(accountId);
     }
 }

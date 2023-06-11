@@ -1,11 +1,11 @@
 package bank.connect.tech.repository;
 
 import bank.connect.tech.model.Customer;
+
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface CustomerRepository extends CrudRepository<Customer, Long> {
-
-    Customer findCustomerByAccountId(Long accountId);
+	@Query("SELECT a.customer FROM Account a WHERE a.id = ?1")
+	Customer findCustomerByAccountId(Long accountId);
 }

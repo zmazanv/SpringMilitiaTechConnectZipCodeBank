@@ -1,11 +1,10 @@
 package bank.connect.tech.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -26,7 +25,7 @@ public class Customer {
     @NotEmpty
     private String lastName;
 
-    @Column(name = "addresses")
+    @OneToMany
     @JoinColumn(name = "customer_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Address> addresses;

@@ -4,6 +4,9 @@ import bank.connect.tech.response.exception.error.ErrorDetail;
 import bank.connect.tech.response.exception.error.ValidationError;
 import bank.connect.tech.response.exception.MissingPropertyException;
 import bank.connect.tech.response.exception.ResourceNotFoundException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
@@ -16,9 +19,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {

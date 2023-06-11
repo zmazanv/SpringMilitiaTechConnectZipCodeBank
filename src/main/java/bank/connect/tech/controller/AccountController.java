@@ -2,7 +2,6 @@ package bank.connect.tech.controller;
 
 import bank.connect.tech.dto.AccountDTO;
 import bank.connect.tech.model.Account;
-import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.response.SuccessResponse;
 import bank.connect.tech.service.AccountService;
 import javax.validation.Valid;
@@ -16,9 +15,6 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
-
-    @Autowired
-    private AccountRepository accountRepository;
 
 
     @GetMapping("/accounts")

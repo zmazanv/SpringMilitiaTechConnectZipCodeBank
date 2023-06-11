@@ -1,10 +1,9 @@
 package bank.connect.tech.service;
 
 import bank.connect.tech.dto.AccountDTO;
-import bank.connect.tech.model.Customer;
 import bank.connect.tech.response.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Account;
-import bank.connect.tech.model.AccountType;
+import bank.connect.tech.model.enumeration.AccountType;
 import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +20,15 @@ public class AccountService {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @Autowired
-    private CustomerService customerService;
-
 
     protected void verifyAccount(Long accountId, String exceptionMessage) throws ResourceNotFoundException {
         if(!(this.accountRepository.existsById(accountId))) {
+            throw (new ResourceNotFoundException(exceptionMessage));
+        }
+    }
+
+    protected void verifyCustomer (Long customerId, String exceptionMessage) throws ResourceNotFoundException {
+        if(!(this.customerRepository.existsById(customerId))) {
             throw (new ResourceNotFoundException(exceptionMessage));
         }
     }
@@ -42,7 +44,7 @@ public class AccountService {
     }
 
     public Account createAccount(Long customerId, String exceptionMessage, AccountDTO accountDTO) {
-        this.customerService.verifyCustomer(customerId, exceptionMessage);
+        this.verifyCustomer(customerId, exceptionMessage);
         Account account = new Account();
         account.setAccountType(AccountType.fromString(accountDTO.getType()));
         account.setBalance(0.0);
@@ -58,7 +60,7 @@ public class AccountService {
         if (account.getBalance() != null) {
             accountToUpdate.setBalance(account.getBalance());
         }
-        if (account.getNickname() != null && !(Objects.equals(account.getNickname(), ""))) {
+        if (!(account.getNickname().isBlank())) {
             accountToUpdate.setNickname(account.getNickname());
         }
         if (account.getRewards() != null) {
@@ -73,7 +75,7 @@ public class AccountService {
     }
 
     public Iterable<Account> getAllAccountsByCustomerId (Long customerId, String exceptionMessage) {
-        this.customerService.verifyCustomer(customerId, exceptionMessage);
+        this.verifyCustomer(customerId, exceptionMessage);
         return this.accountRepository.findAllAccountsByCustomerId(customerId);
     }
 }
