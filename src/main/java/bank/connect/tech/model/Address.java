@@ -13,7 +13,6 @@ public class Address {
     @Column(name = "id")
     @JsonIgnore
     private Long id;
-
     @Column(name = "street_number")
     @NotEmpty
     @JsonProperty("street_number")
@@ -28,16 +27,17 @@ public class Address {
     @NotEmpty
     @JsonProperty("city")
     private String city;
-
     @Column(name = "state")
     @NotEmpty
     @JsonProperty("state")
     private String state;
-
     @Column(name = "zip")
     @NotEmpty
     @JsonProperty("zip")
     private String zip;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
 
     public Long getId() {return this.id;}
@@ -57,4 +57,7 @@ public class Address {
 
     public String getZip() {return this.zip;}
     public void setZip(String zip) {this.zip = zip;}
+
+    public Customer getCustomer() {return this.customer;}
+    public void setCustomer(Customer customer) {this.customer = customer;}
 }

@@ -25,9 +25,9 @@ public class Customer {
     @NotEmpty
     private String lastName;
 
-    @OneToMany
-    @JoinColumn(name = "customer_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonProperty("addresses")
     private Set<Address> addresses;
 
 
