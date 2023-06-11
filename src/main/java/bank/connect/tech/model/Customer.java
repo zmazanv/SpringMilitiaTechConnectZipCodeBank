@@ -1,12 +1,10 @@
 package bank.connect.tech.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Customer {
@@ -14,7 +12,6 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @JsonIgnore
     private Long id;
     @Column(name = "first_name")
     @JsonProperty("first_name")
@@ -25,6 +22,7 @@ public class Customer {
     @NotEmpty
     private String lastName;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @JsonProperty("addresses")
     private Set<Address> addresses;

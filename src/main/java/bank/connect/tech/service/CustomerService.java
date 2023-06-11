@@ -1,5 +1,7 @@
 package bank.connect.tech.service;
 
+import bank.connect.tech.model.Account;
+import bank.connect.tech.model.Address;
 import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.response.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Customer;
@@ -43,14 +45,33 @@ public class CustomerService {
 
     //Creating a customer
     public Customer createCustomer(Customer customer) {
+        for (Address address : customer.getAddresses()) {
+            address.setCustomer(customer);
+        }
         return this.customerRepository.save(customer);
     }
 
     //Update the existing customer
     public Customer updateCustomer(Long customerId, String exceptionMessage, Customer customer){
         this.verifyCustomer(customerId, exceptionMessage);
-        customer.setId(customerId);
-        return this.customerRepository.save(customer);
+        Customer customerToUpdate = this.customerRepository.findById(customerId).get();
+        if (!(customer.getFirstName().isBlank())) {
+            customerToUpdate.setFirstName(customer.getFirstName());
+        }
+        if (!(customer.getLastName().isBlank())) {
+            customerToUpdate.setLastName(customer.getLastName());
+        }
+        if (!(customer.getAddresses().isEmpty()) && customer.getAddresses() != null) {
+            for (Address address : customerToUpdate.getAddresses()) {
+                address.setCustomer(null);
+            }
+            customerToUpdate.getAddresses().clear();
+            for (Address address : customer.getAddresses()) {
+                address.setCustomer(customerToUpdate);
+                customerToUpdate.getAddresses().add(address);
+            }
+        }
+        return this.customerRepository.save(customerToUpdate);
     }
 
     public void deleteCustomer(Long customerId, String exceptionMessage) {
