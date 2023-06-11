@@ -43,18 +43,19 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> handleUnrecognizedPropertyException(MissingPropertyException missingPropertyException) {
         ErrorDetail errorDetail = new ErrorDetail();
         errorDetail.setTimeStamp(new Date().getTime());
-        errorDetail.setStatus((short) HttpStatus.BAD_REQUEST.value());
+        errorDetail.setStatus(HttpStatus.BAD_REQUEST.value());
         errorDetail.setTitle("Missing Property");
         errorDetail.setDetail(missingPropertyException.getMessage());
         errorDetail.setDeveloperMessage(missingPropertyException.getClass().getName());
         return (new ResponseEntity<>(errorDetail, HttpStatus.BAD_REQUEST));
     }
 
+
     @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException methodArgumentNotValidException, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ErrorDetail errorDetail = new ErrorDetail();
         errorDetail.setTimeStamp(new Date().getTime());
-        errorDetail.setStatus((short) HttpStatus.BAD_REQUEST.value());
+        errorDetail.setStatus(HttpStatus.BAD_REQUEST.value());
         errorDetail.setTitle("Validation Failed");
         errorDetail.setDetail(methodArgumentNotValidException.getMessage());
         errorDetail.setDeveloperMessage(methodArgumentNotValidException.getClass().getName());
@@ -77,7 +78,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException httpMessageNotReadableException, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ErrorDetail errorDetail = new ErrorDetail();
         errorDetail.setTimeStamp(new Date().getTime());
-        errorDetail.setStatus((short) status.value());
+        errorDetail.setStatus(status.value());
         errorDetail.setTitle("Message Not Readable");
         errorDetail.setDeveloperMessage(httpMessageNotReadableException.getClass().getName());
         return super.handleExceptionInternal(httpMessageNotReadableException, errorDetail, headers, status, request);

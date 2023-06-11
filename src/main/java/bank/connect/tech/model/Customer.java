@@ -1,57 +1,46 @@
 package bank.connect.tech.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+    @Column(name = "id")
+    @JsonIgnore
     private Long id;
-    private String first_name;
-    private String last_name;
-    @OneToMany
-    @Column
+    @Column(name = "first_name")
+    @JsonProperty("first_name")
+    @NotEmpty
+    private String firstName;
+    @Column(name = "last_name")
+    @JsonProperty("last_name")
+    @NotEmpty
+    private String lastName;
+
+    @Column(name = "addresses")
     @JoinColumn(name = "customer_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private Set<Address> addresses;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() {return this.id;}
+    public void setId(Long id) {this.id = id;}
 
-    public String getFirst_name() {
-        return first_name;
-    }
+    public String getFirstName() {return this.firstName;}
+    public void setFirstName(String firstName) {this.firstName = firstName;}
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
-    }
+    public String getLastName() {return this.lastName;}
+    public void setLastName(String lastName) {this.lastName = lastName;}
 
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
-    }
-
-    public Set<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(Set<Address> addresses) {
-        this.addresses = addresses;
-    }
+    public Set<Address> getAddresses() {return this.addresses;}
+    public void setAddresses(Set<Address> addresses) {this.addresses = addresses;}
 }

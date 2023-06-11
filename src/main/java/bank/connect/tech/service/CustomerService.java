@@ -1,11 +1,10 @@
 package bank.connect.tech.service;
 
+import bank.connect.tech.response.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Customer;
 import bank.connect.tech.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -13,44 +12,48 @@ public class CustomerService {
    @Autowired
     private CustomerRepository customerRepository;
 
+   @Autowired
+   private AccountService accountService;
 
-    protected void verifyCustomer (Long customerId) throws RuntimeException {
+
+    protected void verifyCustomer (Long customerId, String exceptionMessage) throws ResourceNotFoundException {
         if(!(this.customerRepository.existsById(customerId))) {
-            throw (new RuntimeException("The Customer: " + customerId + " does not exist. Please try again."));
+            throw (new ResourceNotFoundException(exceptionMessage));
         }
     }
 
-    //Creating a customer
-    public void addCustomer (Customer customer){
-        customerRepository.save(customer);
-    }
 
     //Get all customers
-    public Iterable<Customer> getAllCustomers(){
-        return customerRepository.findAll();
+    public Iterable<Customer> getAllCustomers() {
+        return this.customerRepository.findAll();
     }
 
     //Get customer by id
-    public Optional<Customer> getCustomerById (Long id){
-        return customerRepository.findById(id);
+    public Customer getCustomerById(Long customerId, String exceptionMessage) {
+        this.verifyCustomer(customerId, exceptionMessage);
+        return this.customerRepository.findById(customerId).get();
+    }
+
+    //Creating a customer
+    public Customer createCustomer(Customer customer) {
+        return this.customerRepository.save(customer);
     }
 
     //Update the existing customer
-    public void updateCustomer (Long id, Customer customer){
-        customer.setId(id);
-        customerRepository.save(customer);
+    public Customer updateCustomer(Long customerId, String exceptionMessage, Customer customer){
+        this.verifyCustomer(customerId, exceptionMessage);
+        customer.setId(customerId);
+        return this.customerRepository.save(customer);
     }
-    //Get customer that owns the specified accounts
-    /* public Customer getCustomerByAccounts (Set<Account> accounts){
-        for (Account account : accounts){
-            Customer customer = account.getCustomer();
-            if (customer != null){
-                return customer;
-            }
-        }
-        return null;
-     }*/
 
+    public void deleteCustomer(Long customerId, String exceptionMessage) {
+        this.verifyCustomer(customerId, exceptionMessage);
+        this.customerRepository.deleteById(customerId);
+    }
 
+    public Customer getCustomerByAccountId(Long accountId, String exceptionMessage) {
+        this.accountService.verifyAccount(accountId, exceptionMessage);
+        return this.customerRepository.findCustomerByAccountId(accountId);
+    }
 }
 

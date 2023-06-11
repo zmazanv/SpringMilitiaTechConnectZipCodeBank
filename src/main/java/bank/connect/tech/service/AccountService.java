@@ -1,6 +1,7 @@
 package bank.connect.tech.service;
 
 import bank.connect.tech.dto.AccountDTO;
+import bank.connect.tech.model.Customer;
 import bank.connect.tech.response.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Account;
 import bank.connect.tech.model.AccountType;
@@ -51,7 +52,7 @@ public class AccountService {
         return this.accountRepository.save(account);
     }
 
-    public void updateAccount(Long accountId, String exceptionMessage, Account account) {
+    public Account updateAccount(Long accountId, String exceptionMessage, Account account) {
         this.verifyAccount(accountId, exceptionMessage);
         Account accountToUpdate = this.accountRepository.findById(accountId).get();
         if (account.getBalance() != null) {
@@ -63,7 +64,7 @@ public class AccountService {
         if (account.getRewards() != null) {
             accountToUpdate.setRewards(account.getRewards());
         }
-        this.accountRepository.save(account);
+        return this.accountRepository.save(accountToUpdate);
     }
 
     public void deleteAccount(Long accountId, String exceptionMessage) {
