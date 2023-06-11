@@ -1,6 +1,7 @@
-package bank.connect.tech.dto;
+package bank.connect.tech.response.exception.error;
 
 public class ValidationError {
+
     private String code;
     private String message;
 

@@ -1,111 +1,82 @@
 package bank.connect.tech.model;
 
+import bank.connect.tech.model.enumeration.BillStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.LocalDate;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import javax.persistence.*;
-
 @Entity
 public class Bill {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    @JsonIgnore
     private Long id;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @NotEmpty
+    @Column(name = "status")
+    @JsonProperty("status")
+    private BillStatus billStatus;
+    @Column(name = "payee")
+    @JsonProperty("payee")
     private String payee;
-    private String nick_name;
-    private String creation_date;
-    private String payment_date;
-    private Integer recurring_date;
-    private String upcoming_payment_date;
-    private Double payment_amount;
-    private Long account_id;
-
-    @ManyToOne
-    @JoinColumn(name = "account", nullable = false)
+    @Column(name = "nickname")
+    @JsonProperty("nickname")
+    private String nickname;
+    @Column(name = "creation_date")
+    @JsonIgnore
+    private LocalDate creationDate;
+    @Column(name = "payment_date")
+    @JsonProperty("payment_date")
+    private LocalDate paymentDate;
+    @Column(name = "recurring_date")
+    @JsonProperty("recurring_date")
+    private Byte recurringDate; // TODO: Put in failsafe to restrict value to be between 1 and 31
+    @Column(name = "upcoming_payment_date")
+    @JsonIgnore
+    private LocalDate upcomingPaymentDate;
+    @Column(name = "payment_amount")
+    @JsonProperty("payment_amount")
+    private Double paymentAmount;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "account_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Account account;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getId() {return this.id;}
+    public void setId(Long id) {this.id = id;}
 
-    public String getStatus() {
-        return status;
-    }
+    public BillStatus getBillStatus() {return this.billStatus;}
+    public void setBillStatus(BillStatus billStatus) {this.billStatus = billStatus;}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public String getPayee() {return this.payee;}
+    public void setPayee(String payee) {this.payee = payee;}
 
-    public String getPayee() {
-        return payee;
-    }
+    public String getNickname() {return this.nickname;}
+    public void setNickname(String nickname) {this.nickname = nickname;}
 
-    public void setPayee(String payee) {
-        this.payee = payee;
-    }
+    public LocalDate getCreationDate() {return this.creationDate;}
+    public void setCreationDate(LocalDate creationDate) {this.creationDate = creationDate;}
 
+    public LocalDate getPaymentDate() {return this.paymentDate;}
+    public void setPaymentDate(LocalDate paymentDate) {this.paymentDate = paymentDate;}
 
+    public Byte getRecurringDate() {return this.recurringDate;}
+    public void setRecurringDate(Byte recurringDate) {this.recurringDate = recurringDate;}
 
-    public String getNick_name() {
-        return nick_name;
-    }
+    public LocalDate getUpcomingPaymentDate() {return this.upcomingPaymentDate;}
+    public void setUpcomingPaymentDate(LocalDate upcomingPaymentDate) {this.upcomingPaymentDate = upcomingPaymentDate;}
 
-    public void setNick_name(String nick_name) {
-        this.nick_name = nick_name;
-    }
+    public Double getPaymentAmount() {return this.paymentAmount;}
+    public void setPaymentAmount(Double paymentAmount) {this.paymentAmount = paymentAmount;}
 
-    public String getCreation_date() {
-        return creation_date;
-    }
-
-    public void setCreation_date(String creation_date) {
-        this.creation_date = creation_date;
-    }
-
-    public String getPayment_date() {
-        return payment_date;
-    }
-
-    public void setPayment_date(String payment_date) {
-        this.payment_date = payment_date;
-    }
-
-    public Integer getRecurring_date() {
-        return recurring_date;
-    }
-
-    public void setRecurring_date(Integer recurring_date) {
-        this.recurring_date = recurring_date;
-    }
-
-    public String getUpcoming_payment_date() {
-        return upcoming_payment_date;
-    }
-
-    public void setUpcoming_payment_date(String upcoming_payment_date) {
-        this.upcoming_payment_date = upcoming_payment_date;
-    }
-
-    public Double getPayment_amount() {
-        return payment_amount;
-    }
-
-    public void setPayment_amount(Double payment_amount) {
-        this.payment_amount = payment_amount;
-    }
-
-    public Long getAccount_id() {
-        return account_id;
-    }
-
-    public void setAccount_id(Long account_id) {
-        this.account_id = account_id;
-    }
+    public Account getAccount() {return this.account;}
+    public void setAccount(Account account) {this.account = account;}
 }
