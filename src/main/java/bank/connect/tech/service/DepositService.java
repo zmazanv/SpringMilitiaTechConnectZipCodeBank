@@ -1,56 +1,84 @@
 package bank.connect.tech.service;
-
 import bank.connect.tech.model.Account;
 import bank.connect.tech.models.Deposit;
-import bank.connect.tech.repositories.DepositRepository;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+@Service
 public class DepositService {
-    private final DepositRepository depositRepository;
-    private CrudRepository accountRepository;
+    private final Map<Long, List<Deposit>> accountDeposits;
 
-    public DepositService(DepositRepository depositRepository) {
-        this.depositRepository = depositRepository;
-    }
-
-    public Deposit createDeposit(Deposit deposit, Long customerID, Account account) {
-        if (account.getCustomer().equals(customerID)) {
-            return depositRepository.save(deposit);
-        } else {
-            return null;
-        }
-    }
-
-    public Deposit getDepositById(Long id, Long customerId, Account account) {
-        if (account.getCustomer().equals(customerId)) {
-            return depositRepository.findById(id).orElse(null);
-        } else {
-            return null;
-        }
-    }
-
-    public List<Deposit> getAllDeposits() {
-        return (List<Deposit>) depositRepository.findAll();
-    }
-
-    public Deposit updateDeposit(Deposit deposit) {
-        return depositRepository.save(deposit);
-    }
-
-    public void deleteDeposit(Long id) {
-        depositRepository.deleteById(id);
+    public DepositService() {
+        this.accountDeposits = new HashMap<>();
     }
 
     public List<Deposit> getAllDepositsForAccount(Long accountId) {
-        return depositRepository.findAllByAccountId(accountId);
+        List<Deposit> deposits = accountDeposits.get(accountId);
+        if (deposits == null) {
+            throw new NotFoundException("Account not found");
+        }
+        return deposits;
     }
 
+    public Deposit getDepositById(Long depositId) {
+        for (List<Deposit> deposits : accountDeposits.values()) {
+            for (Deposit deposit : deposits) {
+                if (deposit.getId().equals(depositId)) {
+                    return deposit;
+                }
+            }
+        }
+        throw new NotFoundException("Error fetching deposit with id: " + depositId);
+    }
 
+    public Deposit createDeposit(Long accountId, Deposit deposit) {
+        List<Deposit> deposits = accountDeposits.get(accountId);
+        if (deposits == null) {
+            throw new NotFoundException("Account not found");
+        }
+
+        deposit.setId(generateDepositId());
+        deposits.add(deposit);
+        return deposit;
+    }
+
+    public Deposit updateDeposit(Deposit deposit) {
+        for (List<Deposit> deposits : accountDeposits.values()) {
+            for (Deposit d : deposits) {
+                if (d.getId().equals(deposit.getId())) {
+                    d.setMedium(deposit.getMedium());
+                    d.setAmount(deposit.getAmount());
+                    d.setDescription(deposit.getDescription());
+                    d.setPayeeId(deposit.getPayeeId());
+
+                    return d;
+                }
+            }
+        }
+        throw new NotFoundException("Deposit ID does not exist");
+    }
+
+    public void deleteDeposit(Long depositId) {
+        for (List<Deposit> deposits : accountDeposits.values()) {
+            deposits.removeIf(deposit -> deposit.getId().equals(depositId));
+        }
+    }
+
+    private Long generateDepositId() {
+        // Generate a unique ID for the deposit (you can replace this with your own logic)
+        // This is just a simple example
+        return System.currentTimeMillis();
+    }
+
+    private static class NotFoundException extends RuntimeException {
+        public NotFoundException(String message) {
+            super(message);
+        }
+    }
 }
 
 

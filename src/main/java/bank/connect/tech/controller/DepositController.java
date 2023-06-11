@@ -1,5 +1,7 @@
 package bank.connect.tech.controller;
 
+import bank.connect.tech.model.Account;
+import bank.connect.tech.model.Customer;
 import bank.connect.tech.models.Deposit;
 import bank.connect.tech.service.DepositService;
 import org.springframework.web.bind.annotation.*;
@@ -39,4 +41,3 @@ public class DepositController {
     public void deleteDeposit(@PathVariable("depositId") Long depositId) {
         depositService.deleteDeposit(depositId);
     }
-}
