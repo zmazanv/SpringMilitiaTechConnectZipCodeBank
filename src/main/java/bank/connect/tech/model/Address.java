@@ -16,12 +16,10 @@ public class Address {
     @NotEmpty
     @JsonProperty("street_number")
     private String streetNumber;
-
     @Column(name = "street_name")
     @NotEmpty
     @JsonProperty("street_name")
     private String streetName;
-
     @Column(name = "city")
     @NotEmpty
     @JsonProperty("city")
