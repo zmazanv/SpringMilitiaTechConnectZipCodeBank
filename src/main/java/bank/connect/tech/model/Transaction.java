@@ -48,6 +48,7 @@ public class Transaction {
     @JsonIgnore
     private Account account;
 
+
     public Long getId() {return this.id;}
     public void setId(Long id) {this.id = id;}
 
@@ -68,6 +69,7 @@ public class Transaction {
 
     public String getDescription() {return this.description;}
     public void setDescription(String description) {this.description = description;}
+
     @JsonIgnore
     public Account getAccount() {return this.account;}
     public void setAccount(Account account) {this.account = account;}
