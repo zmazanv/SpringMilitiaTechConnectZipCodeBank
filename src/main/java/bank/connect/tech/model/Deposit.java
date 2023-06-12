@@ -1,18 +1,39 @@
 package bank.connect.tech.model;
 
 import bank.connect.tech.model.enumeration.TransactionType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+@Entity
 public class Deposit {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    @Column(name = "type")
     private TransactionType type;
+    @Column(name = "transaction_date")
+    @JsonProperty("transaction_date")
     private String transaction_date;
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    @Column(name = "status")
     private String status;
-    private Long payee_id;
+    @Column(name = "payer_id")
+    private Long payerId;
+    @NotNull
+    @Column(name = "medium")
     private String medium;
+    @NotNull
+    @Column(name = "amount")
     private Double amount;
+    @Column(name = "description")
     private String description;
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -29,11 +50,11 @@ public class Deposit {
         this.type = type;
     }
 
-    public String getTransactionDate() {
+    public String getTransaction_date() {
         return transaction_date;
     }
 
-    public void setTransactionDate(String transaction_date) {
+    public void setTransaction_date(String transaction_date) {
         this.transaction_date = transaction_date;
     }
 
@@ -45,12 +66,12 @@ public class Deposit {
         this.status = status;
     }
 
-    public Long getPayeeId() {
-        return payee_id;
+    public Long getPayerId() {
+        return payerId;
     }
 
-    public void setPayeeId(Long payee_id) {
-        this.payee_id = payee_id;
+    public void setPayerId(Long payerId) {
+        this.payerId = payerId;
     }
 
     public String getMedium() {
