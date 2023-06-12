@@ -22,6 +22,7 @@ public class Customer {
     @JsonProperty("last_name")
     @NotEmpty
     private String lastName;
+
     @JsonManagedReference
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @JsonProperty("addresses")
