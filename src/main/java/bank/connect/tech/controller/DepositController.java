@@ -16,6 +16,8 @@ public class DepositController {
 
     @GetMapping("/accounts/{accountId}/deposits")
     public List<Deposit> getAllDepositsForAccount(@PathVariable("accountId") Long accountId) {
+
+
         return depositService.getAllDepositsForAccount(accountId);
     }
 
