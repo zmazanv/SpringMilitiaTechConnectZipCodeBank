@@ -1,0 +1,59 @@
+2023-06-12 02:59:14.901 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final
+2023-06-12 02:59:14.921 [main] INFO  b.c.t.TechConnectZipCodeBankApplication - Starting TechConnectZipCodeBankApplication using Java 20.0.1 on LAPTOP-QSS4C5M5 with PID 6624 (C:\Users\evela\Downloads\BBallTeams\SpringMilitiaTechConnectZipCodeBank\target\classes started by evela in C:\Users\evela\Downloads\BBallTeams\SpringMilitiaTechConnectZipCodeBank)
+2023-06-12 02:59:14.923 [main] INFO  b.c.t.TechConnectZipCodeBankApplication - No active profile set, falling back to 1 default profile: "default"
+2023-06-12 02:59:15.818 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-06-12 02:59:15.904 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 75 ms. Found 5 JPA repository interfaces.
+2023-06-12 02:59:16.641 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-06-12 02:59:16.650 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-06-12 02:59:16.650 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-06-12 02:59:16.651 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.75]
+2023-06-12 02:59:16.760 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-06-12 02:59:16.760 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1771 ms
+2023-06-12 02:59:16.964 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-06-12 02:59:17.019 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-06-12 02:59:17.243 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-06-12 02:59:17.402 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-06-12 02:59:17.586 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-06-12 02:59:17.597 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2023-06-12 02:59:18.433 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-06-12 02:59:18.443 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-06-12 02:59:18.973 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-06-12 02:59:19.598 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-06-12 02:59:19.633 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-06-12 02:59:19.647 [main] INFO  b.c.t.TechConnectZipCodeBankApplication - Started TechConnectZipCodeBankApplication in 5.215 seconds (JVM running for 5.884)
+2023-06-12 02:59:26.817 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-06-12 02:59:26.820 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-06-12 02:59:26.833 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-06-12 03:06:17.344 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 6.2.5.Final
+2023-06-12 03:06:17.367 [main] INFO  b.c.t.TechConnectZipCodeBankApplication - Starting TechConnectZipCodeBankApplication using Java 20.0.1 on LAPTOP-QSS4C5M5 with PID 14912 (C:\Users\evela\Downloads\BBallTeams\SpringMilitiaTechConnectZipCodeBank\target\classes started by evela in C:\Users\evela\Downloads\BBallTeams\SpringMilitiaTechConnectZipCodeBank)
+2023-06-12 03:06:17.368 [main] INFO  b.c.t.TechConnectZipCodeBankApplication - No active profile set, falling back to 1 default profile: "default"
+2023-06-12 03:06:18.447 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-06-12 03:06:18.556 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 93 ms. Found 5 JPA repository interfaces.
+2023-06-12 03:06:19.421 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-06-12 03:06:19.432 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-06-12 03:06:19.433 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2023-06-12 03:06:19.433 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.75]
+2023-06-12 03:06:19.570 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2023-06-12 03:06:19.570 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2130 ms
+2023-06-12 03:06:19.822 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-06-12 03:06:19.933 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-06-12 03:06:20.240 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-06-12 03:06:20.400 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-06-12 03:06:20.599 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-06-12 03:06:20.621 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2023-06-12 03:06:21.665 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-06-12 03:06:21.673 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-06-12 03:06:22.424 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-06-12 03:06:22.973 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-06-12 03:06:23.008 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2023-06-12 03:06:23.024 [main] INFO  b.c.t.TechConnectZipCodeBankApplication - Started TechConnectZipCodeBankApplication in 6.188 seconds (JVM running for 6.941)
+2023-06-12 03:06:29.923 [http-nio-8080-exec-3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-06-12 03:06:29.924 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-06-12 03:06:29.925 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2023-06-12 03:06:29.966 [http-nio-8080-exec-3] INFO  b.c.t.controller.AccountController - Fetching all accounts for account ID: 1
+2023-06-12 03:06:30.053 [http-nio-8080-exec-3] INFO  b.c.t.controller.AccountController - Successfully fetched all Account with account ID: 1
+2023-06-12 03:06:38.565 [http-nio-8080-exec-2] INFO  b.c.t.controller.AccountController - Fetching all accounts for account ID: 1
+2023-06-12 03:06:38.581 [http-nio-8080-exec-2] INFO  b.c.t.controller.AccountController - Successfully fetched all Account with account ID: 1
+2023-06-12 03:07:01.731 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-06-12 03:07:01.734 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-06-12 03:07:01.743 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
