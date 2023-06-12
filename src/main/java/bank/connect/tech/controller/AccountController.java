@@ -5,7 +5,7 @@ import bank.connect.tech.dto.create.AccountCreateDTO;
 import bank.connect.tech.dto.update.AccountUpdateDTO;
 import bank.connect.tech.model.Account;
 import bank.connect.tech.response.SuccessResponse;
-import bank.connect.tech.service.AccountService;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
