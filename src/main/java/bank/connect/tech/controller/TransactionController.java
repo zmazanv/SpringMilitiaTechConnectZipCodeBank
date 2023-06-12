@@ -18,7 +18,7 @@ public class TransactionController {
     private TransactionService transactionService;
 
 
-    @GetMapping("/accounts/{accountId}/transactions")
+    @GetMapping("/accounts/{accountId}/transactions") // TODO: DONE
     public ResponseEntity<?> getAllTransactionsByAccountId(@PathVariable Long accountId) {
         String exceptionMessage = "Unable to fetch transactions as no account was found matching the provided account ID: " + accountId;
 
@@ -30,7 +30,7 @@ public class TransactionController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-    @GetMapping("/transactions/{transactionId}")
+    @GetMapping("/transactions/{transactionId}") // TODO: DONE
     public ResponseEntity<?> getTransactionById(@PathVariable Long transactionId) {
         String exceptionMessage = "Unable to fetch transaction as no transaction was found matching the provided transaction ID: " + transactionId;
 
@@ -42,7 +42,7 @@ public class TransactionController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-    @PostMapping("/accounts/{accountId}/transactions")
+    @PostMapping("/accounts/{accountId}/transactions") // TODO: DONE
     public ResponseEntity<?>createTransaction(@PathVariable Long accountId, @Valid @RequestBody TransactionCreateDTO transactionCreateDTO) {
         String exceptionMessage = "Unable to create new transaction as no account was found matching the provided account ID: " + accountId;
 
@@ -54,7 +54,7 @@ public class TransactionController {
         return (new ResponseEntity<>(successResponse, HttpStatus.CREATED));
     }
 
-    @PutMapping("/transactions/{transactionId}")
+    @PutMapping("/transactions/{transactionId}") // TODO: DONE
     public ResponseEntity<?> updateTransaction(@PathVariable Long transactionId, @Valid @RequestBody TransactionUpdateDTO transactionUpdateDTO) {
         String exceptionMessage = "Unable to update transaction as no transaction was found matching the provided transaction ID: " + transactionId;
 
@@ -66,7 +66,7 @@ public class TransactionController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-    @DeleteMapping("/transactions/{transactionId}")
+    @DeleteMapping("/transactions/{transactionId}") // TODO: DONE
     public ResponseEntity<?> deleteTransaction(@PathVariable Long transactionId) {
         String exceptionMessage = "Unable to delete transaction as no transaction was found matching the provided transaction ID: " + transactionId;
 

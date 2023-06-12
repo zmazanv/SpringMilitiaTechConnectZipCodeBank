@@ -27,6 +27,7 @@ public class Transaction {
     @Column(name = "transaction_date")
     @JsonProperty("transaction_date")
     private LocalDate transactionDate;
+    @Enumerated(EnumType.STRING)
     @Column(name = "status")
     @JsonProperty("status")
     private TransactionStatus status;
