@@ -36,12 +36,12 @@ public class AccountController {
     @GetMapping("/accounts/{accountId}") // TODO: DONE
     public ResponseEntity<?> getAccountById(@PathVariable Long accountId) {
         String exceptionMessage = "Unable to fetch account as no account was found matching the provided account ID: " + accountId;
-        logger.debug("Fetching all deposits for account ID: {}", accountId);
+        logger.info("Fetching all deposits for account ID: {}", accountId);
         int successResponseCode = HttpStatus.OK.value();
         String successResponseMessage = "Successfully fetched account matching the provided account ID: " + accountId;
         Account successResponseData = this.accountService.getAccountById(accountId, exceptionMessage);
         SuccessResponse<Account> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
-        logger.debug("Successfully fetched all deposits for account ID: {}", accountId);
+        logger.info("Successfully fetched all deposits for account ID: {}", accountId);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
