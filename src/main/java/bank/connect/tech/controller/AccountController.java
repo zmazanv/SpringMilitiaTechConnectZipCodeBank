@@ -1,5 +1,6 @@
 package bank.connect.tech.controller;
 
+import bank.connect.tech.TechConnectZipCodeBankApplication;
 import bank.connect.tech.dto.create.AccountCreateDTO;
 import bank.connect.tech.dto.update.AccountUpdateDTO;
 import bank.connect.tech.model.Account;
@@ -25,6 +26,7 @@ public class AccountController {
         Iterable<Account> successResponseData = this.accountService.getAllAccounts();
         SuccessResponse<Iterable<Account>> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
@@ -37,9 +39,9 @@ public class AccountController {
         Account successResponseData = this.accountService.getAccountById(accountId, exceptionMessage);
         SuccessResponse<Account> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
-
 
     @GetMapping("/customers/{customerId}/accounts") // TODO: DONE
     public ResponseEntity<?> getAllAccountsByCustomerId (@PathVariable Long customerId) {
@@ -50,6 +52,7 @@ public class AccountController {
         Iterable<Account> successResponseData = this.accountService.getAllAccountsByCustomerId(customerId, exceptionMessage);
         SuccessResponse<Iterable<Account>> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
@@ -62,6 +65,7 @@ public class AccountController {
         Account successResponseData = this.accountService.createAccount(customerId, exceptionMessage, accountCreateDTO);
         SuccessResponse<Account> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.CREATED));
     }
 
@@ -74,6 +78,7 @@ public class AccountController {
         Account successResponseData = this.accountService.updateAccount(accountId, exceptionMessage, accountUpdateDTO);
         SuccessResponse<Account> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
@@ -86,6 +91,7 @@ public class AccountController {
         SuccessResponse<?> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, null);
 
         this.accountService.deleteAccount(accountId, exceptionMessage);
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 }

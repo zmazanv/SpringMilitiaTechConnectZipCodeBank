@@ -3,19 +3,19 @@ package bank.connect.tech.model.enumeration;
 import bank.connect.tech.response.exception.MissingPropertyException;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum BillStatus {
+public enum TransactionStatus {
 
     PENDING("Pending"),
     CANCELLED("Cancelled"),
-    COMPLETED("Completed"),
-    RECURRING("Recurring");
+    COMPLETED("Completed");
 
 
     private final String status;
 
 
-    private BillStatus(String status) {
+    private TransactionStatus (String status){
         this.status = status;
+
     }
 
 
@@ -25,12 +25,12 @@ public enum BillStatus {
         return this.status;
     }
 
-    public static BillStatus fromString(String statusString) {
-        for (BillStatus status : BillStatus.values()) {
+    public static TransactionStatus fromString(String statusString) {
+        for (TransactionStatus status : TransactionStatus.values()) {
             if (status.toString().equalsIgnoreCase(statusString)) {
                 return status;
             }
         }
-        throw (new MissingPropertyException("No enum constant " + BillStatus.class.getCanonicalName()));
+        throw (new MissingPropertyException("No enum constant " + TransactionType.class.getCanonicalName()));
     }
 }
