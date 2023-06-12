@@ -1,5 +1,6 @@
 package bank.connect.tech.response.exception.handler;
 
+import bank.connect.tech.TechConnectZipCodeBankApplication;
 import bank.connect.tech.response.exception.error.ErrorDetail;
 import bank.connect.tech.response.exception.error.NotFoundResponse;
 import bank.connect.tech.response.exception.error.ValidationError;
@@ -41,6 +42,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         NotFoundResponse notFoundResponse = new NotFoundResponse();
         notFoundResponse.setCode(HttpStatus.NOT_FOUND.value());
         notFoundResponse.setMessage(resourceNotFoundException.getMessage());
+        TechConnectZipCodeBankApplication.logger.info(resourceNotFoundException.getMessage());
         return (new ResponseEntity<>(notFoundResponse, HttpStatus.NOT_FOUND));
     }
 
@@ -52,6 +54,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         errorDetail.setTitle("Missing Property");
         errorDetail.setDetail(missingPropertyException.getMessage());
         errorDetail.setDeveloperMessage(missingPropertyException.getClass().getName());
+        TechConnectZipCodeBankApplication.logger.info(missingPropertyException.getMessage());
         return (new ResponseEntity<>(errorDetail, HttpStatus.BAD_REQUEST));
     }
 
@@ -76,6 +79,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             validationError.setMessage(this.messageSource.getMessage(fieldError, null));
             validationErrors.add(validationError);
         }
+        TechConnectZipCodeBankApplication.logger.info(methodArgumentNotValidException.getMessage());
         return super.handleMethodArgumentNotValid(methodArgumentNotValidException, headers, status, request);
     }
 
@@ -86,6 +90,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         errorDetail.setStatus(status.value());
         errorDetail.setTitle("Message Not Readable");
         errorDetail.setDeveloperMessage(httpMessageNotReadableException.getClass().getName());
+        TechConnectZipCodeBankApplication.logger.info(httpMessageNotReadableException.getMessage());
         return super.handleExceptionInternal(httpMessageNotReadableException, errorDetail, headers, status, request);
     }
 }

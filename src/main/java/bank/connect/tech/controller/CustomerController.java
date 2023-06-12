@@ -1,5 +1,6 @@
 package bank.connect.tech.controller;
 
+import bank.connect.tech.TechConnectZipCodeBankApplication;
 import bank.connect.tech.dto.update.CustomerUpdateDTO;
 import bank.connect.tech.model.Customer;
 import bank.connect.tech.response.SuccessResponse;
@@ -26,6 +27,7 @@ public class CustomerController {
         Customer successResponseData = this.customerService.getCustomerByAccountId(accountId, exceptionMessage);
         SuccessResponse<Customer> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
@@ -36,6 +38,7 @@ public class CustomerController {
         Customer successResponseData = this.customerService.createCustomer(customer);
         SuccessResponse<Customer> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.CREATED));
     }
 
@@ -46,6 +49,7 @@ public class CustomerController {
         Iterable<Customer> successResponseData = this.customerService.getAllCustomers();
         SuccessResponse<Iterable<Customer>> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
@@ -58,6 +62,7 @@ public class CustomerController {
         Customer successResponseData = this.customerService.getCustomerById(customerId, exceptionMessage);
         SuccessResponse<Customer> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
@@ -70,6 +75,7 @@ public class CustomerController {
         Customer successResponseData = this.customerService.updateCustomer(customerId, exceptionMessage, customerUpdateDTO);
         SuccessResponse<Customer> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 }
