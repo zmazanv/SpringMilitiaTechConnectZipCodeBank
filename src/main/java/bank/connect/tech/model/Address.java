@@ -11,6 +11,7 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonProperty("id")
     private Long id;
     @Column(name = "street_number")
     @NotEmpty
@@ -58,7 +59,4 @@ public class Address {
 
     public Customer getCustomer() {return this.customer;}
     public void setCustomer(Customer customer) {this.customer = customer;}
-
 }
-
-

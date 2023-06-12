@@ -4,27 +4,31 @@ import bank.connect.tech.response.exception.MissingPropertyException;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum TransactionType {
-    P2P ("P2P"),
-    DEPOSIT ("Deposit"),
-    WITHDRAWAL ("Recurring");
 
-    private final String status;
+    P2P("P2P"),
+    DEPOSIT("Deposit"),
+    WITHDRAWAL("Withdrawal");
 
-    private TransactionType (String status){
-        this.status = status;
+
+    private final String type;
+
+
+    private TransactionType (String type){
+        this.type = type;
 
     }
+
 
     @Override
     @JsonValue
     public String toString() {
-        return this.status;
+        return this.type;
     }
 
-    public static TransactionType fromString(String statusString) {
-        for (TransactionType status : TransactionType.values()) {
-            if (status.toString().equalsIgnoreCase(statusString)) {
-                return status;
+    public static TransactionType fromString(String typeString) {
+        for (TransactionType type : TransactionType.values()) {
+            if (type.toString().equalsIgnoreCase(typeString)) {
+                return type;
             }
         }
         throw (new MissingPropertyException("No enum constant " + TransactionType.class.getCanonicalName()));

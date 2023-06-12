@@ -1,24 +1,15 @@
 package bank.connect.tech.service;
 
-<<<<<<< HEAD
-import bank.connect.tech.dto.AccountDTO;
-
 import bank.connect.tech.dto.create.AccountCreateDTO;
 import bank.connect.tech.dto.update.AccountUpdateDTO;
-
-=======
-import bank.connect.tech.dto.create.AccountCreateDTO;
-import bank.connect.tech.dto.update.AccountUpdateDTO;
->>>>>>> main
 import bank.connect.tech.response.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Account;
 import bank.connect.tech.model.enumeration.AccountType;
 import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.repository.CustomerRepository;
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @Service
 public class AccountService {
@@ -87,8 +78,4 @@ public class AccountService {
         this.verifyCustomer(customerId, exceptionMessage);
         return this.accountRepository.findAllAccountsByCustomerId(customerId);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> main

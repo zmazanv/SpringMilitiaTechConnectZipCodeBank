@@ -15,12 +15,13 @@ public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonProperty("id")
     private Long id;
     @Enumerated(EnumType.STRING)
     @NotNull
     @Column(name = "status")
     @JsonProperty("status")
-    private BillStatus billStatus;
+    private BillStatus status;
     @Column(name = "payee")
     @JsonProperty("payee")
     private String payee;
@@ -28,6 +29,7 @@ public class Bill {
     @JsonProperty("nickname")
     private String nickname;
     @Column(name = "creation_date")
+    @JsonProperty("creation_date")
     private LocalDate creationDate;
     @Column(name = "payment_date")
     @JsonProperty("payment_date")
@@ -36,6 +38,7 @@ public class Bill {
     @JsonProperty("recurring_date")
     private Byte recurringDate; // FIXME: Put in failsafe to restrict value to be between 1 and 31
     @Column(name = "upcoming_payment_date")
+    @JsonProperty("upcoming_payment_date")
     private LocalDate upcomingPaymentDate;
     @Column(name = "payment_amount")
     @JsonProperty("payment_amount")
@@ -50,8 +53,8 @@ public class Bill {
     public Long getId() {return this.id;}
     public void setId(Long id) {this.id = id;}
 
-    public BillStatus getBillStatus() {return this.billStatus;}
-    public void setBillStatus(BillStatus billStatus) {this.billStatus = billStatus;}
+    public BillStatus getStatus() {return this.status;}
+    public void setStatus(BillStatus status) {this.status = status;}
 
     public String getPayee() {return this.payee;}
     public void setPayee(String payee) {this.payee = payee;}
@@ -82,8 +85,4 @@ public class Bill {
     public Long getAccountId() {
         return this.account != null ? this.account.getId() : null;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> main
