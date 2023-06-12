@@ -1,11 +1,8 @@
 package bank.connect.tech.service;
 
-import bank.connect.tech.dto.create.BillCreateDTO;
 import bank.connect.tech.dto.create.DepositCreateDTO;
-import bank.connect.tech.dto.update.BillUpdateDTO;
-import bank.connect.tech.model.Bill;
+import bank.connect.tech.dto.update.DepositUpdateDTO;
 import bank.connect.tech.model.Deposit;
-import bank.connect.tech.model.enumeration.BillStatus;
 import bank.connect.tech.model.enumeration.TransactionMedium;
 import bank.connect.tech.model.enumeration.TransactionStatus;
 import bank.connect.tech.model.enumeration.TransactionType;
@@ -79,49 +76,25 @@ public class DepositService {
         return this.depositRepository.save(deposit);
     }
 
-    public Bill updateBill(Long billId, String exceptionMessage, BillUpdateDTO billUpdateDTO) {
-        this.verifyBill(billId, exceptionMessage);
-        Bill billToUpdate = this.billRepository.findById(billId).get();
-        if (!(Objects.isNull(billUpdateDTO.getStatus())) && !(billUpdateDTO.getStatus().isBlank())) {
-            billToUpdate.setBillStatus(BillStatus.fromString(billUpdateDTO.getStatus()));
+    public Deposit updateDeposit(Long depositId, String exceptionMessage, DepositUpdateDTO depositUpdateDTO) {
+        this.verifyDeposit(depositId, exceptionMessage);
+        Deposit depositToUpdate = this.depositRepository.findById(depositId).get();
+        if (!(Objects.isNull(depositUpdateDTO.getStatus())) && !(depositUpdateDTO.getStatus().isBlank())) {
+            depositToUpdate.setStatus(TransactionStatus.fromString(depositUpdateDTO.getStatus()));
         }
-        if (!(Objects.isNull(billUpdateDTO.getPayee())) && !(billUpdateDTO.getPayee().isBlank())) {
-            billToUpdate.setPayee(billUpdateDTO.getPayee());
+        if (!(Objects.isNull(depositUpdateDTO.getDescription())) && !(depositUpdateDTO.getDescription().isBlank())) {
+            depositToUpdate.setDescription(depositUpdateDTO.getDescription());
         }
-        if (!(Objects.isNull(billUpdateDTO.getNickname())) && !(billUpdateDTO.getNickname().isBlank())) {
-            billToUpdate.setNickname(billUpdateDTO.getNickname());
-        }
-        if (!(Objects.isNull(billUpdateDTO.getPaymentDate()))) {
-            billToUpdate.setPaymentDate(billUpdateDTO.getPaymentDate());
-        }
-        if (!(Objects.isNull(billUpdateDTO.getRecurringDate()))) {
-            billToUpdate.setRecurringDate(billUpdateDTO.getRecurringDate());
-            LocalDate today = LocalDate.now();
-            LocalDate nextRecurringDate = LocalDate.of(today.getYear(), today.getMonth(), billUpdateDTO.getRecurringDate());
-            if (nextRecurringDate.isBefore(today)) {
-                nextRecurringDate = nextRecurringDate.plusMonths(1);
-            }
-            billToUpdate.setUpcomingPaymentDate(nextRecurringDate);
-        }
-        //if (billUpdateDTO.getPaymentAmount() != null) {
-        if (!(Objects.isNull(billUpdateDTO.getPaymentAmount()))) {
-            billToUpdate.setPaymentAmount(billUpdateDTO.getPaymentAmount());
-        }
-        return this.billRepository.save(billToUpdate);
+        return this.depositRepository.save(depositToUpdate);
     }
 
-    public void deleteBill(Long billId, String exceptionMessage) {
-        this.verifyBill(billId, exceptionMessage);
-        this.billRepository.deleteById(billId);
+    public void deleteDeposit(Long depositId, String exceptionMessage) {
+        this.verifyDeposit(depositId, exceptionMessage);
+        this.depositRepository.deleteById(depositId);
     }
 
-    public Iterable<Bill> getAllBillsByAccountId(Long accountId, String exceptionMessage) {
+    public Iterable<Deposit> getAllDepositsByAccountId(Long accountId, String exceptionMessage) {
         this.verifyAccount(accountId, exceptionMessage);
-        return this.billRepository.findAllBillsByAccountId(accountId);
-    }
-
-    public Iterable<Bill> getAllBillsByCustomerId(Long customerId, String exceptionMessage) {
-        this.verifyCustomer(customerId, exceptionMessage);
-        return this.billRepository.findAllBillsByCustomerId(customerId);
+        return this.depositRepository.findAllDepositsByAccountId(accountId);
     }
 }

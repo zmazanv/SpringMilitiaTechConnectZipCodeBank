@@ -38,8 +38,8 @@ public class Deposit {
     @Column(name = "description")
     @JsonProperty("description")
     private String description;
-    @OneToOne(optional = false)
-    @JoinColumn(name = "account_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "account_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Account account;
