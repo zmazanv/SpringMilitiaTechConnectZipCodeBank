@@ -11,6 +11,7 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonProperty("id")
     private Long id;
     @Column(name = "street_number")
     @NotEmpty
