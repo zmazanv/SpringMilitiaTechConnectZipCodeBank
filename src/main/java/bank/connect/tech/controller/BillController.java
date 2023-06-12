@@ -1,7 +1,9 @@
 package bank.connect.tech.controller;
 
-import bank.connect.tech.dto.BillCreateDTO;
-import bank.connect.tech.dto.BillUpdateDTO;
+
+import bank.connect.tech.dto.create.BillCreateDTO;
+import bank.connect.tech.dto.update.BillUpdateDTO;
+
 import bank.connect.tech.model.Bill;
 import bank.connect.tech.response.SuccessResponse;
 import bank.connect.tech.service.BillService;
@@ -18,7 +20,8 @@ public class BillController {
     private BillService billService;
 
 
-    @GetMapping("/accounts/{accountId}/bills")
+
+    @GetMapping("/accounts/{accountId}/bills") // TODO: DONE
     public ResponseEntity<?> getAllBillsByAccountId(@PathVariable Long accountId){
         String exceptionMessage = "Unable to fetch bills as no account was found matching the provided account ID: " + accountId;
 
@@ -30,7 +33,8 @@ public class BillController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-    @GetMapping("/customers/{customerId}/bills")
+
+    @GetMapping("/customers/{customerId}/bills") // TODO: DONE
     public ResponseEntity<?> getAllBillsByCustomerId(@PathVariable Long customerId){
         String exceptionMessage = "Unable to fetch bills as no customer was found matching the provided customer ID: " + customerId;
 
@@ -42,7 +46,8 @@ public class BillController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-    @GetMapping("/bills/{billId}")
+
+    @GetMapping("/bills/{billId}") // TODO: DONE
     public ResponseEntity<?> getBillWithId(@PathVariable Long billId){
         String exceptionMessage = "Unable to fetch bill as no bill was found matching the provided bill ID: " + billId;
 
@@ -54,7 +59,8 @@ public class BillController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-    @PostMapping("/accounts/{accountId}/bills")
+
+    @PostMapping("/accounts/{accountId}/bills") // TODO: DONE
     public ResponseEntity<?>createBill(@PathVariable Long accountId, @Valid @RequestBody BillCreateDTO billCreateDTO){
         String exceptionMessage = "Unable to create new bill as no account was found matching the provided account ID: " + accountId;
 
@@ -66,7 +72,8 @@ public class BillController {
         return (new ResponseEntity<>(successResponse, HttpStatus.CREATED));
     }
 
-    @PutMapping("/bills/{billId}")
+
+    @PutMapping("/bills/{billId}") // TODO: DONE
     public ResponseEntity<?> updateBill(@PathVariable Long billId, @Valid @RequestBody BillUpdateDTO billUpdateDTO){
         String exceptionMessage = "Unable to update bill as no bill was found matching the provided bill ID: " + billId;
 
@@ -78,15 +85,19 @@ public class BillController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-    @DeleteMapping("/bills/{billId}")
+
+    @DeleteMapping("/bills/{billId}") // TODO: DONE
     public ResponseEntity<?> deleteBill(@PathVariable Long billId){
         String exceptionMessage = "Unable to delete bill as no bill was found matching the provided bill ID: " + billId;
 
-        int successResponseCode = HttpStatus.NO_CONTENT.value();
+        int successResponseCode = HttpStatus.OK.value();
+
         String successResponseMessage = "Successfully deleted bill matching the provided bill ID: " + billId;
         SuccessResponse<?> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, null);
 
         this.billService.deleteBill(billId, exceptionMessage);
-        return (new ResponseEntity<>(successResponse, HttpStatus.NO_CONTENT));
+
+        return (new ResponseEntity<>(successResponse, HttpStatus.OK));
+
     }
 }

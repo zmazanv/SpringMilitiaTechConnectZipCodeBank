@@ -1,31 +1,44 @@
 package bank.connect.tech.controller;
 
 import bank.connect.tech.model.Deposit;
-import bank.connect.tech.response.SuccessResponse;
+
 import bank.connect.tech.service.DepositService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class DepositController {
+    private final DepositService depositService;
 
-    @Autowired
-    private DepositService depositService;
-
+    public DepositController(DepositService depositService) {
+        this.depositService = depositService;
+    }
 
     @GetMapping("/accounts/{accountId}/deposits")
-    public ResponseEntity<?> getAllDepositById (@PathVariable Long accountId){
-        String exceptionMessage = "Account not found";
+    public List<Deposit> getAllDepositsForAccount(@PathVariable("accountId") Long accountId) {
+        return depositService.getAllDepositsForAccount(accountId);
+    }
 
-        int successResponseCode = HttpStatus.OK.value();
-        String successResponseMessage = "Successfully fetched customer of account with ID: " + accountId;
-        Deposit successResponseData = this.depositService.getDepositById(accountId, exceptionMessage);
-        SuccessResponse<Deposit> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
+    @GetMapping("/deposits/{depositId}")
+    public Deposit getDepositById(@PathVariable("depositId") Long depositId) {
+        return depositService.getDepositById(depositId);
+    }
 
-        return (new ResponseEntity<>(successResponse, HttpStatus.OK));
+    @PostMapping("/accounts/{accountId}/deposits")
+    public Deposit createDeposit(@PathVariable("accountId") Long accountId, @RequestBody Deposit deposit) {
+        return depositService.createDeposit(accountId, deposit);
+    }
+
+    @PutMapping("/deposits/{depositId}")
+    public Deposit updateDeposit(@PathVariable("depositId") Long depositId, @RequestBody Deposit deposit) {
+        deposit.setId(depositId);
+        return depositService.updateDeposit(deposit);
+    }
+
+    @DeleteMapping("/deposits/{depositId}")
+    public void deleteDeposit(@PathVariable("depositId") Long depositId) {
+        depositService.deleteDeposit(depositId);
+
     }
 }

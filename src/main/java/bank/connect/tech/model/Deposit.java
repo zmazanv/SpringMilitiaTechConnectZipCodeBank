@@ -1,63 +1,40 @@
 package bank.connect.tech.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import bank.connect.tech.model.enumeration.TransactionType;
 
-import javax.persistence.*;
-
-@Entity
 public class Deposit {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    @JsonIgnore
-    private Long Id;
-
-    @Column(name = "type")
-    @JsonProperty("type")
-    private String type;
-    @Column(name = "transaction_date")
-    @JsonProperty("transaction_date" )
+    private Long id;
+    private TransactionType type;
     private String transaction_date;
-    @Column(name = "status")
-    @JsonProperty("status")
     private String status;
-    @Column(name = "payee_id")
-    @JsonProperty ( "payee_id")
     private Long payee_id;
-
-    @Column(name = "medium")
-    @JsonProperty( "medium")
     private String medium;
-    @Column(name = " amount")
-    @JsonProperty("amount")
     private Double amount;
-    @Column(name = "description")
-    @JsonProperty ("description")
     private String description;
 
+    // Getters and Setters
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
-    public String getType() {
+    public TransactionType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TransactionType type) {
         this.type = type;
     }
 
-    public String getTransaction_date() {
+    public String getTransactionDate() {
         return transaction_date;
     }
 
-    public void setTransaction_date(String transaction_date) {
+    public void setTransactionDate(String transaction_date) {
+
         this.transaction_date = transaction_date;
     }
 
@@ -69,11 +46,13 @@ public class Deposit {
         this.status = status;
     }
 
-    public Long getPayee_id() {
+
+    public Long getPayeeId() {
         return payee_id;
     }
 
-    public void setPayee_id(Long payee_id) {
+    public void setPayeeId(Long payee_id) {
+
         this.payee_id = payee_id;
     }
 

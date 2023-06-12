@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -15,10 +17,11 @@ public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @JsonIgnore
+
     private Long id;
     @Enumerated(EnumType.STRING)
-    @NotEmpty
+    @NotNull
+
     @Column(name = "status")
     @JsonProperty("status")
     private BillStatus billStatus;
@@ -29,16 +32,17 @@ public class Bill {
     @JsonProperty("nickname")
     private String nickname;
     @Column(name = "creation_date")
-    @JsonIgnore
+
     private LocalDate creationDate;
     @Column(name = "payment_date")
     @JsonProperty("payment_date")
     private LocalDate paymentDate;
     @Column(name = "recurring_date")
     @JsonProperty("recurring_date")
-    private Byte recurringDate; // TODO: Put in failsafe to restrict value to be between 1 and 31
+
+    private Byte recurringDate; // FIXME: Put in failsafe to restrict value to be between 1 and 31
     @Column(name = "upcoming_payment_date")
-    @JsonIgnore
+
     private LocalDate upcomingPaymentDate;
     @Column(name = "payment_amount")
     @JsonProperty("payment_amount")
@@ -77,6 +81,14 @@ public class Bill {
     public Double getPaymentAmount() {return this.paymentAmount;}
     public void setPaymentAmount(Double paymentAmount) {this.paymentAmount = paymentAmount;}
 
+
+    @JsonIgnore
     public Account getAccount() {return this.account;}
     public void setAccount(Account account) {this.account = account;}
+
+    @JsonProperty("account_id")
+    public Long getAccountId() {
+        return this.account != null ? this.account.getId() : null;
+    }
+
 }

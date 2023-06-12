@@ -4,7 +4,9 @@ import bank.connect.tech.model.enumeration.AccountType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -14,13 +16,13 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @JsonIgnore
+
     private Long id;
     @Enumerated(EnumType.STRING)
-    @NotEmpty
+    @NotNull
     @Column(name = "type")
-    @JsonIgnore
-    private AccountType accountType;
+    private AccountType type;
+
     @Column(name = "nickname")
     @JsonProperty("nickname")
     private String nickname;
@@ -40,8 +42,8 @@ public class Account {
     public Long getId() {return this.id;}
     public void setId(Long id) {this.id = id;}
 
-    public AccountType getAccountType() {return this.accountType;}
-    public void setAccountType(AccountType accountType) {this.accountType = accountType;}
+    public AccountType getType() {return this.type;}
+    public void setType(AccountType type) {this.type = type;}
 
     public String getNickname() {return this.nickname;}
     public void setNickname(String nickname) {this.nickname = nickname;}
@@ -52,6 +54,12 @@ public class Account {
     public Double getBalance() {return this.balance;}
     public void setBalance(Double balance) {this.balance = balance;}
 
+    @JsonIgnore
     public Customer getCustomer() {return this.customer;}
     public void setCustomer(Customer customer) {this.customer = customer;}
+
+    @JsonProperty("customer_id")
+    public Long getCustomerId() {
+        return this.customer != null ? this.customer.getId() : null;
+    }
 }
