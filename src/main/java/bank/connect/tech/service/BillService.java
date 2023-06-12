@@ -83,11 +83,9 @@ public class BillService {
         if (!(Objects.isNull(billUpdateDTO.getNickname())) && !(billUpdateDTO.getNickname().isBlank())) {
             billToUpdate.setNickname(billUpdateDTO.getNickname());
         }
-        //if (billUpdateDTO.getPaymentDate() != null) {
         if (!(Objects.isNull(billUpdateDTO.getPaymentDate()))) {
             billToUpdate.setPaymentDate(billUpdateDTO.getPaymentDate());
         }
-        //if (billUpdateDTO.getRecurringDate() != null) {
         if (!(Objects.isNull(billUpdateDTO.getRecurringDate()))) {
             billToUpdate.setRecurringDate(billUpdateDTO.getRecurringDate());
             LocalDate today = LocalDate.now();
