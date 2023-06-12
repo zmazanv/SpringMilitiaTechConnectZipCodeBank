@@ -10,9 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 public class AccountController {
+    private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 
     @Autowired
     private AccountService accountService;
@@ -31,12 +34,12 @@ public class AccountController {
     @GetMapping("/accounts/{accountId}") // TODO: DONE
     public ResponseEntity<?> getAccountById(@PathVariable Long accountId) {
         String exceptionMessage = "Unable to fetch account as no account was found matching the provided account ID: " + accountId;
-
+        logger.debug("Fetching all deposits for account ID: {}", accountId);
         int successResponseCode = HttpStatus.OK.value();
         String successResponseMessage = "Successfully fetched account matching the provided account ID: " + accountId;
         Account successResponseData = this.accountService.getAccountById(accountId, exceptionMessage);
         SuccessResponse<Account> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
-
+        logger.debug("Successfully fetched all deposits for account ID: {}", accountId);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
