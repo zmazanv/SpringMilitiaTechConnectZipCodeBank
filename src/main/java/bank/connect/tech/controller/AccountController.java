@@ -24,7 +24,6 @@ public class AccountController {
 
     @GetMapping("/accounts") // TODO: DONE
     public ResponseEntity<?> getAllAccounts() {
-
         int successResponseCode = HttpStatus.OK.value();
         String successResponseMessage = "Successfully fetched all accounts";
         Iterable<Account> successResponseData = this.accountService.getAllAccounts();
