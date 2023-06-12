@@ -1,10 +1,14 @@
 package bank.connect.tech.service;
 
 import bank.connect.tech.dto.create.BillCreateDTO;
+import bank.connect.tech.dto.create.DepositCreateDTO;
 import bank.connect.tech.dto.update.BillUpdateDTO;
 import bank.connect.tech.model.Bill;
 import bank.connect.tech.model.Deposit;
 import bank.connect.tech.model.enumeration.BillStatus;
+import bank.connect.tech.model.enumeration.TransactionMedium;
+import bank.connect.tech.model.enumeration.TransactionStatus;
+import bank.connect.tech.model.enumeration.TransactionType;
 import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.repository.BillRepository;
 import bank.connect.tech.repository.CustomerRepository;
@@ -61,24 +65,18 @@ public class DepositService {
         return this.depositRepository.findById(depositId).get();
     }
 
-    public Bill createBill(Long accountId, String exceptionMessage, BillCreateDTO billCreateDTO) {
+    public Deposit createDeposit(Long accountId, String exceptionMessage, DepositCreateDTO depositCreateDTO) {
         this.verifyAccount(accountId, exceptionMessage);
-        Bill bill = new Bill();
         LocalDate today = LocalDate.now();
-        LocalDate nextRecurringDate = LocalDate.of(today.getYear(), today.getMonth(), billCreateDTO.getRecurringDate());
-        bill.setBillStatus(BillStatus.fromString(billCreateDTO.getStatus()));
-        bill.setPayee(billCreateDTO.getPayee());
-        bill.setNickname(billCreateDTO.getNickname());
-        bill.setCreationDate(today);
-        bill.setPaymentDate(billCreateDTO.getPaymentDate());
-        bill.setRecurringDate(billCreateDTO.getRecurringDate());
-        if (nextRecurringDate.isBefore(today)) {
-            nextRecurringDate = nextRecurringDate.plusMonths(1);
-        }
-        bill.setUpcomingPaymentDate(nextRecurringDate);
-        bill.setPaymentAmount(billCreateDTO.getPaymentAmount());
-        bill.setAccount(this.accountRepository.findById(accountId).get());
-        return this.billRepository.save(bill);
+        Deposit deposit = new Deposit();
+        deposit.setType(TransactionType.fromString(depositCreateDTO.getType()));
+        deposit.setStatus(TransactionStatus.fromString(depositCreateDTO.getStatus()));
+        deposit.setMedium(TransactionMedium.fromString(depositCreateDTO.getMedium()));
+        deposit.setAmount(depositCreateDTO.getAmount());
+        deposit.setDescription(depositCreateDTO.getDescription());
+        deposit.setTransactionDate(today);
+        deposit.setAccount(this.accountRepository.findById(accountId).get());
+        return this.depositRepository.save(deposit);
     }
 
     public Bill updateBill(Long billId, String exceptionMessage, BillUpdateDTO billUpdateDTO) {
