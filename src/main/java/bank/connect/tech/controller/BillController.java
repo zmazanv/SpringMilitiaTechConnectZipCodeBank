@@ -1,5 +1,6 @@
 package bank.connect.tech.controller;
 
+import bank.connect.tech.TechConnectZipCodeBankApplication;
 import bank.connect.tech.dto.create.BillCreateDTO;
 import bank.connect.tech.dto.update.BillUpdateDTO;
 import bank.connect.tech.model.Bill;
@@ -27,6 +28,7 @@ public class BillController {
         Iterable<Bill> successResponseData = this.billService.getAllBillsByAccountId(accountId, exceptionMessage);
         SuccessResponse<?> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
@@ -39,6 +41,7 @@ public class BillController {
         Iterable<Bill> successResponseData = this.billService.getAllBillsByCustomerId(customerId, exceptionMessage);
         SuccessResponse<Iterable<Bill>> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
@@ -51,6 +54,7 @@ public class BillController {
         Bill successResponseData = this.billService.getBillById(billId, exceptionMessage);
         SuccessResponse<Bill> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
@@ -63,6 +67,7 @@ public class BillController {
         Bill successResponseData = this.billService.createBill(accountId, exceptionMessage, billCreateDTO);
         SuccessResponse<Bill> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.CREATED));
     }
 
@@ -75,6 +80,7 @@ public class BillController {
         Bill successResponseData = this.billService.updateBill(billId, exceptionMessage, billUpdateDTO);
         SuccessResponse<Bill> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
@@ -87,6 +93,7 @@ public class BillController {
         SuccessResponse<?> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, null);
 
         this.billService.deleteBill(billId, exceptionMessage);
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 }

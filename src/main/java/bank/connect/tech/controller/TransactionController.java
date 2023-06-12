@@ -1,5 +1,6 @@
 package bank.connect.tech.controller;
 
+import bank.connect.tech.TechConnectZipCodeBankApplication;
 import bank.connect.tech.dto.create.TransactionCreateDTO;
 import bank.connect.tech.dto.update.TransactionUpdateDTO;
 import bank.connect.tech.model.Transaction;
@@ -27,6 +28,7 @@ public class TransactionController {
         Iterable<Transaction> successResponseData = this.transactionService.getAllTransactionsByAccountId(accountId, exceptionMessage);
         SuccessResponse<Iterable<Transaction>> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
@@ -39,6 +41,7 @@ public class TransactionController {
         Transaction successResponseData = this.transactionService.getTransactionById(transactionId, exceptionMessage);
         SuccessResponse<Transaction> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
@@ -51,6 +54,7 @@ public class TransactionController {
         Transaction successResponseData = this.transactionService.createTransaction(accountId, exceptionMessage, transactionCreateDTO);
         SuccessResponse<Transaction> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.CREATED));
     }
 
@@ -63,6 +67,7 @@ public class TransactionController {
         Transaction successResponseData = this.transactionService.updateTransaction(transactionId, exceptionMessage, transactionUpdateDTO);
         SuccessResponse<Transaction> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
@@ -75,6 +80,7 @@ public class TransactionController {
         SuccessResponse<?> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, null);
 
         this.transactionService.deleteTransaction(transactionId, exceptionMessage);
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 }
