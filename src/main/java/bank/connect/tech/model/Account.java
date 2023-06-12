@@ -4,9 +4,7 @@ import bank.connect.tech.model.enumeration.AccountType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
-
 import javax.validation.constraints.NotNull;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -16,13 +14,13 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-
+    @JsonProperty("id")
     private Long id;
     @Enumerated(EnumType.STRING)
     @NotNull
     @Column(name = "type")
+    @JsonProperty("type")
     private AccountType type;
-
     @Column(name = "nickname")
     @JsonProperty("nickname")
     private String nickname;

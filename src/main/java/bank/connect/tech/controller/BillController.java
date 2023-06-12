@@ -1,9 +1,7 @@
 package bank.connect.tech.controller;
 
-
 import bank.connect.tech.dto.create.BillCreateDTO;
 import bank.connect.tech.dto.update.BillUpdateDTO;
-
 import bank.connect.tech.model.Bill;
 import bank.connect.tech.response.SuccessResponse;
 import bank.connect.tech.service.BillService;
@@ -20,9 +18,8 @@ public class BillController {
     private BillService billService;
 
 
-
     @GetMapping("/accounts/{accountId}/bills") // TODO: DONE
-    public ResponseEntity<?> getAllBillsByAccountId(@PathVariable Long accountId){
+    public ResponseEntity<?> getAllBillsByAccountId(@PathVariable Long accountId) {
         String exceptionMessage = "Unable to fetch bills as no account was found matching the provided account ID: " + accountId;
 
         int successResponseCode = HttpStatus.OK.value();
@@ -33,9 +30,8 @@ public class BillController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-
     @GetMapping("/customers/{customerId}/bills") // TODO: DONE
-    public ResponseEntity<?> getAllBillsByCustomerId(@PathVariable Long customerId){
+    public ResponseEntity<?> getAllBillsByCustomerId(@PathVariable Long customerId) {
         String exceptionMessage = "Unable to fetch bills as no customer was found matching the provided customer ID: " + customerId;
 
         int successResponseCode = HttpStatus.OK.value();
@@ -46,9 +42,8 @@ public class BillController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-
     @GetMapping("/bills/{billId}") // TODO: DONE
-    public ResponseEntity<?> getBillWithId(@PathVariable Long billId){
+    public ResponseEntity<?> getBillWithId(@PathVariable Long billId) {
         String exceptionMessage = "Unable to fetch bill as no bill was found matching the provided bill ID: " + billId;
 
         int successResponseCode = HttpStatus.OK.value();
@@ -59,9 +54,8 @@ public class BillController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-
     @PostMapping("/accounts/{accountId}/bills") // TODO: DONE
-    public ResponseEntity<?>createBill(@PathVariable Long accountId, @Valid @RequestBody BillCreateDTO billCreateDTO){
+    public ResponseEntity<?>createBill(@PathVariable Long accountId, @Valid @RequestBody BillCreateDTO billCreateDTO) {
         String exceptionMessage = "Unable to create new bill as no account was found matching the provided account ID: " + accountId;
 
         int successResponseCode = HttpStatus.CREATED.value();
@@ -72,32 +66,27 @@ public class BillController {
         return (new ResponseEntity<>(successResponse, HttpStatus.CREATED));
     }
 
-
     @PutMapping("/bills/{billId}") // TODO: DONE
-    public ResponseEntity<?> updateBill(@PathVariable Long billId, @Valid @RequestBody BillUpdateDTO billUpdateDTO){
+    public ResponseEntity<?> updateBill(@PathVariable Long billId, @Valid @RequestBody BillUpdateDTO billUpdateDTO) {
         String exceptionMessage = "Unable to update bill as no bill was found matching the provided bill ID: " + billId;
 
         int successResponseCode = HttpStatus.OK.value();
         String successResponseMessage = "Successfully updated bill matching the provided bill ID: " + billId;
         Bill successResponseData = this.billService.updateBill(billId, exceptionMessage, billUpdateDTO);
-        SuccessResponse<?> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
+        SuccessResponse<Bill> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-
     @DeleteMapping("/bills/{billId}") // TODO: DONE
-    public ResponseEntity<?> deleteBill(@PathVariable Long billId){
+    public ResponseEntity<?> deleteBill(@PathVariable Long billId) {
         String exceptionMessage = "Unable to delete bill as no bill was found matching the provided bill ID: " + billId;
 
         int successResponseCode = HttpStatus.OK.value();
-
         String successResponseMessage = "Successfully deleted bill matching the provided bill ID: " + billId;
         SuccessResponse<?> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, null);
 
         this.billService.deleteBill(billId, exceptionMessage);
-
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
-
     }
 }

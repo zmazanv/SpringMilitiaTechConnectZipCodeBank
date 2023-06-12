@@ -1,8 +1,6 @@
 package bank.connect.tech.controller;
 
-
 import bank.connect.tech.dto.update.CustomerUpdateDTO;
-
 import bank.connect.tech.model.Customer;
 import bank.connect.tech.response.SuccessResponse;
 import bank.connect.tech.service.CustomerService;
@@ -12,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 public class CustomerController {
 
@@ -20,7 +17,7 @@ public class CustomerController {
     private CustomerService customerService;
 
 
-    @GetMapping("/accounts/{accountId}/customer")
+    @GetMapping("/accounts/{accountId}/customer") // TODO: DONE
     public ResponseEntity<?> getCustomerByAccountId(@PathVariable Long accountId) {
         String exceptionMessage = "Unable to fetch customer as no account was found matching the provided account ID: " + accountId;
 
@@ -30,7 +27,6 @@ public class CustomerController {
         SuccessResponse<Customer> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
-
     }
 
     @PostMapping ("/customers") // TODO: DONE
@@ -65,17 +61,13 @@ public class CustomerController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-
     @PutMapping("/customers/{customerId}") // TODO: DONE
     public ResponseEntity<?> updateCustomer (@PathVariable Long customerId, @Valid @RequestBody CustomerUpdateDTO customerUpdateDTO){
-
         String exceptionMessage = "Unable to update customer as no customer was found matching the provided customer ID: " + customerId;
 
         int successResponseCode = HttpStatus.OK.value();
         String successResponseMessage = "Successfully updated customer matching the provided customer ID: " + customerId;
-
         Customer successResponseData = this.customerService.updateCustomer(customerId, exceptionMessage, customerUpdateDTO);
-
         SuccessResponse<Customer> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));

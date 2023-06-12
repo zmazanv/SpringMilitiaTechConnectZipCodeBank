@@ -1,19 +1,15 @@
 package bank.connect.tech.service;
 
-
 import bank.connect.tech.dto.update.CustomerUpdateDTO;
 import bank.connect.tech.model.Address;
 import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.repository.AddressRepository;
-
 import bank.connect.tech.response.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Customer;
 import bank.connect.tech.repository.CustomerRepository;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +23,6 @@ public class CustomerService {
     private AddressRepository addressRepository;
 
     @Autowired
-
     private CustomerRepository customerRepository;
 
 
@@ -57,11 +52,9 @@ public class CustomerService {
 
     //Creating a customer
     public Customer createCustomer(Customer customer) {
-
         for (Address address : customer.getAddresses()) {
             address.setCustomer(customer);
         }
-
         return this.customerRepository.save(customer);
     }
 
@@ -85,7 +78,6 @@ public class CustomerService {
             }
         }
         return this.customerRepository.save(customerToUpdate);
-
     }
 
     public void deleteCustomer(Long customerId, String exceptionMessage) {

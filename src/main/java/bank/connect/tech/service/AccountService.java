@@ -1,18 +1,15 @@
 package bank.connect.tech.service;
 
-
 import bank.connect.tech.dto.create.AccountCreateDTO;
 import bank.connect.tech.dto.update.AccountUpdateDTO;
-
 import bank.connect.tech.response.exception.ResourceNotFoundException;
 import bank.connect.tech.model.Account;
 import bank.connect.tech.model.enumeration.AccountType;
 import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.repository.CustomerRepository;
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @Service
 public class AccountService {
@@ -46,19 +43,16 @@ public class AccountService {
         return this.accountRepository.findById(accountId).get();
     }
 
-
     public Account createAccount(Long customerId, String exceptionMessage, AccountCreateDTO accountCreateDTO) {
         this.verifyCustomer(customerId, exceptionMessage);
         Account account = new Account();
         account.setType(AccountType.fromString(accountCreateDTO.getType()));
         account.setBalance(0.0);
         account.setNickname(accountCreateDTO.getNickname());
-
         account.setRewards(0);
         account.setCustomer(this.customerRepository.findById(customerId).get());
         return this.accountRepository.save(account);
     }
-
 
     public Account updateAccount(Long accountId, String exceptionMessage, AccountUpdateDTO accountUpdateDTO) {
         this.verifyAccount(accountId, exceptionMessage);
@@ -71,7 +65,6 @@ public class AccountService {
         }
         if (!(Objects.isNull(accountUpdateDTO.getRewards()))) {
             accountToUpdate.setRewards(accountUpdateDTO.getRewards());
-
         }
         return this.accountRepository.save(accountToUpdate);
     }
