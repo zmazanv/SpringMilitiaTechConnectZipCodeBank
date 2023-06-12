@@ -17,10 +17,12 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonProperty("id")
     private Long id;
     @Enumerated(EnumType.STRING)
     @NotNull
     @Column(name = "type")
+    @JsonProperty("type")
     private TransactionType type;
     @Column(name = "transaction_date")
     @JsonProperty("transaction_date")

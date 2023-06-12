@@ -15,6 +15,7 @@ public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonProperty("id")
     private Long id;
     @Enumerated(EnumType.STRING)
     @NotNull
@@ -28,6 +29,7 @@ public class Bill {
     @JsonProperty("nickname")
     private String nickname;
     @Column(name = "creation_date")
+    @JsonProperty("creation_date")
     private LocalDate creationDate;
     @Column(name = "payment_date")
     @JsonProperty("payment_date")
@@ -36,6 +38,7 @@ public class Bill {
     @JsonProperty("recurring_date")
     private Byte recurringDate; // FIXME: Put in failsafe to restrict value to be between 1 and 31
     @Column(name = "upcoming_payment_date")
+    @JsonProperty("upcoming_payment_date")
     private LocalDate upcomingPaymentDate;
     @Column(name = "payment_amount")
     @JsonProperty("payment_amount")
