@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 @RestController
 public class AccountController {
-    private static final Logger logger = LoggerFactory.getLogger(DepositController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 
     @Autowired
     private AccountService accountService;
@@ -24,7 +23,6 @@ public class AccountController {
 
     @GetMapping("/accounts") // TODO: DONE
     public ResponseEntity<?> getAllAccounts() {
-
         int successResponseCode = HttpStatus.OK.value();
         String successResponseMessage = "Successfully fetched all accounts";
         Iterable<Account> successResponseData = this.accountService.getAllAccounts();

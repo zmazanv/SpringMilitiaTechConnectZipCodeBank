@@ -41,7 +41,6 @@ public class CustomerController {
 
     @GetMapping("/customers") // TODO: DONE
     public ResponseEntity<?> getAllCustomers(){
-
         int successResponseCode = HttpStatus.OK.value();
         String successResponseMessage = "Successfully fetched all customers";
         Iterable<Customer> successResponseData = this.customerService.getAllCustomers();
