@@ -45,23 +45,23 @@ public class DepositService {
         return deposit;
     }
 
-    public Deposit updateDeposit(Deposit deposit) {
-        for (List<Deposit> deposits : accountDeposits.values()) {
-            for (Deposit d : deposits) {
-                if (d.getId().equals(deposit.getId())) {
-                    d.setMedium(deposit.getMedium());
-                    d.setTransactionDate(deposit.getTransactionDate());
-                    d.setAmount(deposit.getAmount());
-                    d.setDescription(deposit.getDescription());
-                    d.setStatus(deposit.getStatus());
-                    d.setPayeeId(deposit.getPayeeId());
-                    d.setType(deposit.getType());
-                    return d;
-                }
-            }
-        }
-        throw new NotFoundException("Deposit ID does not exist");
-    }
+//    public Deposit updateDeposit(Deposit deposit) {
+//        for (List<Deposit> deposits : accountDeposits.values()) {
+//            for (Deposit d : deposits) {
+//                if (d.getId().equals(deposit.getId())) {
+//                    d.setMedium(deposit.getMedium());
+//                    d.setTransactionDate(deposit.getTransactionDate());
+//                    d.setAmount(deposit.getAmount());
+//                    d.setDescription(deposit.getDescription());
+//                    d.setStatus(deposit.getStatus());
+//                    d.setPayeeId(deposit.getPayeeId());
+//                    d.setType(deposit.getType());
+//                    return d;
+//                }
+//            }
+//        }
+//        throw new NotFoundException("Deposit ID does not exist");
+//    }
 
     public void deleteDeposit(Long depositId) {
         for (List<Deposit> deposits : accountDeposits.values()) {
