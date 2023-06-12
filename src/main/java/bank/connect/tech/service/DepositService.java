@@ -3,6 +3,7 @@ package bank.connect.tech.service;
 import bank.connect.tech.dto.create.BillCreateDTO;
 import bank.connect.tech.dto.update.BillUpdateDTO;
 import bank.connect.tech.model.Bill;
+import bank.connect.tech.model.Deposit;
 import bank.connect.tech.model.enumeration.BillStatus;
 import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.repository.BillRepository;
@@ -55,9 +56,9 @@ public class DepositService {
     }
 
 
-    public Bill getBillById(Long billId, String exceptionMessage) {
-        this.verifyBill(billId, exceptionMessage);
-        return this.billRepository.findById(billId).get();
+    public Deposit getDepositById(Long depositId, String exceptionMessage) {
+        this.verifyDeposit(depositId, exceptionMessage);
+        return this.depositRepository.findById(depositId).get();
     }
 
     public Bill createBill(Long accountId, String exceptionMessage, BillCreateDTO billCreateDTO) {
