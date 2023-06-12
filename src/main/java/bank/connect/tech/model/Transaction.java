@@ -74,7 +74,7 @@ public class Transaction {
     public Account getAccount() {return this.account;}
     public void setAccount(Account account) {this.account = account;}
 
-    @JsonProperty("payee_id")
+    @JsonProperty("account_id")
     public Long getAccountId() {
         return this.account != null ? this.account.getId() : null;
     }
