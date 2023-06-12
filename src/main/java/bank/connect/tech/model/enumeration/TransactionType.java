@@ -7,7 +7,7 @@ public enum TransactionType {
 
     P2P("P2P"),
     DEPOSIT("Deposit"),
-    WITHDRAWAL("Recurring");
+    WITHDRAWAL("Withdrawal");
 
 
     private final String type;

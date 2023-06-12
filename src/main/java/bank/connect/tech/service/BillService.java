@@ -10,7 +10,6 @@ import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.repository.BillRepository;
 import java.time.LocalDate;
 import java.util.Objects;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +55,7 @@ public class BillService {
         Bill bill = new Bill();
         LocalDate today = LocalDate.now();
         LocalDate nextRecurringDate = LocalDate.of(today.getYear(), today.getMonth(), billCreateDTO.getRecurringDate());
-        bill.setBillStatus(BillStatus.fromString(billCreateDTO.getStatus()));
+        bill.setStatus(BillStatus.fromString(billCreateDTO.getStatus()));
         bill.setPayee(billCreateDTO.getPayee());
         bill.setNickname(billCreateDTO.getNickname());
         bill.setCreationDate(today);
@@ -75,7 +74,7 @@ public class BillService {
         this.verifyBill(billId, exceptionMessage);
         Bill billToUpdate = this.billRepository.findById(billId).get();
         if (!(Objects.isNull(billUpdateDTO.getStatus())) && !(billUpdateDTO.getStatus().isBlank())) {
-            billToUpdate.setBillStatus(BillStatus.fromString(billUpdateDTO.getStatus()));
+            billToUpdate.setStatus(BillStatus.fromString(billUpdateDTO.getStatus()));
         }
         if (!(Objects.isNull(billUpdateDTO.getPayee())) && !(billUpdateDTO.getPayee().isBlank())) {
             billToUpdate.setPayee(billUpdateDTO.getPayee());
@@ -83,11 +82,9 @@ public class BillService {
         if (!(Objects.isNull(billUpdateDTO.getNickname())) && !(billUpdateDTO.getNickname().isBlank())) {
             billToUpdate.setNickname(billUpdateDTO.getNickname());
         }
-        //if (billUpdateDTO.getPaymentDate() != null) {
         if (!(Objects.isNull(billUpdateDTO.getPaymentDate()))) {
             billToUpdate.setPaymentDate(billUpdateDTO.getPaymentDate());
         }
-        //if (billUpdateDTO.getRecurringDate() != null) {
         if (!(Objects.isNull(billUpdateDTO.getRecurringDate()))) {
             billToUpdate.setRecurringDate(billUpdateDTO.getRecurringDate());
             LocalDate today = LocalDate.now();
