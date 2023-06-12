@@ -39,4 +39,8 @@ public class Customer {
 
     public Set<Address> getAddresses() {return this.addresses;}
     public void setAddresses(Set<Address> addresses) {this.addresses = addresses;}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main

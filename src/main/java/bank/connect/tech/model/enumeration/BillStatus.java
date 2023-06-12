@@ -30,4 +30,8 @@ public enum BillStatus {
         }
         throw (new MissingPropertyException("No enum constant " + BillStatus.class.getCanonicalName()));
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main

@@ -82,4 +82,8 @@ public class Bill {
     public Long getAccountId() {
         return this.account != null ? this.account.getId() : null;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main

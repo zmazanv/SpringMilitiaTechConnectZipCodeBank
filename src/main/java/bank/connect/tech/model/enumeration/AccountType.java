@@ -32,4 +32,8 @@ public enum AccountType {
         }
         throw (new MissingPropertyException("No enum constant " + AccountType.class.getCanonicalName()));
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main

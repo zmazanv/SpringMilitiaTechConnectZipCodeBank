@@ -58,4 +58,7 @@ public class Address {
 
     public Customer getCustomer() {return this.customer;}
     public void setCustomer(Customer customer) {this.customer = customer;}
+
 }
+
+
