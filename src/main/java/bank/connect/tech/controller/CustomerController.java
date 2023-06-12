@@ -17,7 +17,7 @@ public class CustomerController {
     private CustomerService customerService;
 
 
-    @GetMapping("/accounts/{accountId}/customer")
+    @GetMapping("/accounts/{accountId}/customer") // TODO: DONE
     public ResponseEntity<?> getCustomerByAccountId(@PathVariable Long accountId) {
         String exceptionMessage = "Unable to fetch customer as no account was found matching the provided account ID: " + accountId;
 
