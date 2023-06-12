@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 @RestController
 public class AccountController {
-    private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
+    private static final Logger logger = LoggerFactory.getLogger();
 
     @Autowired
     private AccountService accountService;
