@@ -2,7 +2,7 @@ package bank.connect.tech.dto.update;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class DepositUpdateDTO {
+public class TransactionUpdateDTO {
 
     @JsonProperty("status")
     private String status;

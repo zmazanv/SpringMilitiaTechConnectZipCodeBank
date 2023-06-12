@@ -20,7 +20,7 @@ public class Bill {
     @NotNull
     @Column(name = "status")
     @JsonProperty("status")
-    private BillStatus billStatus;
+    private BillStatus status;
     @Column(name = "payee")
     @JsonProperty("payee")
     private String payee;
@@ -50,8 +50,8 @@ public class Bill {
     public Long getId() {return this.id;}
     public void setId(Long id) {this.id = id;}
 
-    public BillStatus getBillStatus() {return this.billStatus;}
-    public void setBillStatus(BillStatus billStatus) {this.billStatus = billStatus;}
+    public BillStatus getStatus() {return this.status;}
+    public void setStatus(BillStatus status) {this.status = status;}
 
     public String getPayee() {return this.payee;}
     public void setPayee(String payee) {this.payee = payee;}

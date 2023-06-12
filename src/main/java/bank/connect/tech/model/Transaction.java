@@ -12,7 +12,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-public class Deposit {
+public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +25,13 @@ public class Deposit {
     @Column(name = "transaction_date")
     @JsonProperty("transaction_date")
     private LocalDate transactionDate;
-    @Column(name = "transaction_status")
-    @JsonProperty("transaction_status")
+    @Column(name = "status")
+    @JsonProperty("status")
     private TransactionStatus status;
     @Enumerated(EnumType.STRING)
     @NotNull
     @Column(name = "medium")
+    @JsonProperty("medium")
     private TransactionMedium medium;
     @Column(name = "amount")
     @JsonProperty("amount")
