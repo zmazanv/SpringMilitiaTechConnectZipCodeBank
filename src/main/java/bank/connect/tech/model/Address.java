@@ -1,6 +1,6 @@
 package bank.connect.tech.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -11,33 +11,31 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @JsonIgnore
     private Long id;
-
     @Column(name = "street_number")
     @NotEmpty
     @JsonProperty("street_number")
     private String streetNumber;
-
     @Column(name = "street_name")
     @NotEmpty
     @JsonProperty("street_name")
     private String streetName;
-
     @Column(name = "city")
     @NotEmpty
     @JsonProperty("city")
     private String city;
-
     @Column(name = "state")
     @NotEmpty
     @JsonProperty("state")
     private String state;
-
     @Column(name = "zip")
     @NotEmpty
     @JsonProperty("zip")
     private String zip;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
 
     public Long getId() {return this.id;}
@@ -57,4 +55,7 @@ public class Address {
 
     public String getZip() {return this.zip;}
     public void setZip(String zip) {this.zip = zip;}
+
+    public Customer getCustomer() {return this.customer;}
+    public void setCustomer(Customer customer) {this.customer = customer;}
 }
