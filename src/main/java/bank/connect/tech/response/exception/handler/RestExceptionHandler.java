@@ -1,6 +1,7 @@
 package bank.connect.tech.response.exception.handler;
 
 import bank.connect.tech.response.exception.error.ErrorDetail;
+import bank.connect.tech.response.exception.error.NotFoundResponse;
 import bank.connect.tech.response.exception.error.ValidationError;
 import bank.connect.tech.response.exception.MissingPropertyException;
 import bank.connect.tech.response.exception.ResourceNotFoundException;
@@ -30,13 +31,17 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException resourceNotFoundException) {
-        ErrorDetail errorDetail = new ErrorDetail();
-        errorDetail.setTimeStamp(new Date().getTime());
-        errorDetail.setStatus(HttpStatus.NOT_FOUND.value());
-        errorDetail.setTitle("Resource Not Found");
-        errorDetail.setDetail(resourceNotFoundException.getMessage());
-        errorDetail.setDeveloperMessage(resourceNotFoundException.getClass().getName());
-        return (new ResponseEntity<>(errorDetail, HttpStatus.NOT_FOUND));
+        //ErrorDetail errorDetail = new ErrorDetail();
+        //errorDetail.setTimeStamp(new Date().getTime());
+        //errorDetail.setStatus(HttpStatus.NOT_FOUND.value());
+        //errorDetail.setTitle("Resource Not Found");
+        //errorDetail.setDetail(resourceNotFoundException.getMessage());
+        //errorDetail.setDeveloperMessage(resourceNotFoundException.getClass().getName());
+        //return (new ResponseEntity<>(errorDetail, HttpStatus.NOT_FOUND));
+        NotFoundResponse notFoundResponse = new NotFoundResponse();
+        notFoundResponse.setCode(HttpStatus.NOT_FOUND.value());
+        notFoundResponse.setMessage(resourceNotFoundException.getMessage());
+        return (new ResponseEntity<>(notFoundResponse, HttpStatus.NOT_FOUND));
     }
 
     @ExceptionHandler(MissingPropertyException.class)
