@@ -10,11 +10,14 @@ public enum BillStatus {
     COMPLETED("Completed"),
     RECURRING("Recurring");
 
+
     private final String status;
+
 
     private BillStatus(String status) {
         this.status = status;
     }
+
 
     @Override
     @JsonValue

@@ -23,10 +23,10 @@ public enum TransactionMedium {
         return this.medium;
     }
 
-    public static AccountType fromString(String typeString) {
-        for (AccountType type : AccountType.values()) {
-            if (type.toString().equalsIgnoreCase(typeString)) {
-                return type;
+    public static TransactionMedium fromString(String mediumString) {
+        for (TransactionMedium medium : TransactionMedium.values()) {
+            if (medium.toString().equalsIgnoreCase(mediumString)) {
+                return medium;
             }
         }
         throw (new MissingPropertyException("No enum constant " + AccountType.class.getCanonicalName()));
