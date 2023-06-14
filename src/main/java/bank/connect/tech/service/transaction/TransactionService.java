@@ -1,17 +1,13 @@
 package bank.connect.tech.service.transaction;
 
-import bank.connect.tech.dto.create.TransactionCreateDTO;
 import bank.connect.tech.dto.update.TransactionUpdateDTO;
 import bank.connect.tech.model.Transaction;
-import bank.connect.tech.model.enumeration.TransactionMedium;
-import bank.connect.tech.model.enumeration.TransactionStatus;
-import bank.connect.tech.model.enumeration.TransactionType;
 import bank.connect.tech.repository.AccountRepository;
 import bank.connect.tech.repository.BillRepository;
 import bank.connect.tech.repository.CustomerRepository;
 import bank.connect.tech.repository.TransactionRepository;
 import bank.connect.tech.response.exception.ResourceNotFoundException;
-import java.time.LocalDate;
+
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,11 +66,11 @@ public class TransactionService {
     //    this.verifyAccount(accountId, exceptionMessage);
     //    LocalDate today = LocalDate.now();
     //    Transaction transaction = new Transaction();
-    //    //transaction.setType(TransactionType.fromString(transactionCreateDTO.getType()));
-    //    //transaction.setStatus(TransactionStatus.fromString(transactionCreateDTO.getStatus()));
-    //    transaction.setMedium(TransactionMedium.fromString(transactionCreateDTO.getMedium()));
+    //    //transaction.setType(TransactionType.fromString(transactionCreateDTO.getType().trim()));
+    //    //transaction.setStatus(TransactionStatus.fromString(transactionCreateDTO.getStatus().trim()));
+    //    transaction.setMedium(TransactionMedium.fromString(transactionCreateDTO.getMedium().trim()));
     //    transaction.setAmount(transactionCreateDTO.getAmount());
-    //    transaction.setDescription(transactionCreateDTO.getDescription());
+    //    transaction.setDescription(transactionCreateDTO.getDescription().trim());
     //    transaction.setTransactionDate(today);
     //    transaction.setAccount(this.accountRepository.findById(accountId).get());
     //    return this.transactionRepository.save(transaction);
