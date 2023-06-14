@@ -123,17 +123,37 @@ public class TransactionService {
 
 
     // P2P
-    public Transaction peerToPeer(Long accountId, Double deposit, Double withdrawal, Double balance,String exceptionMessage){
-       Account senderAccount = accountRepository.findById(accountId);
+    public Transaction peerToPeer(Long senderAccountId, Long receiverAccountId, Double deposit, Double withdrawal, Double balance,String exceptionMessage){
+        verifyAccount(senderAccountId,exceptionMessage);
+        verifyAccount(receiverAccountId,exceptionMessage);
+
+//        Account senderAccount = this.accountRepository.findById(senderAccountId).get();
+//        Account receiverAccount = this.accountRepository.findById(receiverAccountId).get();
+
+        Transaction transaction = new Transaction();
+
+            if (transaction.getType() == TransactionType.P2P) {
+                Account senderAccount = transaction.getAccount();
+                Account receiverAccount = transaction.getAccount();
+                Double transactionAmount = transaction.getAmount();
+                Double senderBalance = senderAccount.getBalance();
+                senderAccount.setBalance(senderBalance - transactionAmount);
+                Double receiverBalance = receiverAccount.getBalance();
+                receiverAccount.setBalance(receiverBalance + transactionAmount);
+                accountRepository.save(senderAccount);
+                accountRepository.save(receiverAccount);
+            }
+        return transaction;
     }
 
+
     // Find the accountID we are going to send monies from
-    // we need to get that accounts balance
+    // we need to get that account balances we can use a if statement if(senderAccount.getBalance < 'amount to send' ) { throw exceptionMessage}
     // we need the account ID from person we are sending too
     // how much we are sending
     // click send
-    // to subract from existing account new amount ==
-    // add to the new account we sent monies too new amount.
+    // to subract from senderAccount account and add to the receiver Account
+    // add to the receiver Account from the senderAccount.
 
 
     public void deleteTransaction(Long transactionId, String exceptionMessage) {
