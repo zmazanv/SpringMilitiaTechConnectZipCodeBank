@@ -84,10 +84,10 @@ public class DepositController {
 
     @DeleteMapping("/deposits/{transactionId}")
     public ResponseEntity<?> cancelDeposit(@PathVariable Long transactionId) {
-        String exceptionMessage = "Unable to delete deposit as no deposit was found matching the provided deposit ID: " + transactionId;
+        String exceptionMessage = "Unable to cancel deposit as no deposit was found matching the provided deposit ID: " + transactionId;
 
         int successResponseCode = HttpStatus.OK.value();
-        String successResponseMessage = "Successfully deleted deposit matching the provided deposit ID: " + transactionId;
+        String successResponseMessage = "Successfully cancelled deposit matching the provided deposit ID: " + transactionId;
         SuccessResponse<?> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, null);
 
         this.depositService.cancelDeposit(transactionId, exceptionMessage);
