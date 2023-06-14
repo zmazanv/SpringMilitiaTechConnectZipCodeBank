@@ -19,42 +19,42 @@ public class P2PTransactionController {
     private P2PTransactionService p2PTransactionService;
 
 
-    //@GetMapping("/p2p") //
-    //public ResponseEntity<?> getAllDeposits() {
-    //    int successResponseCode = HttpStatus.OK.value();
-    //    String successResponseMessage = "Successfully fetched all deposits";
-    //    Iterable<Transaction> successResponseData = this.depositService.getAllDeposits();
-    //    SuccessResponse<Iterable<Transaction>> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
+    @GetMapping("/p2p") //
+    public ResponseEntity<?> getAllP2PTransactions() {
+        int successResponseCode = HttpStatus.OK.value();
+        String successResponseMessage = "Successfully fetched all P2P transactions";
+        Iterable<Transaction> successResponseData = this.p2PTransactionService.getAllP2PTransactions();
+        SuccessResponse<Iterable<Transaction>> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
-    //    TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
-    //    return (new ResponseEntity<>(successResponse, HttpStatus.OK));
-    //}
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
+        return (new ResponseEntity<>(successResponse, HttpStatus.OK));
+    }
 
-    //@GetMapping("/accounts/{accountId}/p2p")
-    //public ResponseEntity<?> getAllDepositsByAccountId(@PathVariable Long accountId) {
-    //    String exceptionMessage = "Unable to fetch deposits as no account was found matching the provided account ID: " + accountId;
+    @GetMapping("/accounts/{accountId}/p2p")
+    public ResponseEntity<?> getAllP2PTransactionsByAccountId(@PathVariable Long accountId) {
+        String exceptionMessage = "Unable to fetch P2P transactions as no account was found matching the provided account ID: " + accountId;
 
-    //    int successResponseCode = HttpStatus.OK.value();
-    //    String successResponseMessage = "Successfully fetched deposits matching the provided account ID: " + accountId;
-    //    Iterable<Transaction> successResponseData = this.depositService.getAllDepositsByAccountId(accountId, exceptionMessage);
-    //    SuccessResponse<Iterable<Transaction>> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
+        int successResponseCode = HttpStatus.OK.value();
+        String successResponseMessage = "Successfully fetched P2P transactions matching the provided account ID: " + accountId;
+        Iterable<Transaction> successResponseData = this.p2PTransactionService.getAllP2PTransactionsByAccountId(accountId, exceptionMessage);
+        SuccessResponse<Iterable<Transaction>> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
-    //    TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
-    //    return (new ResponseEntity<>(successResponse, HttpStatus.OK));
-    //}
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
+        return (new ResponseEntity<>(successResponse, HttpStatus.OK));
+    }
 
-    //@GetMapping("/p2p/{transactionId}")
-    //public ResponseEntity<?> getDepositById(@PathVariable Long transactionId) {
-    //    String exceptionMessage = "Unable to fetch deposit as no deposit was found matching the provided transaction ID: " + transactionId;
+    @GetMapping("/p2p/{transactionId}")
+    public ResponseEntity<?> getP2PTransactionById(@PathVariable Long transactionId) {
+        String exceptionMessage = "Unable to fetch P2P transaction as no deposit was found matching the provided transaction ID: " + transactionId;
 
-    //    int successResponseCode = HttpStatus.OK.value();
-    //    String successResponseMessage = "Successfully fetched deposit matching the provided transaction ID: " + transactionId;
-    //    Transaction successResponseData = this.depositService.getDepositById(transactionId, exceptionMessage);
-    //    SuccessResponse<Transaction> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
+        int successResponseCode = HttpStatus.OK.value();
+        String successResponseMessage = "Successfully fetched P2P transaction matching the provided transaction ID: " + transactionId;
+        Transaction successResponseData = this.p2PTransactionService.getP2PTransactionById(transactionId, exceptionMessage);
+        SuccessResponse<Transaction> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
-    //    TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
-    //    return (new ResponseEntity<>(successResponse, HttpStatus.OK));
-    //}
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
+        return (new ResponseEntity<>(successResponse, HttpStatus.OK));
+    }
 
     @PostMapping("/accounts/{senderAccountId}/p2p")
     public ResponseEntity<?>createP2PTransaction(@PathVariable Long senderAccountId, @Valid @RequestBody P2PTransactionCreateDTO p2PTransactionCreateDTO) {

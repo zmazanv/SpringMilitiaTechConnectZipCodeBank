@@ -13,6 +13,8 @@ import bank.connect.tech.repository.CustomerRepository;
 import bank.connect.tech.repository.TransactionRepository;
 import bank.connect.tech.response.exception.ResourceNotFoundException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,20 +78,20 @@ public class P2PTransactionService {
     }
 
 
-    //public Iterable<Transaction> getAllDeposits() {
-    //    List<Transaction> allDeposits = new ArrayList<>();
-    //    for (Transaction deposit : this.transactionRepository.findAll()) {
-    //        if (deposit.getType() == TransactionType.DEPOSIT) {
-    //            allDeposits.add(deposit);
-    //        }
-    //    }
-    //    return allDeposits;
-    //}
+    public Iterable<Transaction> getAllP2PTransactions() {
+        List<Transaction> allP2PTransactions = new ArrayList<>();
+        for (Transaction p2PTransaction : this.transactionRepository.findAll()) {
+            if (p2PTransaction.getType() == TransactionType.P2P) {
+                allP2PTransactions.add(p2PTransaction);
+            }
+        }
+        return allP2PTransactions;
+    }
 
-    //public Transaction getDepositById(Long transactionId, String exceptionMessage) {
-    //    this.verifyDeposit(transactionId, exceptionMessage);
-    //    return this.transactionRepository.findById(transactionId).get();
-    //}
+    public Transaction getP2PTransactionById(Long transactionId, String exceptionMessage) {
+        this.verifyDeposit(transactionId, exceptionMessage);
+        return this.transactionRepository.findById(transactionId).get();
+    }
 
     public Transaction createP2PTransaction(Long senderAccountId, String senderExceptionMessage, String receiverExceptionMessage, P2PTransactionCreateDTO p2PTransactionCreateDTO) {
         this.verifyAccount(senderAccountId, senderExceptionMessage);
@@ -139,14 +141,14 @@ public class P2PTransactionService {
         this.transactionRepository.save(p2PTransactionToCancel);
     }
 
-    //public Iterable<Transaction> getAllDepositsByAccountId(Long accountId, String exceptionMessage) {
-    //    this.verifyAccount(accountId, exceptionMessage);
-    //    List<Transaction> allDepositsByAccountId = new ArrayList<>();
-    //    for (Transaction deposit : this.transactionRepository.findAllTransactionsByAccountId(accountId)) {
-    //        if (deposit.getType() == TransactionType.DEPOSIT) {
-    //            allDepositsByAccountId.add(deposit);
-    //        }
-    //    }
-    //    return allDepositsByAccountId;
-    //}
+    public Iterable<Transaction> getAllP2PTransactionsByAccountId(Long accountId, String exceptionMessage) {
+        this.verifyAccount(accountId, exceptionMessage);
+        List<Transaction> allP2PTransactionsByAccountId = new ArrayList<>();
+        for (Transaction p2PTransaction : this.transactionRepository.findAllTransactionsByAccountId(accountId)) {
+            if (p2PTransaction.getType() == TransactionType.P2P) {
+                allP2PTransactionsByAccountId.add(p2PTransaction);
+            }
+        }
+        return allP2PTransactionsByAccountId;
+    }
 }
