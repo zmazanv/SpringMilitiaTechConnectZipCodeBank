@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class P2PCreateDTO {
+public class P2PTransactionCreateDTO {
 
     //@JsonProperty("type")
     //@NotEmpty

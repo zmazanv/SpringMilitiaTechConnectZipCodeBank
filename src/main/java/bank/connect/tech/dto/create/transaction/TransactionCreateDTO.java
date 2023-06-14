@@ -1,4 +1,4 @@
-package bank.connect.tech.dto.create;
+package bank.connect.tech.dto.create.transaction;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
