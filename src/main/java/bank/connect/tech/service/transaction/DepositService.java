@@ -92,7 +92,9 @@ public class DepositService {
         deposit.setStatus(TransactionStatus.COMPLETED);
         deposit.setMedium(TransactionMedium.fromString(transactionCreateDTO.getMedium().trim()));
         deposit.setAmount(transactionCreateDTO.getAmount());
-        deposit.setDescription(transactionCreateDTO.getDescription().trim());
+        if (!(Objects.isNull(transactionCreateDTO.getDescription())) && !(transactionCreateDTO.getDescription().isBlank())) {
+            deposit.setDescription(transactionCreateDTO.getDescription().trim());
+        }
         deposit.setTransactionDate(today);
         deposit.setAccount(this.accountRepository.findById(accountId).get());
         Account accountToIncrease = this.accountRepository.findById(accountId).get();
@@ -112,12 +114,12 @@ public class DepositService {
 
     public void cancelDeposit(Long transactionId, String exceptionMessage) {
         this.verifyDeposit(transactionId, exceptionMessage);
-        Transaction transactionToCancel = this.transactionRepository.findById(transactionId).get();
-        Account accountToCorrect = transactionToCancel.getAccount();
-        accountToCorrect.setBalance(accountToCorrect.getBalance() - transactionToCancel.getAmount());
+        Transaction depositToCancel = this.transactionRepository.findById(transactionId).get();
+        Account accountToCorrect = depositToCancel.getAccount();
+        accountToCorrect.setBalance(accountToCorrect.getBalance() - depositToCancel.getAmount());
         this.accountRepository.save(accountToCorrect);
-        transactionToCancel.setStatus(TransactionStatus.CANCELLED);
-        this.transactionRepository.save(transactionToCancel);
+        depositToCancel.setStatus(TransactionStatus.CANCELLED);
+        this.transactionRepository.save(depositToCancel);
     }
 
     public Iterable<Transaction> getAllDepositsByAccountId(Long accountId, String exceptionMessage) {

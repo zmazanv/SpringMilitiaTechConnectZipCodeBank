@@ -1,7 +1,6 @@
 package bank.connect.tech.controller.transaction;
 
 import bank.connect.tech.TechConnectZipCodeBankApplication;
-import bank.connect.tech.dto.create.TransactionCreateDTO;
 import bank.connect.tech.dto.update.TransactionUpdateDTO;
 import bank.connect.tech.model.Transaction;
 import bank.connect.tech.response.SuccessResponse;

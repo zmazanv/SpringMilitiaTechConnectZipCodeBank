@@ -13,7 +13,7 @@ public class P2PTransactionCreateDTO {
     //@NotEmpty
     //private String status;
     @JsonProperty("receiver_account_id")
-    @NotEmpty
+    @NotNull
     private Long receiverAccountId;
     @JsonProperty("medium")
     @NotEmpty

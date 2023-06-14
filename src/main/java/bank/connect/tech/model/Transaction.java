@@ -47,6 +47,11 @@ public class Transaction {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Account account;
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "receiver_account_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Account receiverAccount;
 
 
     public Long getId() {return this.id;}
@@ -74,8 +79,17 @@ public class Transaction {
     public Account getAccount() {return this.account;}
     public void setAccount(Account account) {this.account = account;}
 
+    @JsonIgnore
+    public Account getReceiverAccount() {return this.receiverAccount;}
+    public void setReceiverAccount(Account receiverAccount) {this.receiverAccount = receiverAccount;}
+
     @JsonProperty("account_id")
     public Long getAccountId() {
         return this.account != null ? this.account.getId() : null;
+    }
+
+    @JsonProperty("receiver_account_id")
+    public Long getReceiverAccountId() {
+        return this.receiverAccount != null ? this.receiverAccount.getId() : null;
     }
 }

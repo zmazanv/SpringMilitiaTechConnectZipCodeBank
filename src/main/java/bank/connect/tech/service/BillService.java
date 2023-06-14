@@ -57,7 +57,9 @@ public class BillService {
         LocalDate nextRecurringDate = LocalDate.of(today.getYear(), today.getMonth(), billCreateDTO.getRecurringDate());
         bill.setStatus(BillStatus.fromString(billCreateDTO.getStatus().trim()));
         bill.setPayee(billCreateDTO.getPayee().trim());
-        bill.setNickname(billCreateDTO.getNickname().trim());
+        if (!(Objects.isNull(billCreateDTO.getNickname())) && !(billCreateDTO.getNickname().isBlank())) {
+            bill.setNickname(billCreateDTO.getNickname().trim());
+        }
         bill.setCreationDate(today);
         bill.setPaymentDate(billCreateDTO.getPaymentDate());
         bill.setRecurringDate(billCreateDTO.getRecurringDate());

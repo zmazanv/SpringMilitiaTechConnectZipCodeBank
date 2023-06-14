@@ -1,7 +1,7 @@
 package bank.connect.tech.controller.transaction;
 
 import bank.connect.tech.TechConnectZipCodeBankApplication;
-import bank.connect.tech.dto.create.TransactionCreateDTO;
+import bank.connect.tech.dto.create.transaction.TransactionCreateDTO;
 import bank.connect.tech.dto.update.TransactionUpdateDTO;
 import bank.connect.tech.model.Transaction;
 import bank.connect.tech.response.SuccessResponse;
@@ -89,6 +89,7 @@ public class WithdrawalController {
 
         int successResponseCode = HttpStatus.OK.value();
         String successResponseMessage = "Successfully cancelled withdrawal matching the provided transaction ID: " + transactionId;
+
         SuccessResponse<?> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, null);
 
         this.withdrawalService.cancelWithdrawal(transactionId, exceptionMessage);

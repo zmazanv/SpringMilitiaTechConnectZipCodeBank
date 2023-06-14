@@ -1,11 +1,11 @@
 package bank.connect.tech.controller.transaction;
 
 import bank.connect.tech.TechConnectZipCodeBankApplication;
-import bank.connect.tech.dto.create.transaction.P2PCreateDTO;
+import bank.connect.tech.dto.create.transaction.P2PTransactionCreateDTO;
 import bank.connect.tech.dto.update.TransactionUpdateDTO;
 import bank.connect.tech.model.Transaction;
 import bank.connect.tech.response.SuccessResponse;
-import bank.connect.tech.service.transaction.P2PService;
+import bank.connect.tech.service.transaction.P2PTransactionService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,10 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class P2PController {
+public class P2PTransactionController {
 
     @Autowired
-    private P2PService p2PService;
+    private P2PTransactionService p2PTransactionService;
 
 
     //@GetMapping("/p2p") //
@@ -57,13 +57,13 @@ public class P2PController {
     //}
 
     @PostMapping("/accounts/{senderAccountId}/p2p")
-    public ResponseEntity<?>createDeposit(@PathVariable Long senderAccountId, @Valid @RequestBody P2PCreateDTO p2PCreateDTO) {
+    public ResponseEntity<?>createP2PTransaction(@PathVariable Long senderAccountId, @Valid @RequestBody P2PTransactionCreateDTO p2PTransactionCreateDTO) {
         String senderExceptionMessage = "Unable to create new P2P transaction as no account was found matching the provided sender account ID: " + senderAccountId;
-        String receiverExceptionMessage = "Unable to create new P2P transaction as no account was found matching the provided receiver account ID: " + p2PCreateDTO.getReceiverAccountId();
+        String receiverExceptionMessage = "Unable to create new P2P transaction as no account was found matching the provided receiver account ID: " + p2PTransactionCreateDTO.getReceiverAccountId();
 
         int successResponseCode = HttpStatus.CREATED.value();
-        String successResponseMessage = "Successfully created new P2P transaction from sender account, ID: " + senderAccountId + ", to receiver account, ID: " + p2PCreateDTO.getReceiverAccountId();
-        Transaction successResponseData = this.p2PService.createP2PTransaction(senderAccountId, senderExceptionMessage, receiverExceptionMessage, p2PCreateDTO);
+        String successResponseMessage = "Successfully created new P2P transaction from sender account, ID: " + senderAccountId + ", to receiver account, ID: " + p2PTransactionCreateDTO.getReceiverAccountId();
+        Transaction successResponseData = this.p2PTransactionService.createP2PTransaction(senderAccountId, senderExceptionMessage, receiverExceptionMessage, p2PTransactionCreateDTO);
         SuccessResponse<Transaction> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
         TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
@@ -71,12 +71,12 @@ public class P2PController {
     }
 
     @PutMapping("/p2p/{transactionId}")
-    public ResponseEntity<?> updateDeposit(@PathVariable Long transactionId, @Valid @RequestBody TransactionUpdateDTO transactionUpdateDTO) {
-        String exceptionMessage = "Unable to update deposit as no deposit was found matching the provided transaction ID: " + transactionId;
+    public ResponseEntity<?> updateP2PTransaction(@PathVariable Long transactionId, @Valid @RequestBody TransactionUpdateDTO transactionUpdateDTO) {
+        String exceptionMessage = "Unable to update P2P transaction as no P2P transaction was found matching the provided transaction ID: " + transactionId;
 
         int successResponseCode = HttpStatus.OK.value();
-        String successResponseMessage = "Successfully updated deposit matching the provided transaction ID: " + transactionId;
-        Transaction successResponseData = this.depositService.updateDeposit(transactionId, exceptionMessage, transactionUpdateDTO);
+        String successResponseMessage = "Successfully updated P2P transaction matching the provided transaction ID: " + transactionId;
+        Transaction successResponseData = this.p2PTransactionService.updateP2PTransaction(transactionId, exceptionMessage, transactionUpdateDTO);
         SuccessResponse<Transaction> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
         TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
@@ -84,14 +84,14 @@ public class P2PController {
     }
 
     @DeleteMapping("/p2p/{transactionId}")
-    public ResponseEntity<?> cancelDeposit(@PathVariable Long transactionId) {
-        String exceptionMessage = "Unable to cancel deposit as no deposit was found matching the provided transaction ID: " + transactionId;
+    public ResponseEntity<?> cancelP2PTransaction(@PathVariable Long transactionId) {
+        String exceptionMessage = "Unable to cancel P2P Transaction as no P2P Transaction was found matching the provided transaction ID: " + transactionId;
 
         int successResponseCode = HttpStatus.OK.value();
-        String successResponseMessage = "Successfully cancelled deposit matching the provided transaction ID: " + transactionId;
+        String successResponseMessage = "Successfully cancelled P2P Transaction matching the provided transaction ID: " + transactionId;
         SuccessResponse<?> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, null);
 
-        this.depositService.cancelDeposit(transactionId, exceptionMessage);
+        this.p2PTransactionService.cancelP2PTransaction(transactionId, exceptionMessage);
         TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }

@@ -92,7 +92,9 @@ public class WithdrawalService {
         withdrawal.setStatus(TransactionStatus.COMPLETED);
         withdrawal.setMedium(TransactionMedium.fromString(transactionCreateDTO.getMedium()));
         withdrawal.setAmount(transactionCreateDTO.getAmount());
-        withdrawal.setDescription(transactionCreateDTO.getDescription().trim());
+        if (!(Objects.isNull(transactionCreateDTO.getDescription())) && !(transactionCreateDTO.getDescription().isBlank())) {
+            withdrawal.setDescription(transactionCreateDTO.getDescription().trim());
+        }
         withdrawal.setTransactionDate(today);
         withdrawal.setAccount(this.accountRepository.findById(accountId).get());
         Account accountToDeduct = this.accountRepository.findById(accountId).get();
@@ -112,12 +114,12 @@ public class WithdrawalService {
 
     public void cancelWithdrawal(Long transactionId, String exceptionMessage) {
         this.verifyWithdrawal(transactionId, exceptionMessage);
-        Transaction transactionToCancel = this.transactionRepository.findById(transactionId).get();
-        Account accountToCorrect = transactionToCancel.getAccount();
-        accountToCorrect.setBalance(accountToCorrect.getBalance() + transactionToCancel.getAmount());
+        Transaction withdrawalToCancel = this.transactionRepository.findById(transactionId).get();
+        Account accountToCorrect = withdrawalToCancel.getAccount();
+        accountToCorrect.setBalance(accountToCorrect.getBalance() + withdrawalToCancel.getAmount());
         this.accountRepository.save(accountToCorrect);
-        transactionToCancel.setStatus(TransactionStatus.CANCELLED);
-        this.transactionRepository.save(transactionToCancel);
+        withdrawalToCancel.setStatus(TransactionStatus.CANCELLED);
+        this.transactionRepository.save(withdrawalToCancel);
     }
 
     public Iterable<Transaction> getAllWithdrawalsByAccountId(Long accountId, String exceptionMessage) {
