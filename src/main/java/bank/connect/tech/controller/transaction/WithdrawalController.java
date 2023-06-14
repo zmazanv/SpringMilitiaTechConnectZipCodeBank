@@ -46,10 +46,10 @@ public class WithdrawalController {
 
     @GetMapping("/withdrawals/{transactionId}")
     public ResponseEntity<?> getWithdrawalById(@PathVariable Long transactionId) {
-        String exceptionMessage = "Unable to fetch withdrawal as no withdrawal was found matching the provided withdrawal ID: " + transactionId;
+        String exceptionMessage = "Unable to fetch withdrawal as no withdrawal was found matching the provided transaction ID: " + transactionId;
 
         int successResponseCode = HttpStatus.OK.value();
-        String successResponseMessage = "Successfully fetched withdrawal matching the provided withdrawal ID: " + transactionId;
+        String successResponseMessage = "Successfully fetched withdrawal matching the provided transaction ID: " + transactionId;
         Transaction successResponseData = this.withdrawalService.getWithdrawalById(transactionId, exceptionMessage);
         SuccessResponse<Transaction> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
@@ -72,10 +72,10 @@ public class WithdrawalController {
 
     @PutMapping("/withdrawals/{transactionId}")
     public ResponseEntity<?> updateWithdrawal(@PathVariable Long transactionId, @Valid @RequestBody TransactionUpdateDTO transactionUpdateDTO) {
-        String exceptionMessage = "Unable to update withdrawal as no withdrawal was found matching the provided withdrawal ID: " + transactionId;
+        String exceptionMessage = "Unable to update withdrawal as no withdrawal was found matching the provided transaction ID: " + transactionId;
 
         int successResponseCode = HttpStatus.OK.value();
-        String successResponseMessage = "Successfully updated withdrawal matching the provided withdrawal ID: " + transactionId;
+        String successResponseMessage = "Successfully updated withdrawal matching the provided transaction ID: " + transactionId;
         Transaction successResponseData = this.withdrawalService.updateWithdrawal(transactionId, exceptionMessage, transactionUpdateDTO);
         SuccessResponse<Transaction> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
@@ -85,10 +85,10 @@ public class WithdrawalController {
 
     @DeleteMapping("/withdrawals/{transactionId}")
     public ResponseEntity<?> cancelWithdrawal(@PathVariable Long transactionId) {
-        String exceptionMessage = "Unable to cancel withdrawal as no withdrawal was found matching the provided withdrawal ID: " + transactionId;
+        String exceptionMessage = "Unable to cancel withdrawal as no withdrawal was found matching the provided transaction ID: " + transactionId;
 
         int successResponseCode = HttpStatus.OK.value();
-        String successResponseMessage = "Successfully cancelled withdrawal matching the provided withdrawal ID: " + transactionId;
+        String successResponseMessage = "Successfully cancelled withdrawal matching the provided transaction ID: " + transactionId;
         SuccessResponse<?> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, null);
 
         this.withdrawalService.cancelWithdrawal(transactionId, exceptionMessage);

@@ -45,10 +45,10 @@ public class DepositController {
 
     @GetMapping("/deposits/{transactionId}")
     public ResponseEntity<?> getDepositById(@PathVariable Long transactionId) {
-        String exceptionMessage = "Unable to fetch deposit as no deposit was found matching the provided transaction ID: " + transactionId;
+        String exceptionMessage = "Unable to fetch deposit as no deposit was found matching the provided deposit ID: " + transactionId;
 
         int successResponseCode = HttpStatus.OK.value();
-        String successResponseMessage = "Successfully fetched deposit matching the provided transaction ID: " + transactionId;
+        String successResponseMessage = "Successfully fetched deposit matching the provided deposit ID: " + transactionId;
         Transaction successResponseData = this.depositService.getDepositById(transactionId, exceptionMessage);
         SuccessResponse<Transaction> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
@@ -71,10 +71,10 @@ public class DepositController {
 
     @PutMapping("/deposits/{transactionId}")
     public ResponseEntity<?> updateDeposit(@PathVariable Long transactionId, @Valid @RequestBody TransactionUpdateDTO transactionUpdateDTO) {
-        String exceptionMessage = "Unable to update deposit as no deposit was found matching the provided transaction ID: " + transactionId;
+        String exceptionMessage = "Unable to update deposit as no deposit was found matching the provided deposit ID: " + transactionId;
 
         int successResponseCode = HttpStatus.OK.value();
-        String successResponseMessage = "Successfully updated deposit matching the provided transaction ID: " + transactionId;
+        String successResponseMessage = "Successfully updated deposit matching the provided deposit ID: " + transactionId;
         Transaction successResponseData = this.depositService.updateDeposit(transactionId, exceptionMessage, transactionUpdateDTO);
         SuccessResponse<Transaction> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
@@ -84,10 +84,10 @@ public class DepositController {
 
     @DeleteMapping("/deposits/{transactionId}")
     public ResponseEntity<?> cancelDeposit(@PathVariable Long transactionId) {
-        String exceptionMessage = "Unable to cancel deposit as no deposit was found matching the provided transaction ID: " + transactionId;
+        String exceptionMessage = "Unable to cancel deposit as no deposit was found matching the provided deposit ID: " + transactionId;
 
         int successResponseCode = HttpStatus.OK.value();
-        String successResponseMessage = "Successfully cancelled deposit matching the provided transaction ID: " + transactionId;
+        String successResponseMessage = "Successfully cancelled deposit matching the provided deposit ID: " + transactionId;
         SuccessResponse<?> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, null);
 
         this.depositService.cancelDeposit(transactionId, exceptionMessage);
