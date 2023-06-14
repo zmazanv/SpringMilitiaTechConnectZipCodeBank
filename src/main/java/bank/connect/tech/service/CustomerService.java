@@ -63,10 +63,10 @@ public class CustomerService {
         this.verifyCustomer(customerId, exceptionMessage);
         Customer customerToUpdate = this.customerRepository.findById(customerId).get();
         if (!(Objects.isNull(customerUpdateDTO.getFirstName())) && !(customerUpdateDTO.getFirstName().isBlank())) {
-            customerToUpdate.setFirstName(customerUpdateDTO.getFirstName());
+            customerToUpdate.setFirstName(customerUpdateDTO.getFirstName().trim());
         }
         if (!(Objects.isNull(customerUpdateDTO.getLastName())) && !(customerUpdateDTO.getLastName().isBlank())) {
-            customerToUpdate.setLastName(customerUpdateDTO.getLastName());
+            customerToUpdate.setLastName(customerUpdateDTO.getLastName().trim());
         }
         if (!(Objects.isNull(customerUpdateDTO.getAddresses())) && !(customerUpdateDTO.getAddresses().isEmpty())) {
             Set<Address> oldAddresses = new HashSet<>(customerToUpdate.getAddresses());

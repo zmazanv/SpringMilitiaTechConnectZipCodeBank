@@ -74,13 +74,13 @@ public class BillService {
         this.verifyBill(billId, exceptionMessage);
         Bill billToUpdate = this.billRepository.findById(billId).get();
         if (!(Objects.isNull(billUpdateDTO.getStatus())) && !(billUpdateDTO.getStatus().isBlank())) {
-            billToUpdate.setStatus(BillStatus.fromString(billUpdateDTO.getStatus()));
+            billToUpdate.setStatus(BillStatus.fromString(billUpdateDTO.getStatus().trim()));
         }
         if (!(Objects.isNull(billUpdateDTO.getPayee())) && !(billUpdateDTO.getPayee().isBlank())) {
-            billToUpdate.setPayee(billUpdateDTO.getPayee());
+            billToUpdate.setPayee(billUpdateDTO.getPayee().trim());
         }
         if (!(Objects.isNull(billUpdateDTO.getNickname())) && !(billUpdateDTO.getNickname().isBlank())) {
-            billToUpdate.setNickname(billUpdateDTO.getNickname());
+            billToUpdate.setNickname(billUpdateDTO.getNickname().trim());
         }
         if (!(Objects.isNull(billUpdateDTO.getPaymentDate()))) {
             billToUpdate.setPaymentDate(billUpdateDTO.getPaymentDate());

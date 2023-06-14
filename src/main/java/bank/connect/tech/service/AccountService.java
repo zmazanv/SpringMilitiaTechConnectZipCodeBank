@@ -61,7 +61,7 @@ public class AccountService {
             accountToUpdate.setBalance(accountUpdateDTO.getBalance());
         }
         if (!(Objects.isNull(accountUpdateDTO.getNickname())) && !(accountUpdateDTO.getNickname().isBlank())) {
-            accountToUpdate.setNickname(accountUpdateDTO.getNickname());
+            accountToUpdate.setNickname(accountUpdateDTO.getNickname().trim());
         }
         if (!(Objects.isNull(accountUpdateDTO.getRewards()))) {
             accountToUpdate.setRewards(accountUpdateDTO.getRewards());

@@ -87,7 +87,7 @@ public class TransactionService {
         //    transactionToUpdate.setStatus(TransactionStatus.fromString(transactionUpdateDTO.getStatus()));
         //}
         if (!(Objects.isNull(transactionUpdateDTO.getDescription())) && !(transactionUpdateDTO.getDescription().isBlank())) {
-            transactionToUpdate.setDescription(transactionUpdateDTO.getDescription());
+            transactionToUpdate.setDescription(transactionUpdateDTO.getDescription().trim());
         }
         return this.transactionRepository.save(transactionToUpdate);
     }
