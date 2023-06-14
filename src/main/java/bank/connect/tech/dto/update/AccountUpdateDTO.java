@@ -8,8 +8,8 @@ public class AccountUpdateDTO {
     private String nickname;
     @JsonProperty("rewards")
     private Integer rewards;
-    @JsonProperty("balance")
-    private Double balance;
+    //@JsonProperty("balance")
+    //private Double balance;
 
 
     public String getNickname() {return this.nickname;}
@@ -18,6 +18,6 @@ public class AccountUpdateDTO {
     public Integer getRewards() {return this.rewards;}
     public void setRewards(Integer rewards) {this.rewards = rewards;}
 
-    public Double getBalance() {return this.balance;}
-    public void setBalance(Double balance) {this.balance = balance;}
+    //public Double getBalance() {return this.balance;}
+    //public void setBalance(Double balance) {this.balance = balance;}
 }

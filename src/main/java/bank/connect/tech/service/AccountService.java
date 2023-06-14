@@ -59,9 +59,9 @@ public class AccountService {
     public Account updateAccount(Long accountId, String exceptionMessage, AccountUpdateDTO accountUpdateDTO) {
         this.verifyAccount(accountId, exceptionMessage);
         Account accountToUpdate = this.accountRepository.findById(accountId).get();
-        if (!(Objects.isNull(accountUpdateDTO.getBalance()))) {
-            accountToUpdate.setBalance(accountUpdateDTO.getBalance());
-        }
+        //if (!(Objects.isNull(accountUpdateDTO.getBalance()))) {
+        //    accountToUpdate.setBalance(accountUpdateDTO.getBalance());
+        //}
         if (!(Objects.isNull(accountUpdateDTO.getNickname())) && !(accountUpdateDTO.getNickname().isBlank())) {
             accountToUpdate.setNickname(accountUpdateDTO.getNickname().trim());
         }
