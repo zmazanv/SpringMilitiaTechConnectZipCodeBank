@@ -123,14 +123,12 @@ public class TransactionService {
 
 
     // P2P
-    public Transaction peerToPeer(Long senderAccountId, Long receiverAccountId, Double deposit, Double withdrawal, Double balance,String exceptionMessage){
+    public Transaction peerToPeer(Transaction transaction, Long senderAccountId, Long receiverAccountId,String exceptionMessage){
         verifyAccount(senderAccountId,exceptionMessage);
         verifyAccount(receiverAccountId,exceptionMessage);
 
 //        Account senderAccount = this.accountRepository.findById(senderAccountId).get();
 //        Account receiverAccount = this.accountRepository.findById(receiverAccountId).get();
-
-        Transaction transaction = new Transaction();
 
             if (transaction.getType() == TransactionType.P2P) {
                 Account senderAccount = transaction.getAccount();
@@ -164,5 +162,9 @@ public class TransactionService {
     public Iterable<Transaction> getAllTransactionsByAccountId(Long accountId, String exceptionMessage) {
         this.verifyAccount(accountId, exceptionMessage);
         return this.transactionRepository.findAllTransactionsByAccountId(accountId);
+    }
+
+    public Iterable<Transaction> getAllTransactions (){
+        return transactionRepository.findAll();
     }
 }
