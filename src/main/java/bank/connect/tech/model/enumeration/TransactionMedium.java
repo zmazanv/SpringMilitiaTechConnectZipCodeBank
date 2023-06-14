@@ -29,6 +29,6 @@ public enum TransactionMedium {
                 return medium;
             }
         }
-        throw (new MissingPropertyException("No enum constant " + AccountType.class.getCanonicalName()));
+        throw (new MissingPropertyException("No enum constant " + TransactionMedium.class.getCanonicalName()));
     }
 }

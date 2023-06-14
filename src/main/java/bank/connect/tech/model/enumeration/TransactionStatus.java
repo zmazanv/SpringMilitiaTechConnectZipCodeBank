@@ -31,6 +31,6 @@ public enum TransactionStatus {
                 return status;
             }
         }
-        throw (new MissingPropertyException("No enum constant " + TransactionType.class.getCanonicalName()));
+        throw (new MissingPropertyException("No enum constant " + TransactionStatus.class.getCanonicalName()));
     }
 }
