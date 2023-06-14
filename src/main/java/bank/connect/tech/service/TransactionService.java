@@ -2,6 +2,7 @@ package bank.connect.tech.service;
 
 import bank.connect.tech.dto.create.TransactionCreateDTO;
 import bank.connect.tech.dto.update.TransactionUpdateDTO;
+import bank.connect.tech.model.Account;
 import bank.connect.tech.model.Transaction;
 import bank.connect.tech.model.enumeration.TransactionMedium;
 import bank.connect.tech.model.enumeration.TransactionStatus;
@@ -73,8 +74,13 @@ public class TransactionService {
         transaction.setDescription(transactionCreateDTO.getDescription());
         transaction.setTransactionDate(today);
         transaction.setAccount(this.accountRepository.findById(accountId).get());
-        return this.transactionRepository.save(transaction);
-    }
+        if(transaction.getType() == TransactionType.DEPOSIT){
+            updateBalance(accountId,exceptionMessage,transaction.getAmount(),0.00);
+        } else if ( transaction.getType() == TransactionType.WITHDRAWAL){
+                updateBalance(accountId,exceptionMessage,0.0,transaction.getAmount());
+            }
+            return this.transactionRepository.save(transaction);
+        }
 
     public Transaction updateTransaction(Long transactionId, String exceptionMessage, TransactionUpdateDTO transactionUpdateDTO) {
         this.verifyTransaction(transactionId, exceptionMessage);
@@ -85,8 +91,50 @@ public class TransactionService {
         if (!(Objects.isNull(transactionUpdateDTO.getDescription())) && !(transactionUpdateDTO.getDescription().isBlank())) {
             transactionToUpdate.setDescription(transactionUpdateDTO.getDescription());
         }
+        if(transactionToUpdate.getType() == TransactionType.DEPOSIT){
+            updateBalance(transactionId,exceptionMessage,transactionToUpdate.getAmount(),0.00);
+        } else if ( transactionToUpdate.getType() == TransactionType.WITHDRAWAL){
+            updateBalance(transactionId,exceptionMessage,0.0,transactionToUpdate.getAmount());
+        }
+        if (transactionToUpdate.getStatus() == TransactionStatus.CANCELLED) {
+            if (transactionToUpdate.getType() == TransactionType.DEPOSIT) {
+                updateBalance(transactionId, exceptionMessage,0.00, transactionToUpdate.getAmount());
+            } else if (transactionToUpdate.getType() == TransactionType.WITHDRAWAL) {
+                updateBalance(transactionId, exceptionMessage, transactionToUpdate.getAmount(), 0.00);
+            }
+        }
+
         return this.transactionRepository.save(transactionToUpdate);
     }
+
+    public Transaction updateBalance (Long transactionId, String exceptionMessage, Double deposit, Double withdrawl){
+        this.verifyTransaction(transactionId, exceptionMessage);
+        Transaction updateBalance = this.transactionRepository.findById(transactionId).get();
+        if(updateBalance != null){
+            Double currentBalance = updateBalance.getAmount();
+
+            currentBalance += deposit;
+            currentBalance -= withdrawl;
+
+            updateBalance.setAmount(currentBalance);
+        }
+        return this.transactionRepository.save(updateBalance);
+    }
+
+
+    // P2P
+    public Transaction peerToPeer(Long accountId, Double deposit, Double withdrawal, Double balance,String exceptionMessage){
+       Account senderAccount = accountRepository.findById(accountId);
+    }
+
+    // Find the accountID we are going to send monies from
+    // we need to get that accounts balance
+    // we need the account ID from person we are sending too
+    // how much we are sending
+    // click send
+    // to subract from existing account new amount ==
+    // add to the new account we sent monies too new amount.
+
 
     public void deleteTransaction(Long transactionId, String exceptionMessage) {
         this.verifyTransaction(transactionId, exceptionMessage);

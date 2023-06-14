@@ -83,4 +83,5 @@ public class TransactionController {
         TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
+
 }
