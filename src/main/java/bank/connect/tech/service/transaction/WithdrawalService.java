@@ -1,6 +1,6 @@
 package bank.connect.tech.service.transaction;
 
-import bank.connect.tech.dto.create.TransactionCreateDTO;
+import bank.connect.tech.dto.create.transaction.TransactionCreateDTO;
 import bank.connect.tech.dto.update.TransactionUpdateDTO;
 import bank.connect.tech.model.Account;
 import bank.connect.tech.model.Transaction;
@@ -92,11 +92,12 @@ public class WithdrawalService {
         withdrawal.setStatus(TransactionStatus.COMPLETED);
         withdrawal.setMedium(TransactionMedium.fromString(transactionCreateDTO.getMedium()));
         withdrawal.setAmount(transactionCreateDTO.getAmount());
-        withdrawal.setDescription(transactionCreateDTO.getDescription());
+        withdrawal.setDescription(transactionCreateDTO.getDescription().trim());
         withdrawal.setTransactionDate(today);
         withdrawal.setAccount(this.accountRepository.findById(accountId).get());
         Account accountToDeduct = this.accountRepository.findById(accountId).get();
         accountToDeduct.setBalance(accountToDeduct.getBalance() - withdrawal.getAmount());
+        this.accountRepository.save(accountToDeduct);
         return this.transactionRepository.save(withdrawal);
     }
 
