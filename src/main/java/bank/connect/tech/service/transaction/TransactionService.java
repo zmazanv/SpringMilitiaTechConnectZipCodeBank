@@ -2,7 +2,6 @@ package bank.connect.tech.service.transaction;
 
 import bank.connect.tech.dto.create.TransactionCreateDTO;
 import bank.connect.tech.dto.update.TransactionUpdateDTO;
-import bank.connect.tech.model.Account;
 import bank.connect.tech.model.Transaction;
 import bank.connect.tech.model.enumeration.TransactionMedium;
 import bank.connect.tech.model.enumeration.TransactionStatus;
@@ -71,7 +70,7 @@ public class TransactionService {
         this.verifyAccount(accountId, exceptionMessage);
         LocalDate today = LocalDate.now();
         Transaction transaction = new Transaction();
-        transaction.setType(TransactionType.fromString(transactionCreateDTO.getType()));
+        //transaction.setType(TransactionType.fromString(transactionCreateDTO.getType()));
         transaction.setStatus(TransactionStatus.fromString(transactionCreateDTO.getStatus()));
         transaction.setMedium(TransactionMedium.fromString(transactionCreateDTO.getMedium()));
         transaction.setAmount(transactionCreateDTO.getAmount());

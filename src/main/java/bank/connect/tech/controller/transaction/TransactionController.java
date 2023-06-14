@@ -1,4 +1,4 @@
-package bank.connect.tech.controller;
+package bank.connect.tech.controller.transaction;
 
 import bank.connect.tech.TechConnectZipCodeBankApplication;
 import bank.connect.tech.dto.create.TransactionCreateDTO;
