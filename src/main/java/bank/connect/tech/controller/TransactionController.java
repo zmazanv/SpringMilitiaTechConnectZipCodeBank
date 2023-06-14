@@ -3,6 +3,7 @@ package bank.connect.tech.controller;
 import bank.connect.tech.TechConnectZipCodeBankApplication;
 import bank.connect.tech.dto.create.TransactionCreateDTO;
 import bank.connect.tech.dto.update.TransactionUpdateDTO;
+import bank.connect.tech.model.Account;
 import bank.connect.tech.model.Transaction;
 import bank.connect.tech.response.SuccessResponse;
 import bank.connect.tech.service.TransactionService;
@@ -18,6 +19,17 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
+
+    @GetMapping("/transactions") //
+    public ResponseEntity<?> getAllTransactions() {
+        int successResponseCode = HttpStatus.OK.value();
+        String successResponseMessage = "Successfully fetched all transactions";
+        Iterable<Transaction> successResponseData = this.transactionService.getAllTransactions();
+        SuccessResponse<Iterable<Transaction>> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
+
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
+        return (new ResponseEntity<>(successResponse, HttpStatus.OK));
+    }
 
     @GetMapping("/accounts/{accountId}/transactions") // TODO: DONE
     public ResponseEntity<?> getAllTransactionsByAccountId(@PathVariable Long accountId) {
