@@ -66,26 +66,26 @@ public class TransactionService {
         return this.transactionRepository.findById(transactionId).get();
     }
 
-    public Transaction createTransaction(Long accountId, String exceptionMessage, TransactionCreateDTO transactionCreateDTO) {
-        this.verifyAccount(accountId, exceptionMessage);
-        LocalDate today = LocalDate.now();
-        Transaction transaction = new Transaction();
-        //transaction.setType(TransactionType.fromString(transactionCreateDTO.getType()));
-        //transaction.setStatus(TransactionStatus.fromString(transactionCreateDTO.getStatus()));
-        transaction.setMedium(TransactionMedium.fromString(transactionCreateDTO.getMedium()));
-        transaction.setAmount(transactionCreateDTO.getAmount());
-        transaction.setDescription(transactionCreateDTO.getDescription());
-        transaction.setTransactionDate(today);
-        transaction.setAccount(this.accountRepository.findById(accountId).get());
-        return this.transactionRepository.save(transaction);
-    }
+    //public Transaction createTransaction(Long accountId, String exceptionMessage, TransactionCreateDTO transactionCreateDTO) {
+    //    this.verifyAccount(accountId, exceptionMessage);
+    //    LocalDate today = LocalDate.now();
+    //    Transaction transaction = new Transaction();
+    //    //transaction.setType(TransactionType.fromString(transactionCreateDTO.getType()));
+    //    //transaction.setStatus(TransactionStatus.fromString(transactionCreateDTO.getStatus()));
+    //    transaction.setMedium(TransactionMedium.fromString(transactionCreateDTO.getMedium()));
+    //    transaction.setAmount(transactionCreateDTO.getAmount());
+    //    transaction.setDescription(transactionCreateDTO.getDescription());
+    //    transaction.setTransactionDate(today);
+    //    transaction.setAccount(this.accountRepository.findById(accountId).get());
+    //    return this.transactionRepository.save(transaction);
+    //}
 
     public Transaction updateTransaction(Long transactionId, String exceptionMessage, TransactionUpdateDTO transactionUpdateDTO) {
         this.verifyTransaction(transactionId, exceptionMessage);
         Transaction transactionToUpdate = this.transactionRepository.findById(transactionId).get();
-        if (!(Objects.isNull(transactionUpdateDTO.getStatus())) && !(transactionUpdateDTO.getStatus().isBlank())) {
-            transactionToUpdate.setStatus(TransactionStatus.fromString(transactionUpdateDTO.getStatus()));
-        }
+        //if (!(Objects.isNull(transactionUpdateDTO.getStatus())) && !(transactionUpdateDTO.getStatus().isBlank())) {
+        //    transactionToUpdate.setStatus(TransactionStatus.fromString(transactionUpdateDTO.getStatus()));
+        //}
         if (!(Objects.isNull(transactionUpdateDTO.getDescription())) && !(transactionUpdateDTO.getDescription().isBlank())) {
             transactionToUpdate.setDescription(transactionUpdateDTO.getDescription());
         }

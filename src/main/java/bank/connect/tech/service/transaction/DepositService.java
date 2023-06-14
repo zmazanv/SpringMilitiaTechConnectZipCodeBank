@@ -103,9 +103,6 @@ public class DepositService {
     public Transaction updateDeposit(Long transactionId, String exceptionMessage, TransactionUpdateDTO transactionUpdateDTO) {
         this.verifyDeposit(transactionId, exceptionMessage);
         Transaction depositToUpdate = this.transactionRepository.findById(transactionId).get();
-        if (!(Objects.isNull(transactionUpdateDTO.getStatus())) && !(transactionUpdateDTO.getStatus().isBlank())) {
-            depositToUpdate.setStatus(TransactionStatus.fromString(transactionUpdateDTO.getStatus()));
-        }
         if (!(Objects.isNull(transactionUpdateDTO.getDescription())) && !(transactionUpdateDTO.getDescription().isBlank())) {
             depositToUpdate.setDescription(transactionUpdateDTO.getDescription());
         }

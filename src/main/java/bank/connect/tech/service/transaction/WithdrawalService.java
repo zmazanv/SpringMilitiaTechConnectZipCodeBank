@@ -103,9 +103,6 @@ public class WithdrawalService {
     public Transaction updateWithdrawal(Long transactionId, String exceptionMessage, TransactionUpdateDTO transactionUpdateDTO) {
         this.verifyWithdrawal(transactionId, exceptionMessage);
         Transaction withdrawalToUpdate = this.transactionRepository.findById(transactionId).get();
-        if (!(Objects.isNull(transactionUpdateDTO.getStatus())) && !(transactionUpdateDTO.getStatus().isBlank())) {
-            withdrawalToUpdate.setStatus(TransactionStatus.fromString(transactionUpdateDTO.getStatus()));
-        }
         if (!(Objects.isNull(transactionUpdateDTO.getDescription())) && !(transactionUpdateDTO.getDescription().isBlank())) {
             withdrawalToUpdate.setDescription(transactionUpdateDTO.getDescription());
         }

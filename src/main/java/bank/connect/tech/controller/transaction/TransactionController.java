@@ -56,18 +56,18 @@ public class TransactionController {
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }
 
-    @PostMapping("/accounts/{accountId}/transactions") // TODO: DONE
-    public ResponseEntity<?>createTransaction(@PathVariable Long accountId, @Valid @RequestBody TransactionCreateDTO transactionCreateDTO) {
-        String exceptionMessage = "Unable to create new transaction as no account was found matching the provided account ID: " + accountId;
+    //@PostMapping("/accounts/{accountId}/transactions") // TODO: DONE
+    //public ResponseEntity<?>createTransaction(@PathVariable Long accountId, @Valid @RequestBody TransactionCreateDTO transactionCreateDTO) {
+    //    String exceptionMessage = "Unable to create new transaction as no account was found matching the provided account ID: " + accountId;
 
-        int successResponseCode = HttpStatus.CREATED.value();
-        String successResponseMessage = "Successfully created new transaction for account with ID: " + accountId;
-        Transaction successResponseData = this.transactionService.createTransaction(accountId, exceptionMessage, transactionCreateDTO);
-        SuccessResponse<Transaction> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
+    //    int successResponseCode = HttpStatus.CREATED.value();
+    //    String successResponseMessage = "Successfully created new transaction for account with ID: " + accountId;
+    //    Transaction successResponseData = this.transactionService.createTransaction(accountId, exceptionMessage, transactionCreateDTO);
+    //    SuccessResponse<Transaction> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
 
-        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
-        return (new ResponseEntity<>(successResponse, HttpStatus.CREATED));
-    }
+    //    TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
+    //    return (new ResponseEntity<>(successResponse, HttpStatus.CREATED));
+    //}
 
     @PutMapping("/transactions/{transactionId}") // TODO: DONE
     public ResponseEntity<?> updateTransaction(@PathVariable Long transactionId, @Valid @RequestBody TransactionUpdateDTO transactionUpdateDTO) {
