@@ -96,9 +96,7 @@ public class DepositService {
         deposit.setTransactionDate(today);
         deposit.setAccount(this.accountRepository.findById(accountId).get());
         Account accountToIncrease = this.accountRepository.findById(accountId).get();
-        Double currentAccountBalance = accountToIncrease.getBalance();
-        Double newAccountBalance = currentAccountBalance + deposit.getAmount();
-        accountToIncrease.setBalance(newAccountBalance);
+        accountToIncrease.setBalance(accountToIncrease.getBalance() + deposit.getAmount());
         return this.transactionRepository.save(deposit);
     }
 
@@ -114,9 +112,14 @@ public class DepositService {
         return this.transactionRepository.save(depositToUpdate);
     }
 
-    public void deleteDeposit(Long transactionId, String exceptionMessage) {
+    public void cancelDeposit(Long transactionId, String exceptionMessage) {
         this.verifyDeposit(transactionId, exceptionMessage);
-        this.transactionRepository.deleteById(transactionId);
+        Transaction transactionToCancel = this.transactionRepository.findById(transactionId).get();
+        Account accountToCorrect = transactionToCancel.getAccount();
+        accountToCorrect.setBalance(accountToCorrect.getBalance() - transactionToCancel.getAmount());
+        this.accountRepository.save(accountToCorrect);
+        transactionToCancel.setStatus(TransactionStatus.CANCELLED);
+        this.transactionRepository.save(transactionToCancel);
     }
 
     public Iterable<Transaction> getAllDepositsByAccountId(Long accountId, String exceptionMessage) {

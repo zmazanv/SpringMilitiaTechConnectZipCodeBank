@@ -84,14 +84,14 @@ public class WithdrawalController {
     }
 
     @DeleteMapping("/withdrawals/{transactionId}")
-    public ResponseEntity<?> deleteWithdrawal(@PathVariable Long transactionId) {
+    public ResponseEntity<?> cancelWithdrawal(@PathVariable Long transactionId) {
         String exceptionMessage = "Unable to delete withdrawal as no withdrawal was found matching the provided withdrawal ID: " + transactionId;
 
         int successResponseCode = HttpStatus.OK.value();
         String successResponseMessage = "Successfully deleted withdrawal matching the provided withdrawal ID: " + transactionId;
         SuccessResponse<?> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, null);
 
-        this.withdrawalService.deleteWithdrawal(transactionId, exceptionMessage);
+        this.withdrawalService.cancelWithdrawal(transactionId, exceptionMessage);
         TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }

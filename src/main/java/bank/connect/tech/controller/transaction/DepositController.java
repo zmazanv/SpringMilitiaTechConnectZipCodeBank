@@ -83,14 +83,14 @@ public class DepositController {
     }
 
     @DeleteMapping("/deposits/{transactionId}")
-    public ResponseEntity<?> deleteDeposit(@PathVariable Long transactionId) {
+    public ResponseEntity<?> cancelDeposit(@PathVariable Long transactionId) {
         String exceptionMessage = "Unable to delete deposit as no deposit was found matching the provided deposit ID: " + transactionId;
 
         int successResponseCode = HttpStatus.OK.value();
         String successResponseMessage = "Successfully deleted deposit matching the provided deposit ID: " + transactionId;
         SuccessResponse<?> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, null);
 
-        this.depositService.deleteDeposit(transactionId, exceptionMessage);
+        this.depositService.cancelDeposit(transactionId, exceptionMessage);
         TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }

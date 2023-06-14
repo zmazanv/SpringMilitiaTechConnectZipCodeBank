@@ -96,9 +96,7 @@ public class WithdrawalService {
         withdrawal.setTransactionDate(today);
         withdrawal.setAccount(this.accountRepository.findById(accountId).get());
         Account accountToDeduct = this.accountRepository.findById(accountId).get();
-        Double currentAccountBalance = accountToDeduct.getBalance();
-        Double newAccountBalance = currentAccountBalance - withdrawal.getAmount();
-        accountToDeduct.setBalance(newAccountBalance);
+        accountToDeduct.setBalance(accountToDeduct.getBalance() - withdrawal.getAmount());
         return this.transactionRepository.save(withdrawal);
     }
 
@@ -114,9 +112,14 @@ public class WithdrawalService {
         return this.transactionRepository.save(withdrawalToUpdate);
     }
 
-    public void deleteWithdrawal(Long transactionId, String exceptionMessage) {
+    public void cancelWithdrawal(Long transactionId, String exceptionMessage) {
         this.verifyWithdrawal(transactionId, exceptionMessage);
-        this.transactionRepository.deleteById(transactionId);
+        Transaction transactionToCancel = this.transactionRepository.findById(transactionId).get();
+        Account accountToCorrect = transactionToCancel.getAccount();
+        accountToCorrect.setBalance(accountToCorrect.getBalance() + transactionToCancel.getAmount());
+        this.accountRepository.save(accountToCorrect);
+        transactionToCancel.setStatus(TransactionStatus.CANCELLED);
+        this.transactionRepository.save(transactionToCancel);
     }
 
     public Iterable<Transaction> getAllWithdrawalsByAccountId(Long accountId, String exceptionMessage) {
