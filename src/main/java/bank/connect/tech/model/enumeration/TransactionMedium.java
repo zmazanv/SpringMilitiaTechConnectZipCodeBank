@@ -25,7 +25,7 @@ public enum TransactionMedium {
 
     public static TransactionMedium fromString(String mediumString) {
         for (TransactionMedium medium : TransactionMedium.values()) {
-            if (medium.toString().equalsIgnoreCase(mediumString)) {
+            if (medium.toString().equalsIgnoreCase(mediumString.trim())) {
                 return medium;
             }
         }

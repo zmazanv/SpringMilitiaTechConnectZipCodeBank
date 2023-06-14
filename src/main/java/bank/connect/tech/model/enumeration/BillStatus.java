@@ -27,7 +27,7 @@ public enum BillStatus {
 
     public static BillStatus fromString(String statusString) {
         for (BillStatus status : BillStatus.values()) {
-            if (status.toString().equalsIgnoreCase(statusString)) {
+            if (status.toString().equalsIgnoreCase(statusString.trim())) {
                 return status;
             }
         }

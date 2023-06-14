@@ -1,6 +1,6 @@
 package bank.connect.tech.service.transaction;
 
-import bank.connect.tech.dto.create.TransactionCreateDTO;
+import bank.connect.tech.dto.create.transaction.TransactionCreateDTO;
 import bank.connect.tech.dto.update.TransactionUpdateDTO;
 import bank.connect.tech.model.Account;
 import bank.connect.tech.model.Transaction;
@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DepositService {
+public class P2PService {
 
     @Autowired
     private AccountRepository accountRepository;
@@ -69,20 +69,20 @@ public class DepositService {
     }
 
 
-    public Iterable<Transaction> getAllDeposits() {
-        List<Transaction> allDeposits = new ArrayList<>();
-        for (Transaction deposit : this.transactionRepository.findAll()) {
-            if (deposit.getType() == TransactionType.DEPOSIT) {
-                allDeposits.add(deposit);
-            }
-        }
-        return allDeposits;
-    }
+    //public Iterable<Transaction> getAllDeposits() {
+    //    List<Transaction> allDeposits = new ArrayList<>();
+    //    for (Transaction deposit : this.transactionRepository.findAll()) {
+    //        if (deposit.getType() == TransactionType.DEPOSIT) {
+    //            allDeposits.add(deposit);
+    //        }
+    //    }
+    //    return allDeposits;
+    //}
 
-    public Transaction getDepositById(Long transactionId, String exceptionMessage) {
-        this.verifyDeposit(transactionId, exceptionMessage);
-        return this.transactionRepository.findById(transactionId).get();
-    }
+    //public Transaction getDepositById(Long transactionId, String exceptionMessage) {
+    //    this.verifyDeposit(transactionId, exceptionMessage);
+    //    return this.transactionRepository.findById(transactionId).get();
+    //}
 
     public Transaction createDeposit(Long accountId, String exceptionMessage, TransactionCreateDTO transactionCreateDTO) {
         this.verifyAccount(accountId, exceptionMessage);

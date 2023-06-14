@@ -27,7 +27,7 @@ public enum TransactionStatus {
 
     public static TransactionStatus fromString(String statusString) {
         for (TransactionStatus status : TransactionStatus.values()) {
-            if (status.toString().equalsIgnoreCase(statusString)) {
+            if (status.toString().equalsIgnoreCase(statusString.trim())) {
                 return status;
             }
         }
