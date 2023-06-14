@@ -2,6 +2,7 @@ package bank.connect.tech.service.transaction;
 
 import bank.connect.tech.dto.create.TransactionCreateDTO;
 import bank.connect.tech.dto.update.TransactionUpdateDTO;
+import bank.connect.tech.model.Account;
 import bank.connect.tech.model.Transaction;
 import bank.connect.tech.model.enumeration.TransactionMedium;
 import bank.connect.tech.model.enumeration.TransactionStatus;
@@ -94,6 +95,10 @@ public class DepositService {
         deposit.setDescription(transactionCreateDTO.getDescription());
         deposit.setTransactionDate(today);
         deposit.setAccount(this.accountRepository.findById(accountId).get());
+        Account accountToIncrease = this.accountRepository.findById(accountId).get();
+        Double currentAccountBalance = accountToIncrease.getBalance();
+        Double newAccountBalance = currentAccountBalance + deposit.getAmount();
+        accountToIncrease.setBalance(newAccountBalance);
         return this.transactionRepository.save(deposit);
     }
 
