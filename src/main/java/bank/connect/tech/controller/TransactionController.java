@@ -19,6 +19,17 @@ public class TransactionController {
     private TransactionService transactionService;
 
 
+    @GetMapping("/transactions") //
+    public ResponseEntity<?> getAllTransactions() {
+        int successResponseCode = HttpStatus.OK.value();
+        String successResponseMessage = "Successfully fetched all transactions";
+        Iterable<Transaction> successResponseData = this.transactionService.getAllTransactions();
+        SuccessResponse<Iterable<Transaction>> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
+
+        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
+        return (new ResponseEntity<>(successResponse, HttpStatus.OK));
+    }
+
     @GetMapping("/accounts/{accountId}/transactions") // TODO: DONE
     public ResponseEntity<?> getAllTransactionsByAccountId(@PathVariable Long accountId) {
         String exceptionMessage = "Unable to fetch transactions as no account was found matching the provided account ID: " + accountId;

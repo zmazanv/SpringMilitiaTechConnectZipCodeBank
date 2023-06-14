@@ -2,6 +2,7 @@ package bank.connect.tech.service;
 
 import bank.connect.tech.dto.create.TransactionCreateDTO;
 import bank.connect.tech.dto.update.TransactionUpdateDTO;
+import bank.connect.tech.model.Account;
 import bank.connect.tech.model.Transaction;
 import bank.connect.tech.model.enumeration.TransactionMedium;
 import bank.connect.tech.model.enumeration.TransactionStatus;
@@ -56,6 +57,10 @@ public class TransactionService {
         }
     }
 
+
+    public Iterable<Transaction> getAllTransactions() {
+        return this.transactionRepository.findAll();
+    }
 
     public Transaction getTransactionById(Long transactionId, String exceptionMessage) {
         this.verifyTransaction(transactionId, exceptionMessage);
