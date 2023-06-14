@@ -1,4 +1,4 @@
-package bank.connect.tech.service;
+package bank.connect.tech.service.transaction;
 
 import bank.connect.tech.dto.create.TransactionCreateDTO;
 import bank.connect.tech.dto.update.TransactionUpdateDTO;
@@ -45,7 +45,7 @@ public class TransactionService {
         }
     }
 
-    protected void verifyCustomer (Long customerId, String exceptionMessage) throws ResourceNotFoundException {
+    protected void verifyCustomer(Long customerId, String exceptionMessage) throws ResourceNotFoundException {
         if(!(this.customerRepository.existsById(customerId))) {
             throw (new ResourceNotFoundException(exceptionMessage));
         }

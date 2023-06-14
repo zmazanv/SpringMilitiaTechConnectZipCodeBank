@@ -7,9 +7,9 @@ import javax.validation.constraints.NotNull;
 
 public class TransactionCreateDTO {
 
-    @JsonProperty("type")
-    @NotEmpty
-    private String type;
+    //@JsonProperty("type")
+    //@NotEmpty
+    //private String type;
     @JsonProperty("status")
     @NotEmpty
     private String status;
@@ -23,8 +23,8 @@ public class TransactionCreateDTO {
     private String description;
 
 
-    public String getType() {return this.type;}
-    public void setType(String type) {this.type = type;}
+    //public String getType() {return this.type;}
+    //public void setType(String type) {this.type = type;}
 
     public String getStatus() {return this.status;}
     public void setStatus(String status) {this.status = status;}
