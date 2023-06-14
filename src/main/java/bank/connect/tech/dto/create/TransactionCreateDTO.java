@@ -10,9 +10,9 @@ public class TransactionCreateDTO {
     //@JsonProperty("type")
     //@NotEmpty
     //private String type;
-    @JsonProperty("status")
-    @NotEmpty
-    private String status;
+    //@JsonProperty("status")
+    //@NotEmpty
+    //private String status;
     @JsonProperty("medium")
     @NotEmpty
     private String medium;
@@ -26,8 +26,8 @@ public class TransactionCreateDTO {
     //public String getType() {return this.type;}
     //public void setType(String type) {this.type = type;}
 
-    public String getStatus() {return this.status;}
-    public void setStatus(String status) {this.status = status;}
+    //public String getStatus() {return this.status;}
+    //public void setStatus(String status) {this.status = status;}
 
     public String getMedium() {return this.medium;}
     public void setMedium(String medium) {this.medium = medium;}

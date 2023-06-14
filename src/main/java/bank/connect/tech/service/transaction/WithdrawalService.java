@@ -89,7 +89,7 @@ public class WithdrawalService {
         LocalDate today = LocalDate.now();
         Transaction withdrawal = new Transaction();
         withdrawal.setType(TransactionType.WITHDRAWAL);
-        withdrawal.setStatus(TransactionStatus.fromString(transactionCreateDTO.getStatus()));
+        withdrawal.setStatus(TransactionStatus.COMPLETED);
         withdrawal.setMedium(TransactionMedium.fromString(transactionCreateDTO.getMedium()));
         withdrawal.setAmount(transactionCreateDTO.getAmount());
         withdrawal.setDescription(transactionCreateDTO.getDescription());

@@ -89,7 +89,7 @@ public class DepositService {
         LocalDate today = LocalDate.now();
         Transaction deposit = new Transaction();
         deposit.setType(TransactionType.DEPOSIT);
-        deposit.setStatus(TransactionStatus.fromString(transactionCreateDTO.getStatus()));
+        deposit.setStatus(TransactionStatus.COMPLETED);
         deposit.setMedium(TransactionMedium.fromString(transactionCreateDTO.getMedium()));
         deposit.setAmount(transactionCreateDTO.getAmount());
         deposit.setDescription(transactionCreateDTO.getDescription());

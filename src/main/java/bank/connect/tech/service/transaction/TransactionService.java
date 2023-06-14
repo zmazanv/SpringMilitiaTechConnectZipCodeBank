@@ -71,7 +71,7 @@ public class TransactionService {
         LocalDate today = LocalDate.now();
         Transaction transaction = new Transaction();
         //transaction.setType(TransactionType.fromString(transactionCreateDTO.getType()));
-        transaction.setStatus(TransactionStatus.fromString(transactionCreateDTO.getStatus()));
+        //transaction.setStatus(TransactionStatus.fromString(transactionCreateDTO.getStatus()));
         transaction.setMedium(TransactionMedium.fromString(transactionCreateDTO.getMedium()));
         transaction.setAmount(transactionCreateDTO.getAmount());
         transaction.setDescription(transactionCreateDTO.getDescription());
