@@ -18,12 +18,14 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
+
     @GetMapping("/accounts") // TODO: DONE
     public ResponseEntity<?> getAllAccounts() {
         int successResponseCode = HttpStatus.OK.value();
         String successResponseMessage = "Successfully fetched all accounts";
         Iterable<Account> successResponseData = this.accountService.getAllAccounts();
         SuccessResponse<Iterable<Account>> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
+
         TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
     }

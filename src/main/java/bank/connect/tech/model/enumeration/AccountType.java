@@ -26,7 +26,7 @@ public enum AccountType {
 
     public static AccountType fromString(String typeString) {
         for (AccountType type : AccountType.values()) {
-            if (type.toString().equalsIgnoreCase(typeString)) {
+            if (type.toString().equalsIgnoreCase(typeString.trim())) {
                 return type;
             }
         }

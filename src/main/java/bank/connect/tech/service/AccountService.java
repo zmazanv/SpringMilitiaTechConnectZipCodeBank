@@ -46,9 +46,11 @@ public class AccountService {
     public Account createAccount(Long customerId, String exceptionMessage, AccountCreateDTO accountCreateDTO) {
         this.verifyCustomer(customerId, exceptionMessage);
         Account account = new Account();
-        account.setType(AccountType.fromString(accountCreateDTO.getType()));
+        account.setType(AccountType.fromString(accountCreateDTO.getType().trim()));
         account.setBalance(0.0);
-        account.setNickname(accountCreateDTO.getNickname());
+        if (!(Objects.isNull(accountCreateDTO.getNickname())) && !(accountCreateDTO.getNickname().isBlank())) {
+            account.setNickname(accountCreateDTO.getNickname().trim());
+        }
         account.setRewards(0);
         account.setCustomer(this.customerRepository.findById(customerId).get());
         return this.accountRepository.save(account);
@@ -57,11 +59,11 @@ public class AccountService {
     public Account updateAccount(Long accountId, String exceptionMessage, AccountUpdateDTO accountUpdateDTO) {
         this.verifyAccount(accountId, exceptionMessage);
         Account accountToUpdate = this.accountRepository.findById(accountId).get();
-        if (!(Objects.isNull(accountUpdateDTO.getBalance()))) {
-            accountToUpdate.setBalance(accountUpdateDTO.getBalance());
-        }
+        //if (!(Objects.isNull(accountUpdateDTO.getBalance()))) {
+        //    accountToUpdate.setBalance(accountUpdateDTO.getBalance());
+        //}
         if (!(Objects.isNull(accountUpdateDTO.getNickname())) && !(accountUpdateDTO.getNickname().isBlank())) {
-            accountToUpdate.setNickname(accountUpdateDTO.getNickname());
+            accountToUpdate.setNickname(accountUpdateDTO.getNickname().trim());
         }
         if (!(Objects.isNull(accountUpdateDTO.getRewards()))) {
             accountToUpdate.setRewards(accountUpdateDTO.getRewards());

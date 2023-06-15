@@ -55,9 +55,11 @@ public class BillService {
         Bill bill = new Bill();
         LocalDate today = LocalDate.now();
         LocalDate nextRecurringDate = LocalDate.of(today.getYear(), today.getMonth(), billCreateDTO.getRecurringDate());
-        bill.setStatus(BillStatus.fromString(billCreateDTO.getStatus()));
-        bill.setPayee(billCreateDTO.getPayee());
-        bill.setNickname(billCreateDTO.getNickname());
+        bill.setStatus(BillStatus.fromString(billCreateDTO.getStatus().trim()));
+        bill.setPayee(billCreateDTO.getPayee().trim());
+        if (!(Objects.isNull(billCreateDTO.getNickname())) && !(billCreateDTO.getNickname().isBlank())) {
+            bill.setNickname(billCreateDTO.getNickname().trim());
+        }
         bill.setCreationDate(today);
         bill.setPaymentDate(billCreateDTO.getPaymentDate());
         bill.setRecurringDate(billCreateDTO.getRecurringDate());
@@ -74,13 +76,13 @@ public class BillService {
         this.verifyBill(billId, exceptionMessage);
         Bill billToUpdate = this.billRepository.findById(billId).get();
         if (!(Objects.isNull(billUpdateDTO.getStatus())) && !(billUpdateDTO.getStatus().isBlank())) {
-            billToUpdate.setStatus(BillStatus.fromString(billUpdateDTO.getStatus()));
+            billToUpdate.setStatus(BillStatus.fromString(billUpdateDTO.getStatus().trim()));
         }
         if (!(Objects.isNull(billUpdateDTO.getPayee())) && !(billUpdateDTO.getPayee().isBlank())) {
-            billToUpdate.setPayee(billUpdateDTO.getPayee());
+            billToUpdate.setPayee(billUpdateDTO.getPayee().trim());
         }
         if (!(Objects.isNull(billUpdateDTO.getNickname())) && !(billUpdateDTO.getNickname().isBlank())) {
-            billToUpdate.setNickname(billUpdateDTO.getNickname());
+            billToUpdate.setNickname(billUpdateDTO.getNickname().trim());
         }
         if (!(Objects.isNull(billUpdateDTO.getPaymentDate()))) {
             billToUpdate.setPaymentDate(billUpdateDTO.getPaymentDate());
