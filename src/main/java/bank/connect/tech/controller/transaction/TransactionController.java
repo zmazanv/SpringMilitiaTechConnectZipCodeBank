@@ -2,7 +2,6 @@ package bank.connect.tech.controller.transaction;
 
 import bank.connect.tech.TechConnectZipCodeBankApplication;
 import bank.connect.tech.dto.update.TransactionUpdateDTO;
-import bank.connect.tech.model.Account;
 import bank.connect.tech.model.Transaction;
 import bank.connect.tech.response.SuccessResponse;
 import bank.connect.tech.service.transaction.TransactionService;
@@ -93,30 +92,5 @@ public class TransactionController {
         this.transactionService.deleteTransaction(transactionId, exceptionMessage);
         TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
         return (new ResponseEntity<>(successResponse, HttpStatus.OK));
-    }
-
-    @PostMapping("/transaction/P2P")
-    public ResponseEntity<Transaction> peerToPeerTransaction(@RequestParam Long senderAccountId, @RequestParam Long receiverAccountId, @RequestParam Long balance) {
-        String exceptionMessage = "Unable to make transaction to receiver as there was no receiver found matching the provided Receiver Account ID: " + receiverAccountId;
-
-        int successResponseCode = HttpStatus.OK.value();
-        String successfulSendMessage = "Successfully sent monies to the provided receiver account ID: " + receiverAccountId;
-        String successResponseMessage = "Successfully received monies from sender :" + senderAccountId;
-        //Transaction successResponseData = this.transactionService.updateTransaction(senderAccountId,exceptionMessage,transactionService.updateBalance(balance));
-        //SuccessResponse<Transaction> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
-        return (new ResponseEntity<>(HttpStatus.OK));
-    }
-
-    @GetMapping("/transactions")
-    public ResponseEntity<Iterable<Transaction>> getAllTransactions() {
-        String exceptionMessage = "Unable to fetch transactions.";
-
-        int successResponseCode = HttpStatus.OK.value();
-        String successResponseMessage = "Successfully fetched transactions.";
-        Iterable<Transaction> successResponseData = this.transactionService.getAllTransactions();
-        SuccessResponse<Iterable<Transaction>> successResponse = new SuccessResponse<>(successResponseCode, successResponseMessage, successResponseData);
-
-        TechConnectZipCodeBankApplication.logger.info(successResponseMessage);
-        return ResponseEntity.ok(successResponseData);
     }
 }

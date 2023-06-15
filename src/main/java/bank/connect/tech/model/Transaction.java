@@ -70,8 +70,7 @@ public class Transaction {
     public void setMedium(TransactionMedium medium) {this.medium = medium;}
 
     public Double getAmount() {return this.amount;}
-    public void setAmount(Double amount)
-    {this.amount = amount;}
+    public void setAmount(Double amount) {this.amount = amount;}
 
     public String getDescription() {return this.description;}
     public void setDescription(String description) {this.description = description;}

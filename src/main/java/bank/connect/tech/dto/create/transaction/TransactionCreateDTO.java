@@ -1,6 +1,5 @@
 package bank.connect.tech.dto.create.transaction;
 
-import bank.connect.tech.model.Account;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotEmpty;
@@ -23,29 +22,6 @@ public class TransactionCreateDTO {
     @JsonProperty("description")
     private String description;
 
-    @JsonProperty("senderAccount")
-    @NotEmpty
-    private Account senderAccount;
-    @JsonProperty("ReceiverAccount")
-    @NotEmpty
-    private Account receiverAccount;
-
-
-    public Account getSenderAccount() {
-        return senderAccount;
-    }
-
-    public void setSenderAccount(Account senderAccount) {
-        this.senderAccount = senderAccount;
-    }
-
-    public Account getReceiverAccount() {
-        return receiverAccount;
-    }
-
-    public void setReceiverAccount(Account receiverAccount) {
-        this.receiverAccount = receiverAccount;
-    }
 
     //public String getType() {return this.type;}
     //public void setType(String type) {this.type = type;}
